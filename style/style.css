@@ -3,13 +3,82 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap'); */
 /* Custom properties */
 :root{
+	--font-family-sans: 'Poppins',Helvetica, sans-serif;
+	--font-family-serif: Palatino, Georgia, 'Noto Serif TC', Times, serif;
+	--font-size-normal: 2rem;
+	--font-size-large:  calc(var(--font-size-normal) * 1.2);
+	--font-size-Large:  calc(var(--font-size-normal) * 1.4);
+	--font-size-LARGE:  calc(var(--font-size-normal) * 1.7);
+	--font-size-huge:   calc(var(--font-size-normal) * 2.0);
+	--font-size-Huge:   calc(var(--font-size-normal) * 2.5);
+	--font-size-small:  calc(var(--font-size-normal) * 0.9);
+	--font-size-fnote:  calc(var(--font-size-normal) * 0.8);
+	--font-size-script: calc(var(--font-size-normal) * 0.7);
+	--font-size-tiny:   calc(var(--font-size-normal) * 0.5);
+
+	--gap: var(--font-size-normal);
+
+	--accent-color: rgb(000 118 186);
+	--accent-color-bg: rgb(170.5 224 255);
+	--subsub-color: rgb(029 177 000);
 }
 /* Base styles */
 *{
+
 }
 html{
+	font-size: 62.5%;
+}
+header{
+	font-family: var(--font-family-sans);
+	font-weight: 700;
 }
 body{
+	font-family: var(--font-family-serif);
+	font-size: var(--font-size-normal);
 }
 a{
+	text-decoration: none;
+	color: inherit;
+}
+.href{
+}
+.title{
+	font-family: var(--font-family-sans);
+	font-weight: 700;
+	font-size: var(--font-size-Huge);
+	text-align: center;
+}
+.section{
+	font-family: var(--font-family-sans);
+	font-weight: 700;
+	font-size: var(--font-size-Large);
+	text-align: left;
+}
+.subsection{
+	font-family: var(--font-family-serif);
+	font-weight: 700;
+	font-size: var(--font-size-large);
+	text-align: left;
+	color: var(--accent-color);
+}
+
+/* Table */
+table {
+	border-collapse: collapse;
+	width: 100%;
+	border-spacing: 300px;
+}
+tr:hover{
+	background-color: var(--accent-color-bg);
+}
+th, td{
+	text-align: left;
+	vertical-align: baseline;
+	padding: calc(var(--gap) * 0.5) var(--gap);
+}
+
+.container{
+	max-width: 80%;
+	margin: auto;
 }
