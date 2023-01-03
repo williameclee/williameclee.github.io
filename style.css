@@ -36,6 +36,7 @@ header{
 body{
 	font-family: var(--font-family-serif);
 	font-size: var(--font-size-normal);
+	line-height: 140%;
 }
 a{
 	text-decoration: none;
@@ -43,24 +44,35 @@ a{
 }
 .href{
 }
-.title{
+h1, .title{
 	font-family: var(--font-family-sans);
 	font-weight: 700;
 	font-size: var(--font-size-Huge);
 	text-align: center;
 }
-.section{
+h2, .section{
 	font-family: var(--font-family-sans);
 	font-weight: 700;
 	font-size: var(--font-size-Large);
 	text-align: left;
 }
-.subsection{
+h3, .subsection{
 	font-family: var(--font-family-serif);
 	font-weight: 700;
 	font-size: var(--font-size-large);
 	text-align: left;
 	color: var(--accent-color);
+}
+
+.list{
+	display: flex;
+	align-items: center;
+	gap: var(--gap);
+}
+.s_media-list{
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Table */
@@ -77,8 +89,19 @@ th, td{
 	vertical-align: baseline;
 	padding: calc(var(--gap) * 0.5) var(--gap);
 }
+.td-width_year{
+	width: 18%;
+	min-width: calc(var(--font-size-normal) * 1.4);
+	max-width: calc(var(--font-size-normal) * 4);
+}
+.td-width_org{
+	width: 34%;
+	min-width: calc(var(--font-size-normal) * 2);
+	max-width: calc(var(--font-size-normal) * 12);
+}
 
 .container{
-	max-width: 80%;
+	/* max-width: 80%; */
+	width: clamp(60%,100%,80rem);
 	margin: auto;
 }

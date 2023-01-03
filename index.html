@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-UK">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,7 @@
 <body>
 <!-- Header -->
 <header class="header" id="title">
-	<a href="./index.html">
+	<a href="./">
 		<h1 class="title">
 			En-Chi (William) Lee
 		</h1>
@@ -35,12 +36,12 @@
 		</h3>
 		<table>
 			<tr>
-				<td style="width:12%">2022 - 2026</td>
+				<td class="td-width_year">2022 - </td>
 				<td>
 					National Taiwan University, B.S. <br>
-					Geoscience (major), Atmospheric Science (minor), Earth System Science, and Marine Science (programs). <br>
+					Geoscience (major), Atmospheric Science (minor; planned), Earth System Science, and Marine Science (programs; planned). <br>
 					<a href="https://drive.google.com/file/d/1Keth3msYlCA8RRCZl9Uh5O0mmSrUShVJ/view" target="_blank">Specialising</a> in 
-					(1) Geophysics, (2) Seismology, and (3) Physical geological resources exploration.
+					(1) Geophysics, (2) Seismology, and (3) Physical geological resources exploration (planned).
 				</td> 
 			</tr>
 		</table>
@@ -59,12 +60,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="width:12%">2021</td>
+				<td class="td-width_year">2021</td>
 				<td>
 					International Earth Science Olympiad - <br>
 					Gold medalist
 				</td> 
-				<td style="width:30%">
+				<td class="td-width_org">
 					International Geoscience Education Organisation
 				</td>
 			</tr>
@@ -74,12 +75,12 @@
 		</h3>
 		<table>
 			<tr>
-				<td style="width:12%">2022</td>
+				<td class="td-width_year">2022</td>
 				<td>
 					Seismology Skill Building Workshop - <br>
 					Full participation and 99% average score
 				</td> 
-				<td style="width:30%">
+				<td class="td-width_org">
 					Incorporated Research Institutions for Seismology
 				</td>
 			</tr>
@@ -88,30 +89,8 @@
 </div>
 
 <!-- Footer -->
-<footer class="footer section">
-	<div class="footer-container container d-grid">
-		<div class="company-data">
-			<a href="#">
-				<h2 class="logo">En-Chi (William) Lee</h2>
-			</a>
-			<ul class="list social-media">
-				<li class="list-item">
-					<a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
-				</li>
-				<li class="list-item">
-					<a href="#" class="list-link"><i class="ri-facebook-circle-line"></i></a>
-				</li>
-				<li class="list-item">
-					<a href="#" class="list-link"><i class="ri-youtube-line"></i></a>
-				</li>
-				<li class="list-item">
-					<a href="#" class="list-link"><i class="ri-mail-line"></i></a>
-				</li>
-			</ul>
-			<span class="copyright-notice">&copy;2023 En-Chi (William) Lee. All rights reserved.</span>
-		</div>
-	</div>
-</footer>
+<div include-html="footer.html"></div>
+
 <!-- MathJax -->
 <script type="text/x-mathjax-config">
 	MathJax.Hub.Config({
@@ -123,8 +102,11 @@
 </script>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Swiper.js -->
-<script src="swiper-bundle.min.js"></script>
+<!-- <script src="swiper-bundle.min.js"></script> -->
 <!-- Custom script -->
-<script src="blog.js"></script>
+<script src="script.js"></script>
+<script>includeHTML();</script>
+
 </body>
+
 </html>
