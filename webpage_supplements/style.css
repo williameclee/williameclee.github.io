@@ -25,19 +25,24 @@
 }
 /* Base styles */
 * {
-
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 html {
 	font-size: 62.5%;
-}
-header {
-	font-family: var(--font-family-sans);
-	font-weight: 700;
 }
 body {
 	font-family: var(--font-family-serif);
 	font-size: var(--font-size-normal);
 	line-height: var(--linestretch);
+	/* keep footer in place? */
+	min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+article {
+	flex-grow: 1;
 }
 a {
 	text-decoration: none;
@@ -63,7 +68,7 @@ a {
 	margin-right: calc(var(--font-size-normal) * 0.4);
 }
 
-/* Titles */
+/* Headings */
 h1, .title {
 	font-family: var(--font-family-sans);
 	font-weight: 700;
@@ -75,8 +80,8 @@ h2, .section {
 	font-weight: 700;
 	font-size: var(--font-size-Large);
 	text-align: left;
-	margin-top:    calc(var(--font-size-normal) * 1.0);
-	margin-bottom: calc(var(--font-size-normal) * 0.5);
+	padding-top:    calc(var(--font-size-normal) * 1.0);
+	padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
 h3, .subsection {
 	font-family: var(--font-family-serif);
@@ -84,8 +89,8 @@ h3, .subsection {
 	font-size: var(--font-size-large);
 	text-align: left;
 	color: var(--accent-color);
-	margin-top:    calc(var(--font-size-normal) * 1.0);
-	margin-bottom: calc(var(--font-size-normal) * 0.5);
+	padding-top:    calc(var(--font-size-normal) * 1.0);
+	padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
 
 .list {
@@ -97,6 +102,20 @@ h3, .subsection {
 	list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+/* Header (Title) */
+header {
+	font-family: var(--font-family-sans);
+	font-weight: 700;
+	background-color: var(--accent-color-bg);
+	padding: var(--font-size-Huge);
+}
+header img{
+	width: 100%;
+	height: var(--item-min-height-sm);
+	object-fit: cover;
+	object-position: center 10%;
 }
 
 /* Table */
@@ -141,12 +160,10 @@ th, td {
 	transition: 0.4s;
 }
 .accordion > .subsection:after {
-	content: "-";
-	font-size: var(--font-size-large);
-	font-family: var(--font-family-sans);
-	font-weight: normal;
+	content: "–";
 	color: var(--accent-color);
 	float: right;
+	align-items: middle;
 }
 .accordion-disactive > .subsection:after {
 	content: "+";
@@ -155,3 +172,14 @@ th, td {
 	display: block;
 	overflow: hidden;
 }
+
+/* Footer */
+footer {
+	background-color: var(--accent-color-bg);
+	margin: 0;
+	margin-top: calc(var(--gap) * 4);
+	padding: var(--gap);
+}
+/* .footer-container {
+	margin: var(--gap);
+} */
