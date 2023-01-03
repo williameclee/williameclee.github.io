@@ -7,13 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>En-Chi (William) Lee | Home</title>
 	<!-- Favicon -->
-	<!-- <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png"> -->
+	<link rel="icon" type="image/png" sizes="32x32" href="webpage_supplements/favicon.png">
 	<!-- Remix icons -->
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-	<!-- Swiper.js styles -->
-	<link rel="stylesheet" href="swiper-bundle.min.css"/>
 	<!-- Custom styles -->
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="webpage_supplements/style.css">
 </head>
 <body>
 <!-- Header -->
@@ -25,71 +23,86 @@
 	</a>
 </header>
 
+<nav>
+</nav>
+
 <!-- CV -->
 <div class="container">
 	<h2 class="section">
 		Curriculum Vitae
 	</h2>
 	<div>
-		<h3 class="subsection">
-			Education
-		</h3>
-		<table>
-			<tr>
-				<td class="td-width_year">2022 - </td>
-				<td>
-					National Taiwan University, B.S. <br>
-					Geoscience (major), Atmospheric Science (minor; planned), Earth System Science, and Marine Science (programs; planned). <br>
-					<a href="https://drive.google.com/file/d/1Keth3msYlCA8RRCZl9Uh5O0mmSrUShVJ/view" target="_blank">Specialising</a> in 
-					(1) Geophysics, (2) Seismology, and (3) Physical geological resources exploration (planned).
-				</td> 
-			</tr>
-		</table>
-		<h3 class="subsection">
-			Honours and Awards
-		</h3>
-		<table>
-			<tr>
-				<td>2022 - 2023</td>
-				<td>
-					Fu Bell Scholarship - <br>
-					For outstanding academic performance
-				</td> 
-				<td>
-					National Taiwan University
-				</td>
-			</tr>
-			<tr>
-				<td class="td-width_year">2021</td>
-				<td>
-					International Earth Science Olympiad - <br>
-					Gold medalist
-				</td> 
-				<td class="td-width_org">
-					International Geoscience Education Organisation
-				</td>
-			</tr>
-		</table>
-		<h3 class="subsection">
-			Certifications and Skills
-		</h3>
-		<table>
-			<tr>
-				<td class="td-width_year">2022</td>
-				<td>
-					Seismology Skill Building Workshop - <br>
-					Full participation and 99% average score
-				</td> 
-				<td class="td-width_org">
-					Incorporated Research Institutions for Seismology
-				</td>
-			</tr>
-		</table>
+		<button class="accordion">
+			<h3 class="subsection">
+				Education
+			</h3>
+		</button>
+		<div class="panel">
+			<table>
+				<tr>
+					<td class="td-width_year">2022 - </td>
+					<td>
+						National Taiwan University, B.S. <br>
+						Geoscience (major), Atmospheric Science (minor; planned), Earth System Science, and Marine Science (programs; planned). <br>
+						<a class="href" href="https://drive.google.com/file/d/1Keth3msYlCA8RRCZl9Uh5O0mmSrUShVJ/view" target="_blank"><i>Specialising</i></a> in 
+						(1) Geophysics, (2) Seismology, and (3) Physical geological resources exploration (planned).
+					</td> 
+				</tr>
+			</table>
+		</div>
+		<button class="accordion">
+			<h3 class="subsection">
+				Honours and Awards
+			</h3>
+		</button>
+		<div class="panel">
+			<table>
+				<tr>
+					<td>2022 - 2023</td>
+					<td>
+						Fu Bell Scholarship - <br>
+						For outstanding academic performance
+					</td> 
+					<td>
+						National Taiwan University
+					</td>
+				</tr>
+				<tr>
+					<td class="td-width_year">2021</td>
+					<td>
+						International Earth Science Olympiad - <br>
+						Gold medalist
+					</td> 
+					<td class="td-width_org">
+						International Geoscience Education Organisation
+					</td>
+				</tr>
+			</table>
+		</div>
+		<button class="accordion">
+			<h3 class="subsection">
+				Certifications and Skills
+			</h3>
+		</button>
+		<div class="panel">
+			<table>
+				<tr>
+					<td class="td-width_year">2022</td>
+					<td>
+						Seismology Skill Building Workshop - <br>
+						Full participation and 99% average score
+					</td> 
+					<td class="td-width_org">
+						Incorporated Research Institutions for Seismology
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
 
 <!-- Footer -->
-<div include-html="footer.html"></div>
+<div include-html="webpage_supplements/footer.html"></div>
 
 <!-- MathJax -->
 <script type="text/x-mathjax-config">
@@ -100,11 +113,11 @@
 	  }
 	});
 </script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Swiper.js -->
 <!-- <script src="swiper-bundle.min.js"></script> -->
 <!-- Custom script -->
-<script src="script.js"></script>
+<script src="webpage_supplements/script.js"></script>
 <script>includeHTML();</script>
 
 </body>
