@@ -52,19 +52,20 @@ a {
 	color: var(--sub-color);
 }
 .href::after {
-	content: " ↗ ";
-	font-family: var(--font-family-sans);
+	content: "↗";
+	font-family: var(--font-family-serif);
 	font-weight: 900;
 	font-size: var(--font-size-tiny);
 	-webkit-text-stroke-width: calc(var(--font-size-tiny) * 0.1);
 	vertical-align: super;
 	border-radius: 50%;
 	border-style: solid;
-	border-width: calc(var(--font-size-tiny) * 0.1);
+	border-width: calc(var(--font-size-tiny) * 0.3);
 	color: #fff;
 	background-color: var(--sub-color);
 	border-color: var(--sub-color);
 	text-align: center;
+	margin-left: calc(var(--font-size-normal) * 0.1);
 	margin-right: calc(var(--font-size-normal) * 0.4);
 }
 
@@ -74,6 +75,7 @@ h1, .title {
 	font-weight: 700;
 	font-size: var(--font-size-Huge);
 	text-align: center;
+	padding: var(--font-size-Huge);
 }
 h2, .section {
 	font-family: var(--font-family-sans);
