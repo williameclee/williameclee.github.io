@@ -1,9 +1,10 @@
 /* Import font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap'); */
 /* Custom properties */
 :root {
-	--font-family-sans: 'Poppins',Helvetica, sans-serif;
+	--font-family-sans: 'Raleway', 'Poppins',Helvetica, sans-serif;
 	--font-family-serif: Palatino, Georgia, 'Noto Serif TC', Times, serif;
 	--font-size-normal: 2rem;
 	--font-size-large:  calc(var(--font-size-normal) * 1.2);
@@ -19,9 +20,11 @@
 	--gap: var(--font-size-normal);
 	--linestretch: 140%;
 
-	--accent-color: rgb(000 118 186);
-	--accent-color-bg: rgb(170.5 224 255);
-	--sub-color: rgb(029 177 000);
+	--primary-color: rgb(000,118,186);
+	/* --primary-color-bg: rgb(170.5,224,255); */
+	--primary-color-bg: rgba(086,193,255,0.5);
+	--accent-color: rgb(001,113,000);
+	--accent-color-bg: rgba(097,216,054,0.25);
 }
 /* Base styles */
 * {
@@ -49,34 +52,39 @@ a {
 	color: inherit;
 }
 
-.extlink:hover {
-	color: var(--sub-color);
+.link {
+	background: linear-gradient(to left, var(--accent-color-bg), var(--accent-color-bg) 50%, transparent 50%, transparent);
+	background-size: 200% 100%;
+	transition: background 0.3s;
+	transition-timing-function: ease-out;
+	padding-left:  calc(var(--font-size-normal) * 0.1);
+	margin-left: calc(-1 * var(--font-size-normal) * 0.1);
+}
+.link:hover {
+	background-position: 100% 100%;
 }
 
-.link-appendix {
-	font-size: var(--font-size-fnote);
-	color: black;
-	vertical-align: middle;
-	margin-left: calc(var(--font-size-normal) * 0.24);
-	margin-right: calc(var(--font-size-normal) * 0.24);
+.link-ext::after {
+	content: "↗";
+	color: var(--accent-color);
+	font-weight: 500;
+	font-family: Helvetica;
+	margin-left: calc(var(--font-size-normal) * 0.05);
+	/* margin-right: calc(var(--font-size-normal) * 0.18); */
 }
-.extlink:hover > .link-appendix {
-	font-size: var(--font-size-fnote);
-	color: #fff;
-	vertical-align: middle;
-	border-radius: 30%;
-	background-color: var(--sub-color);
-	border-width: calc(var(--font-size-fnote) * 0.2);
-	border-style: solid;
-	border-color: var(--sub-color);
-	margin-left: calc(var(--font-size-normal) * 0.1);
-	margin-right: calc(var(--font-size-normal) * 0.1);
+.link-dld::after {
+	content: "↓";
+	color: var(--accent-color);
+	font-weight: 500;
+	font-family: Helvetica;
+	margin-left: calc(var(--font-size-normal) * 0.15);
+	margin-right: calc(var(--font-size-normal) * 0.2);
 }
 
 /* Headings */
 h1, .title {
 	font-family: var(--font-family-sans);
-	font-weight: 700;
+	font-weight: 900;
 	font-size: var(--font-size-Huge);
 	text-align: center;
 	padding: var(--font-size-Huge);
@@ -94,7 +102,7 @@ h3, .subsection {
 	font-weight: 700;
 	font-size: var(--font-size-large);
 	text-align: left;
-	color: var(--accent-color);
+	color: var(--primary-color);
 	padding-top:    calc(var(--font-size-normal) * 1.0);
 	padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
@@ -114,7 +122,7 @@ h3, .subsection {
 header {
 	font-family: var(--font-family-sans);
 	font-weight: 700;
-	background-color: var(--accent-color-bg);
+	background-color: var(--primary-color-bg);
 	padding: var(--font-size-Huge);
 }
 header img{
@@ -129,6 +137,9 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 	border-spacing: 300px;
+}
+tr {
+	transition: 0.3s;
 }
 tr:hover {
 	background-color: var(--accent-color-bg);
@@ -167,7 +178,7 @@ th, td {
 }
 .accordion > .subsection:after {
 	content: "–";
-	color: var(--accent-color);
+	color: var(--primary-color);
 	float: right;
 	align-items: middle;
 }
@@ -181,7 +192,7 @@ th, td {
 
 /* Footer */
 footer {
-	background-color: var(--accent-color-bg);
+	background-color: var(--primary-color-bg);
 	margin: 0;
 	margin-top: calc(var(--gap) * 4);
 	padding: var(--gap);
