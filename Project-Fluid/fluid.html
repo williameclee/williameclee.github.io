@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fluid Simulation</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="webpage_supplements/favicon.png">
+	<!-- Remix icons -->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="/Webpage_supplements/style.css">
+	<link rel="stylesheet" href="fluid.css">
+</head>
+<body>
+<div class="title-container">
+	<h1 class="title title-display">Fluid Dynamics</h1>
+	<p class="subtitle">Drag around to interact →</p>
+</div>
+
+<article>
+<div class="article-content">
+<header>
+	<h1 class="title">Fluid Dyanmics</h1>
+</header>
+<div class="container">
+	<p>
+		The basic laws that control the system are
+		\begin{align}
+			\frac{\mathrm{D}\boldsymbol{\mathrm{v}}}{\mathrm{D}t} 
+				= \frac{\partial\boldsymbol{\mathrm{v}}}{\partial t} +  (\boldsymbol{\mathrm{v}}\cdot\nabla)\boldsymbol{\mathrm{v}}
+				&= \nu\nabla^2\boldsymbol{\mathrm{v}} + \boldsymbol{\mathrm{f}} \quad,
+			\label{EQ:force}\tag{1}
+		\end{align}
+		\begin{align}
+			\frac{\mathrm{D}\rho}{\mathrm{D}t} 
+				= \frac{\partial\rho}{\partial t} +  (\boldsymbol{\mathrm{v}}\cdot\nabla)\rho
+				&= \nu\nabla^2\rho + \boldsymbol{\mathrm{s}} \quad,
+			\label{EQ:density}\tag{2}
+		\end{align}
+		\begin{align}
+			\nabla\cdot\boldsymbol{\mathrm{v}} &= 0 \quad,
+			\label{EQ:continuity}\tag{3}
+		\end{align}
+		where $\boldsymbol{\mathrm{f}}$ is the external force and $\boldsymbol{\mathrm{s}}$ the source of mass (density).
+	</p>
+	<p>
+		The simulation above follows the paper by <a class="link link-ext" href="http://graphics.cs.cmu.edu/nsp/course/15-464/Fall09/papers/StamFluidforGames.pdf" target="_blank">Stam, J. (2003)</a> and the JavaScript scripts are partly modified after those kindly made public by <a class="link link-ext" href="https://github.com/matthias-research/pages/blob/master/tenMinutePhysics/17-fluidSim.html" target="_blank">Müller, M. (2022)</a>. 
+		<br>
+		Press <tt>P</tt> to pause or restart the simulation, and <tt>F</tt> to simulate frame-by-frame.
+	</p>
+	
+</div>
+</div>
+</article>
+
+
+<!-- Footer -->
+<div include-html="/Webpage_supplements/footer.html"></div>
+
+
+<div class="fluid-box">
+	<canvas id="fluid-box" width="100%" height="100%"></canvas>
+</div>
+
+
+<script src="Fluid.JS"></script>
+
+<script src="/Webpage_supplements/script.js"></script>
+<script>includeHTML();</script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		processEscapes: true
+	  }
+	});
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+</html>

@@ -26,7 +26,7 @@ function includeHTML() {
         return;
       }
     }
-  };
+};
 
 // Accordion
 // Modified after w3schools.com: https://www.w3schools.com/howto/howto_js_accordion.asp
