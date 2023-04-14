@@ -21,13 +21,15 @@
 	--gap: var(--font-size-normal);
 	--linestretch: 140%;
 
-	--background-color: rgb(255,244,217);
-	--background-color-focus: rgb(232,181,129);
-	--primary-color: rgb(015,069,080);
-	/* --primary-color-bg: rgb(170.5,224,255); */
-	--primary-color-bg: rgba(086,193,255,0.5);
-	--accent-color: rgb(086,134,143);
-	--accent-color-bg: rgba(175,211,219,1);
+	/* --background-colour: rgb(255,244,217); */
+	--background-colour: white;
+	/* --primary-colour: rgb(015,069,080); */
+	--primary-colour: rgb(070,133,196);
+	/* --primary-colour-bg: rgb(170.5,224,255); */
+	/* --primary-colour-bg: rgba(086,193,255,0.5); */
+	--accent-colour: rgb(086,134,143);
+	/* --accent-colour-bg: rgba(175,211,219,1); */
+	--accent-colour-bg: white;
 }
 /* Base styles */
 * {
@@ -42,7 +44,7 @@ body {
 	font-family: var(--font-family-serif);
 	font-size: var(--font-size-normal);
 	line-height: var(--linestretch);
-	background-color: var(--background-color);
+	background-color: var(--background-colour);
 	/* keep footer in place? */
 	min-height: 100vh;
     display: flex;
@@ -54,7 +56,7 @@ article {
 	z-index: 1000;
 }
 .article-content {
-	background-color: var(--background-color);
+	background-color: var(--background-colour);
 	width: 100%;
 	position: relative;
 	padding-top: calc(2 * var(--gap));
@@ -67,7 +69,7 @@ a {
 }
 
 .link {
-	background: linear-gradient(to left, var(--accent-color-bg), var(--accent-color-bg) 50%, transparent 50%, transparent);
+	background: linear-gradient(to left, var(--accent-colour-bg), var(--accent-colour-bg) 50%, transparent 50%, transparent);
 	background-size: 200% 100%;
 	transition: background 0.3s;
 	transition-timing-function: ease-out;
@@ -80,23 +82,24 @@ a {
 
 .link-ext::after {
 	content: "↗";
-	color: var(--accent-color);
+	color: var(--primary-colour);
 	font-weight: 500;
-	font-family: Helvetica;
+	font-family: sans-serif;
 	margin-left: calc(var(--font-size-normal) * 0.05);
 	/* margin-right: calc(var(--font-size-normal) * 0.18); */
 }
 .link-dld::after {
 	content: "↓";
-	color: var(--accent-color);
+	color: var(--accent-colour);
 	font-weight: 500;
-	font-family: Helvetica;
+	font-family: sans-serif;
 	margin-left: calc(var(--font-size-normal) * 0.15);
 	margin-right: calc(var(--font-size-normal) * 0.2);
 }
 
 /* Headings */
 h1, .title {
+	color: var(--accent-colour-bg);
 	font-family: var(--font-family-sans);
 	font-weight: 900;
 	font-size: var(--font-size-Huge);
@@ -111,12 +114,15 @@ h2, .section {
 	padding-top:    calc(var(--font-size-normal) * 1.0);
 	padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
+footer h2 {
+	color: var(--accent-colour-bg);
+}
 h3, .subsection {
 	font-family: var(--font-family-serif);
 	font-weight: 700;
 	font-size: var(--font-size-large);
 	text-align: left;
-	color: var(--primary-color);
+	color: var(--primary-colour);
 	padding-top:    calc(var(--font-size-normal) * 1.0);
 	padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
@@ -136,7 +142,7 @@ h3, .subsection {
 .header {
 	font-family: var(--font-family-sans);
 	font-weight: 700;
-	background-color: var(--primary-color-bg);
+	background-color: var(--primary-colour);
 	padding: var(--font-size-Huge);
 }
 .header img{
@@ -161,7 +167,7 @@ tr {
 	transition: 0.3s;
 }
 tr:hover {
-	background-color: var(--background-color-focus);
+	background-color: var(--accent-colour-bg);
 }
 th, td {
 	text-align: left;
@@ -195,13 +201,13 @@ th, td {
 	padding: 0;
 	transition: 0.4s;
 }
-.accordion > .subsection:after {
+.accordion .subsection:after {
 	content: "–";
-	color: var(--primary-color);
+	color: var(--primary-colour);
 	float: right;
 	align-items: middle;
 }
-.accordion-disactive > .subsection:after {
+.accordion-disactive .subsection:after {
 	content: "+";
 }
 .panel {
@@ -211,18 +217,13 @@ th, td {
 
 /* Footer */
 footer {
-	background-color: var(--primary-color);
-	color: var(--background-color);
+	background-color: var(--primary-colour);
+	color: var(--background-colour);
 	margin: 0;
 	padding: var(--gap);
 	position: relative;
 	z-index: 500;
 }
-.footer-container {
-}
-/* .footer-container {
-	margin: var(--gap);
-} */
 
 /* Footer */
 .icon-link {
