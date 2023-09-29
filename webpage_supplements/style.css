@@ -322,7 +322,7 @@ footer {
 /* Screen size adjustment */
 @media (max-width: 480px) {
 	:root {
-		--font-size-normal: 1.5rem;
+		--font-size-normal: 2rem;
 	}
 
 	tr {
@@ -366,7 +366,7 @@ footer {
 
 @media (min-width: 481px) and (max-width: 960px) {
 	:root {
-		--font-size-normal: 1.5rem;
+		--font-size-normal: 2rem;
 	}
 
 	td {
