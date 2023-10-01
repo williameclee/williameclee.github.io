@@ -9,32 +9,57 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="webpage_supplements/favicon.png">
 	<!-- Custom styles -->
-	<link rel="stylesheet" href="webpage_supplements/style.css">
+	<link rel="stylesheet" type="text/css" href="webpage_supplements/style.css" media="All">
+	<script>
+		function resizeIframe(obj) {
+			obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+		}
+	</script>
 </head>
 
 <body>
 	<!-- Header -->
-	<header class="header" id="title">
+	<!-- <header class="header" id="title">
 		<a href="./" class="link-clean">
 			<h1 class="title">
 				EN-CHI (William) LEE
 			</h1>
 		</a>
+	</header> -->
+	<header>
+		<nav class="navbar">
+			<ul class="navbar-list container">
+				<li class="navbar-list-item">
+					<a href="./">Home</a>
+				</li>
+				<li class="navbar-list-item">
+					<a href="./">Projects</a>
+				</li>
+			</ul>
+		</nav>
 	</header>
-
-	<nav>
-	</nav>
 
 
 
 	<article>
-
-		<!-- CV -->
-		<div class="container">
-			<h2 class="section">
-				Curriculum Vitae
-			</h2>
-			<div>
+		<div class="container about">
+			<div class="about-photo-container">
+				<img src="cover-photo.jpg" alt="Profile photo" class="about-photo">
+			</div>
+			<div class="about-text">
+				<div class="about-title">
+					<h1 class="title">
+						<div class="about-title-textblock"><span>恩 Un</span><br>EN</div
+						><div class="about-title-textblock"><br>-</div
+						><div class="about-title-textblock"><span>齊 Tsê</span><br>CHI</div>
+						<div class="about-title-textblock"><span>李 Lí</span><br>LEE</div>
+						<div class="about-title-textblock"><span>(William)</span></div>
+					</h1>
+				</div>
+				<p>
+					Hello! I am a geoscience student at the University of Arizona. Despite my studies in geophysics and
+					atmospheric dynamics, I am interested in numerical computation, cartography, and photography.
+				</p>
 				<div class="panel">
 					<table class="cvtable">
 						<tr>
@@ -62,17 +87,64 @@
 							</td>
 						</tr>
 					</table>
+					<ul class="list s_media-list">
+						<li class="list-item">
+							<a href="./CV.pdf" class="icon-link link-dld"
+								target="_blank"><i class="fa-solid fa-id-badge"></i> CV</a>
+						</li>
+						<li class="list-item">
+							<a href="https://github.com/williameclee" class="icon-link" target="_blank"><i
+									class="fa-brands fa-github"></i> Github </a>
+						</li>
+						<li class="list-item">
+							<a href="https://www.youtube.com/@williameclee/featured" class="icon-link"
+								target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
+						</li>
+					</ul>
 				</div>
-				<button class="accordion">
+			</div>
+		</div>
+		<!-- CV -->
+		<div class="container">
+			<!-- <h2 class="section">
+				Curriculum Vitae
+			</h2> -->
+			<!-- <div class="panel">
+				<table class="cvtable">
+					<tr>
+						<td class="cvtable-year">Email </td>
+						<td class="cvtable-main" style="border-right: 0px">
+							<a href="mailto:williameclee@arizona.edu" target="_blank">williameclee@arizona.edu</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="cvtable-year">Website </td>
+						<td class="cvtable-main" style="border-right: 0px">
+							<a href="." target="_blank">williameclee.github.io</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="cvtable-year">Phone </td>
+						<td class="cvtable-main" style="border-right: 0px">
+							+1 (623) 920-9079
+						</td>
+					</tr>
+					<tr>
+						<td class="cvtable-year">School </td>
+						<td class="cvtable-main" style="border-right: 0px">
+							Undergraduate, University of Arizona, Arizona, USA
+						</td>
+					</tr>
+				</table>
+			</div> -->
+			<div class="cvtable-panels">
+				<button class="accordion accordion-active">
 					<h3 class="subsection">
 						Education
-						<div class="accordion-plus">
-							<div class="accordion-plus-bar1"></div>
-							<div class="accordion-plus-bar2"></div>
-						</div>
+						<div class="accordion-toggle"><i class="fa-solid fa-angle-down"></i></div>
 					</h3>
 				</button>
-				<div class="panel">
+				<div class="panel" style="display: block;">
 					<table class="cvtable">
 						<tr>
 							<td class="cvtable-year">Aug 2023 - Present</td>
@@ -89,7 +161,7 @@
 							<td class="cvtable-main">
 								Previous education: <br>
 								<b>Geosciences</b> <br>
-								Sep 2022 - Aug 2023
+								Sep 2022 - Jun 2023
 							</td>
 							<td class="cvtable-org">
 								National Taiwan University, Taiwan
@@ -99,11 +171,8 @@
 				</div>
 				<button class="accordion">
 					<h3 class="subsection">
-						Research Experiences and Skills
-						<div class="accordion-plus">
-							<div class="accordion-plus-bar1"></div>
-							<div class="accordion-plus-bar2"></div>
-						</div>
+						Research Experiences & Skills
+						<div class="accordion-toggle"><i class="fa-solid fa-angle-down"></i></div>
 					</h3>
 				</button>
 				<div class="panel">
@@ -136,7 +205,7 @@
 							</td>
 						</tr>
 					</table>
-					<h4>Certificates and Workshops</h4>
+					<h4>Certificates & Workshops</h4>
 					<table class="cvtable">
 						<tr>
 							<td class="cvtable-year">Jun 2022 - Sep 2022</td>
@@ -154,11 +223,8 @@
 				</div>
 				<button class="accordion">
 					<h3 class="subsection">
-						Honours and Distinctions
-						<div class="accordion-plus">
-							<div class="accordion-plus-bar1"></div>
-							<div class="accordion-plus-bar2"></div>
-						</div>
+						Honours & Distinctions
+						<div class="accordion-toggle"><i class="fa-solid fa-angle-down"></i></div>
 					</h3>
 				</button>
 				<div class="panel">
@@ -219,14 +285,70 @@
 						</tr>
 					</table>
 				</div>
-				<p>This page was last updated on Sep 29, 2023. You can download the <a class="link-dld" href="./CV.pdf"
-						target="_blank">CV in pdf format</a>
-					<!-- or <a class="link-dld" href="./CV-Chinese.pdf"
-						target="_blank">Chinese CV in pdf</a> -->
-					.
-				</p>
+				<button class="accordion">
+					<h3 class="subsection">
+						In the News
+						<div class="accordion-toggle"><i class="fa-solid fa-angle-down"></i></div>
+					</h3>
+				</button>
+				<div class="panel">
+					<table class="cvtable" id="cvtable-press">
+						<tr>
+							<td class="cvtable-year">Dec 2022</td>
+							<td class="cvtable-main">
+								<a href="https://www.edu.tw/News_Content.aspx?n=9E7AC85F1954DDA8&s=3193C36801F271F7"
+									target="_blank"><i>HSNU Nurtures Scientific Talent with Outstanding Performance in
+										Math and Science Olympiads</i> [Chinese] </a>
+							</td>
+							<td class="cvtable-org">
+								National Education Radio, Taiwan
+							</td>
+						</tr>
+						<tr>
+							<td class="cvtable-year">Aug 2021</td>
+							<td class="cvtable-main">
+								<a href="https://www.edu.tw/News_Content.aspx?n=9E7AC85F1954DDA8&s=3193C36801F271F7"
+									target="_blank"><i>Taiwan Wins 4 Gold and 1 Silver Medals at the 2021 International
+										Earth Science Olympiad</i> [Chinese] </a>
+							</td>
+							<td class="cvtable-org">
+								Ministry of Education, Taiwan
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="page-info">
+				<table class="page-info-list">
+					<tr>
+						<td class="page-info-icon">
+							<i class="fa-regular fa-user"></i>
+						</td>
+						<td class="page-info-text">
+							En-Chi (William) Lee
+						</td>
+					</tr>
+					<tr>
+						<td class="page-info-icon">
+							<i class="fa-regular fa-clock"></i>
+						</td>
+						<td class="page-info-text">
+							October 1, 2023
+						</td>
+					</tr>
+				</table>
+				<!-- <ul class="page-info-list">
+					<li>
+						<i class="fa-regular fa-user"></i> En-Chi (William) Lee
+					</li>
+					<li>
+						<i class="fa-regular fa-clock"></i> Sep 29, 2023
+					</li>
+				</ul> -->
 			</div>
 		</div>
+
 
 		<!-- Projects -->
 		<!-- <div class="container">
@@ -238,10 +360,13 @@
 	</h3>
 </div> -->
 
+
 	</article>
 
 	<!-- Footer -->
-	<div include-html="/webpage_supplements/footer.html"></div>
+	<iframe src="webpage_supplements/footer.html" style="border:none; width: 100%; height: max-content;" scrolling: no
+		onload="resizeIframe(this)"></iframe>
+	<!-- <div include-html="/webpage_supplements/footer.html"></div> -->
 
 	<!-- MathJax -->
 	<script src="/webpage_supplements/load-mathjax.js" async></script>
@@ -250,7 +375,7 @@
 	<!-- Custom script -->
 	<script src="/webpage_supplements/script.js"></script>
 	<script src="https://kit.fontawesome.com/513d0fe828.js" crossorigin="anonymous"></script>
-	<script>includeHTML();</script>
+	<!-- <script>includeHTML();</script> -->
 </body>
 
 </html>

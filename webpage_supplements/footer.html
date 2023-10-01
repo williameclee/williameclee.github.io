@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Custom styles -->
+	<link rel="stylesheet" type="text/css" href="style.css" media="All">
+	<script>
+		function resizeIframe(obj) {
+		  obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+		}
+	</script>
+	<script src="https://kit.fontawesome.com/513d0fe828.js" crossorigin="anonymous"></script>
+</head>
+
 <div
 	style="height: calc(var(--gap) * 4); background-color: var(--background-color); position: relative; z-index: 1000; color: aliceblue;">
 </div>
@@ -5,8 +22,8 @@
 <footer>
 	<div class="container footer-container">
 		<div class="personal-info">
-			<a href="./" class="link-clean">
-				<h2>En-Chi (William) Lee</h2>
+			<a href="/" class="link-clean" target="_parent">
+				<h2 class="footer-title">En-Chi (William) Lee</h2>
 			</a>
 			<ul class="list s_media-list">
 				<li class="list-item">
@@ -26,3 +43,5 @@
 		</div>
 	</div>
 </footer>
+
+</html>
