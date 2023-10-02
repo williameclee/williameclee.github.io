@@ -30,3 +30,7 @@ for (i = 0; i < acc.length; i++) {
 //       table.rows[i].cells[1].innerHTML = temp;
 //   }
 // }
+
+function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+}

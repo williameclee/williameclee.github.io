@@ -1,0 +1,129 @@
+.cvtable tr {
+  transition: var(--animation-duration);
+  border-color: transparent;
+  border-style: solid;
+  border-left: 0;
+  border-right: 0;
+}
+
+.cvtable th,
+td {
+  text-align: left;
+  vertical-align: baseline;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0 calc(0.5 * var(--gap)) calc(0.5 * var(--gap)) var(--gap);
+}
+
+.cvtable:first-child {
+  display: block;
+}
+
+.cvtable-year {
+  border-left: 0px;
+  width: calc(var(--font-size-normal) * 10);
+  transition: var(--animation-duration);
+}
+
+.cvtable-org {
+  border-right: 0px;
+  width: calc(var(--font-size-normal) * 13);
+  transition: var(--animation-duration);
+}
+
+.cvtable-desp {
+  display: contents;
+}
+
+/* Screen size adjustment */
+@media (max-width: 480px) {
+  .about {
+    flex-direction: column;
+  }
+
+  .about-photo-container {
+    height: 30rem;
+  }
+
+  .about-title h1 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .about .contacttable,
+  .s_media-list {
+    font-size: var(--font-size-fnote);
+  }
+
+  .contacttable td {
+    border-bottom-width: 0;
+  }
+
+  .cvtable tr {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cvtable-year,
+  .cvtable-main,
+  .cvtable-org {
+    width: 100%;
+    vertical-align: text-top;
+  }
+
+  .cvtable-org {
+    font-size: var(--font-size-fnote);
+    line-height: 100%;
+  }
+
+  .cvtable-desp {
+    display: none;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 720px) {
+  .cvtable-year {
+    width: calc(var(--font-size-normal) * 5);
+  }
+}
+
+@media (max-width: 960px) {
+  .cvtable-org::before {
+    content: "\f3c5";
+    font: var(--fa-font-solid);
+    font-size: 90%;
+    color: var(--primary-colour);
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #cvtable-press .cvtable-org::before {
+    content: "\f1ea";
+  }
+}
+
+@media (min-width: 480px) and (max-width: 720px) {
+  .cvtable-year {
+    width: calc(var(--font-size-normal) * 5);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 960px) {
+  .cvtable td {
+    display: table-row;
+  }
+
+  .cvtable .cvtable-year {
+    display: table-cell;
+  }
+
+  .cvtable .cvtable-main {
+    border-bottom: 0rem;
+    border-left: 0rem;
+  }
+
+  .cvtable-org {
+    border-left: 0rem;
+  }
+}

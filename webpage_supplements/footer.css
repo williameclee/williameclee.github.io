@@ -1,0 +1,22 @@
+footer {
+	background-color: var(--primary-colour);
+	color: var(--background-colour);
+	margin: 0;
+	padding: var(--gap) 0;
+	position: relative;
+	z-index: 500;
+}
+
+.footer-title {
+	font-family: var(--font-family-sans_condensed);
+	font-weight: 800;
+}
+
+.footer-container {
+	color: var(--secondary-colour);
+	font-size: var(--font-size-fnote);
+}
+
+.icon-link {
+	vertical-align: text-top;
+}
