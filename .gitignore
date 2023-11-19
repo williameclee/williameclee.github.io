@@ -1,0 +1,11 @@
+# LaTeX log files
+*.synctex(busy)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Designing progress
+*.key

@@ -1,129 +1,139 @@
-.cvtable tr {
-  transition: var(--animation-duration);
-  border-color: transparent;
-  border-style: solid;
-  border-left: 0;
-  border-right: 0;
+/* About */
+.about {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 0 var(--gap);
+	padding-top: calc(1 * var(--gap));
+	padding-bottom: calc(2 * var(--gap));
 }
 
-.cvtable th,
-td {
-  text-align: left;
-  vertical-align: baseline;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 0 calc(0.5 * var(--gap)) calc(0.5 * var(--gap)) var(--gap);
+.about-photo-container {
+	display: flex;
+	width: 100%;
+	height: 30rem;
+	border-color: blue;
+	overflow: hidden;
+	gap: var(--gap) var(--gap);
 }
 
-.cvtable:first-child {
-  display: block;
+.about-photo {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: 70% 20%;
 }
 
-.cvtable-year {
-  border-left: 0px;
-  width: calc(var(--font-size-normal) * 10);
-  transition: var(--animation-duration);
+.about-text {
+	width: 100%;
 }
 
-.cvtable-org {
-  border-right: 0px;
-  width: calc(var(--font-size-normal) * 13);
-  transition: var(--animation-duration);
+.about-title .title {
+	margin-bottom: 0;
 }
 
-.cvtable-desp {
-  display: contents;
+.about-title h1 {
+	text-align: left;
+	line-height: 100%;
+	font-size: calc(1.2 * var(--font-size-Huge));
+	color: var(--primary-colour);
+	background-color: var(--background-colour);
+	margin: 0%;
+	margin-top: calc(4 * var(--gap));
+	padding: 0;
+	padding-bottom: var(--gap);
+}
+
+.about-title-textblock {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+
+.about-title-textblock span {
+	font-size: var(--font-size-large);
+	line-height: 0%;
+}
+
+.contacttable td {
+	border-left: 0;
+	vertical-align: baseline;
+}
+
+.contacttable-header {
+	padding-right: var(--gap);
+}
+
+.cv tr {
+    border-left: 0;
+    border-right: 0;
+}
+
+.cv td {
+    text-align: left;
+	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    padding-bottom: var(--gap);
+    border: 1.5pt solid var(--primary-colour);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+td.cv-subsection {
+    padding-right: calc(6*var(--gap));
+}
+
+.cv-org_name {
+    display: inline;
+    font-weight: bold;
+    margin-right: var(--gap);
+}
+
+.cv-org_location {
+    display: inline;
+}
+
+.cv-item {
+    margin-bottom: calc(2*var(--gap));
+}
+
+.cv-event {
+    font-weight: bold;
+}
+
+.cv-description {
+    margin-top: calc(0.5*var(--gap));
 }
 
 /* Screen size adjustment */
-@media (max-width: 480px) {
-  .about {
-    flex-direction: column;
-  }
+@media (max-width: 640px) {
+    .about {
+        flex-direction: column;
+    }
 
-  .about-photo-container {
-    height: 30rem;
-  }
+	.about-photo-container {
+		height: 20rem;
+	}
 
-  .about-title h1 {
-    margin: 0;
-    padding: 0;
-  }
+    .about h1 {
+        margin-top: var(--gap);
+    }
 
-  .about .contacttable,
-  .s_media-list {
-    font-size: var(--font-size-fnote);
-  }
+    .cv tr {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-  .contacttable td {
-    border-bottom-width: 0;
-  }
+    .cv td {
+        width: 100%;
+    }
 
-  .cvtable tr {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .cvtable-year,
-  .cvtable-main,
-  .cvtable-org {
-    width: 100%;
-    vertical-align: text-top;
-  }
-
-  .cvtable-org {
-    font-size: var(--font-size-fnote);
-    line-height: 100%;
-  }
-
-  .cvtable-desp {
-    display: none;
-  }
-}
-
-@media (min-width: 480px) and (max-width: 720px) {
-  .cvtable-year {
-    width: calc(var(--font-size-normal) * 5);
-  }
-}
-
-@media (max-width: 960px) {
-  .cvtable-org::before {
-    content: "\f3c5";
-    font: var(--fa-font-solid);
-    font-size: 90%;
-    color: var(--primary-colour);
-    display: inline-block;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  #cvtable-press .cvtable-org::before {
-    content: "\f1ea";
-  }
-}
-
-@media (min-width: 480px) and (max-width: 720px) {
-  .cvtable-year {
-    width: calc(var(--font-size-normal) * 5);
-  }
-}
-
-@media (min-width: 480px) and (max-width: 960px) {
-  .cvtable td {
-    display: table-row;
-  }
-
-  .cvtable .cvtable-year {
-    display: table-cell;
-  }
-
-  .cvtable .cvtable-main {
-    border-bottom: 0rem;
-    border-left: 0rem;
-  }
-
-  .cvtable-org {
-    border-left: 0rem;
-  }
+    td.cv-items {
+        border-top: 0;
+    }
 }
