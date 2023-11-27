@@ -1,4 +1,5 @@
-# LaTeX log files
+# LaTeX related files
+.tex
 *.synctex(busy)
 *.aux
 *.fdb_latexmk
