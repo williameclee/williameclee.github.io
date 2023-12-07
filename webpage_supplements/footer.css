@@ -20,3 +20,8 @@ footer {
 .icon-link {
 	vertical-align: text-top;
 }
+
+/* Social media list */
+footer li {
+	font-size: var(--font-size-normal);
+}
