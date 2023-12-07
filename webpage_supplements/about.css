@@ -3,7 +3,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
-	gap: 0 var(--gap);
+	gap: 0 calc(4*var(--gap));
 	padding-top: calc(1 * var(--gap));
 	padding-bottom: calc(2 * var(--gap));
 }
@@ -59,7 +59,6 @@
 }
 
 .contacttable td {
-	border-left: 0;
 	vertical-align: baseline;
 }
 
@@ -81,11 +80,17 @@
     border: 1.5pt solid var(--primary-colour);
     border-left: 0;
     border-right: 0;
+	/* padding-right: calc(6*var(--gap)); */
     border-bottom: 0;
 }
 
 td.cv-subsection {
-    padding-right: calc(6*var(--gap));
+	width: 50%;
+    padding-right: calc(2*var(--gap));
+}
+td.cv-items {
+	width: 50%;
+    padding-left: calc(2*var(--gap));
 }
 
 .cv-org_name {
@@ -135,5 +140,6 @@ td.cv-subsection {
 
     td.cv-items {
         border-top: 0;
+		padding-left: 0;
     }
 }
