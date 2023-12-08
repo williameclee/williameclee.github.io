@@ -22,19 +22,14 @@ body {
     object-position: 50% 50%;
 }
 
-.goal {
-    font-weight: bold;
-    font-family: var(--font-family-sans);
-}
-
 .plate {
     /* border: 2pt solid black; */
     /* background-color: var(--secondary-colour); */
     margin-bottom: calc(1*var(--gap));
     margin-top: calc(1*var(--gap));
 
-    padding-bottom: calc(1*var(--gap));
-    border-bottom: 2pt solid var(--primary-colour);
+    padding-top: calc(1*var(--gap));
+    border-top: 2pt solid var(--primary-colour);
 }
 
 #plate-left {
@@ -133,8 +128,9 @@ body {
 } */
 
 .plate-item_image-container {
-    /* border: 1pt solid red; */
     width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
 }
 
 .plate-item_modal-image-container {
@@ -143,13 +139,16 @@ body {
 }
 
 .plate-item_image {
-    /* position: absolute; */
     cursor: pointer;
     height: 100%;
     width: 100%;
-    overflow: hidden;
     object-fit: cover;
-    object-position: 50% 50%;
+    transition-duration: var(--animation-duration);
+}
+
+.plate-item_image:hover {
+    height: 110%;
+    width: 110%;
 }
 
 .plate-item_modal-image {
@@ -159,11 +158,6 @@ body {
     object-fit: cover;
     object-position: 50% 50%;
 }
-
-/* .plate-item_image:hover {
-    transform:scale(1.1);
-    transition-duration: 0.3s;
-} */
 
 .plate-item_modal {
     display: none;
@@ -220,9 +214,10 @@ body {
     grid-column: 5/span 2;
 }
 
-ul {
+ul,
+ol {
     list-style-position: outside;
-    margin-left: var(--gap);
+    margin-left: calc(2*var(--gap));
 }
 
 
@@ -231,12 +226,15 @@ summary {
     display: inline-block;
 }
 
-.import-plaintext {
-    font-family: inherit;
-    background-color: none;
+.plate-title_description {
+    margin-bottom: calc(2*var(--gap));
 }
 
 .plate-title_description h1 {
+    display: none;
+}
+
+.plain-markdown h1 {
     display: none;
 }
 
@@ -250,13 +248,28 @@ summary {
     padding-bottom: calc(var(--font-size-normal) * 0.5);
 }
 
-.markdown-body blockquote {
+blockquote {
     padding: calc(0.5*var(--gap));
     margin-bottom: var(--gap);
 
     font-size: var(--font-size-fnote);
     text-transform: uppercase;
     background-color: var(--secondary-colour);
+}
+
+.quote {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-large);
+    font-style: italic;
+    text-align: center;
+    color: var(--primary-colour);
+
+    display: block;
+    max-width: 80%;
+    /* overflow: hidden; */
+    overflow-wrap: normal;
+    margin: var(--gap) auto;
+    /* white-space: nowrap; */
 }
 
 .markdown-body li {
@@ -269,4 +282,27 @@ summary {
 
 .markdown-body p {
     margin-bottom: calc(0.5*var(--gap));
+}
+
+
+h2.museum {
+    text-align: center;
+    font-weight: normal;
+    font-size: var(--font-size-large);
+
+    padding-bottom: 0;
+    padding-top: calc(4*var(--gap));
+}
+h2.subtitle {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: normal;
+    font-size: var(--font-size-normal);
+    
+    padding-top: 0;
+}
+
+h1.title {
+    color: var(--primary-colour);
+    padding: 0;
 }

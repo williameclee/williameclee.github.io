@@ -1,5 +1,6 @@
 # A YouTube playlist of non-core gameplay ads
 
-For the genre analysis, I spent way too much time on YouTube, watching mobile game ads and trying to find the commonalities between them.
-I created a playlist of the ads I found, and annotated them with my thoughts and observations.
-Then I used the playlist as a reference for my genre analysis, analysing how they used similar rhetorical elements to achieve their goals, and what are the effects of each element.
+When composing the genre analysis, I dived deep into the dirty corners of YouTube, absorbing tens of obnoxious mobile game ads to uncover the traits that make them so recognisable.
+I compiled a YouTube playlist, loading it with the perfectly terrible ads I stumbled upon. 
+This playlist later guided me through the research process of genre analysis. 
+I dissected these ads, examining their shared rhetorical tools and researching the effect of each element.

@@ -1,5 +1,5 @@
 # LaTeX related files
-.tex
+*.tex
 *.synctex(busy)
 *.aux
 *.fdb_latexmk

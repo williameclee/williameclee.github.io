@@ -1,5 +1,7 @@
 # Critical Thinking and Composing & Conventions
 
-Critical thining, unfortunately, is not something that was heavily emphasised in my prior education in Taiwan, where my training was mostly focused on creative writing (e.g. prose) and summary (e.g. literature review).
+Critical thinking, unfortunately, wasn’t exactly the focus during my earlier education in Taiwan. 
+Most of my earlier training revolved around creative writing (e.g. prose) and summarising (e.g. literature review), leaving little time for polishing this crucial skill.
 
-However, in this class, I was able to develop related skills by closely examining the hilariously bad mobile game ads, and the rhetorical elements they employed to achieve their goals.
+But here in this class, I took a leap. I honed my critical thinking skills by dissecting those laughably bad mobile game ads. 
+With a critical eye, I unravelled the web of rhetorical elements they used to achieve their objectives.

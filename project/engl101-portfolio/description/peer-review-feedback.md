@@ -1,7 +1,11 @@
 # Peer Review Feedback on the Genre Analysis
 
-Later down in the semester, while I was writing the genre analysis, I became more experienced with writing in English, and I was really invested in what I was writing.
-As a byproduct, I sneaked in too many details of the genre I found interesting, and the draft became too long and unfocused unawaring, similar to some's criticism towards Wikipedia articles.
+When I started to work on my genre analysis project later in the semester, I was much more experienced writing in English and became more invested.
+However, this newfound enthusiasm had a side effect--my early drafts drowned in a swamp of details about the genre that I found intriguing but nonessential to the thesis. 
+They were like those lengthy Wikipedia articles, and I didn’t want my paper to be anywhere close to that!
 
-The peer review feedback drew me out of my own perspective, and helped me to identify the problems with my draft.
-I cut down a significant portion of the text, and focused on the rhetorical elements that were most relevant to the genre.
+Then came the peer review feedback. 
+It pressed me to step back and see the issues with my draft. 
+So, I started trimming the excess and honed in on the essential rhetorical elements that mattered for my genre analysis. 
+It’s like I finally found the right path through the writing swamp, thanks to that piece of feedback.
+

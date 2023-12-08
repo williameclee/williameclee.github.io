@@ -1,10 +1,16 @@
 # A Grammarly Identity Crisis
 
-I have been facing an identity crisis as I am writing in English, as I am not sure if I am writing in my own voice, or if I am just imitating the style of the authors I read.
-My first goal has been to write in a way that is grammatically correct, and I have been using Grammarly to help me with that.
+During this semester’s intensive writing in English, I have been facing an identity crisis: am I in my own voice or copying the style of the authors and textbooks I read?
 
-However, Grammarly is not perfect, and sometimes its suggestions are not applicable to the context and sometimes make my text incredibly blend and devoid of personality.
-But I still find myself following its suggestions, as I am not confident enough in my own writing.
+Initially, my objective was simple: avoid basic grammar mistakes. 
+Grammarly has been a trusty companion, and I have become reliant on it.
 
-Consequently, the 'synonym' feature of Grammarly is too tempting sometimes, it seems like an easy way to elevate my conversational-tone writing and expand my limited vocabulary.
-I started questioning what I was doing when writing the genre analysis when I found myself replacing words with big words that I didn't fully understand.
+Yet, as helpful as it can be, Grammarly isn’t flawless. 
+Its suggestions often feel out of place, making my text overly clinical and stripped of personality. 
+Despite my reservations, I often comply with its advice; my confidence in my own writing and grammatical knowledge is somewhat shaky.
+
+Then there’s the temptation of Grammarly’s ‘synonyms’ feature. 
+It’s a seducing proposition, promising to elevate my casual, conversational tone and broaden my limited vocabulary. 
+But while composing the genre analysis, I noticed a troubling trend: I was swapping words for fancier alternatives, some of which I didn’t fully grasp. 
+
+What am I writing?
