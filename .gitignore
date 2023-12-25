@@ -1,4 +1,5 @@
-# LaTeX related files
+# LaTeX related cache files
+.texpadtmp
 *.tex
 *.synctex(busy)
 *.aux
@@ -10,3 +11,4 @@
 
 # Designing progress
 *.key
+cv-inspirations
