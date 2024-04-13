@@ -423,3 +423,21 @@ img {
 		opacity: 1
 	}
 }
+
+/* On smaller screens, decrease text size */
+@media (max-width: 640px) {
+	.figures-container-1x2, .figures-container-side, .figures-container-full {
+		padding: 0 var(--gap);
+	}
+	.figures-container-1x2 {
+		flex-direction: column;
+		gap: 0;
+	}
+	.figures-container-side {
+		width: 100%;
+	}
+
+	.mySlides>.image-container {
+		aspect-ratio: 3/2;
+	}
+}
