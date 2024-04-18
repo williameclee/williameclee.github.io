@@ -214,21 +214,6 @@ h3,
 	vertical-align: text-top;
 }
 
-/* Header (Title) */
-.header {
-	font-family: var(--font-family-sans);
-	font-weight: 700;
-	background-color: var(--primary-colour);
-	padding: var(--font-size-Huge);
-}
-
-.header img {
-	width: 100%;
-	height: var(--item-min-height-sm);
-	object-fit: cover;
-	object-position: center 10%;
-}
-
 /* Navigation bar */
 .navbar {
 	color: var(--primary-colour);
@@ -274,7 +259,7 @@ h3,
 
 /* Body */
 p {
-	margin-bottom: var(--gap);
+	margin-bottom: var(--space-m);
 }
 
 /* Table */
@@ -284,9 +269,7 @@ table {
 }
 
 .container {
-	/* width: 100%; */
 	width: clamp(60%, 90%, 48rem);
-	/* padding: 0 min(10%, calc(10 * var(--gap))); */
 	margin: auto;
 }
 
