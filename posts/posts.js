@@ -9,9 +9,18 @@ for (
   figures_container_side_counter++
 ) {
   if (figures_container_side_counter % 2 == 0) {
-    figures_container_side[figures_container_side_counter].style.float = "left";
+    figures_container_side[figures_container_side_counter].classList.add(
+      "figures-container-side-left"
+    );
+    figures_container_side[figures_container_side_counter].classList.remove(
+      "figures-container-side-right"
+    );
   } else {
-    figures_container_side[figures_container_side_counter].style.float =
-      "right";
+    figures_container_side[figures_container_side_counter].classList.add(
+      "figures-container-side-right"
+    );
+    figures_container_side[figures_container_side_counter].classList.remove(
+      "figures-container-side-left"
+    );
   }
 }
