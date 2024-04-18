@@ -5,55 +5,6 @@ article {
 	counter-reset: bib-item;
 }
 
-h1.title,
-h2.subtitle {
-	text-align: left;
-}
-
-h1.title {
-	font-family: var(--font-family-sans);
-	font-size: calc(1.2 * var(--font-size-Huge));
-	font-weight: 800;
-	line-height: 1.2;
-	color: var(--primary-colour);
-	padding: 0;
-	margin: 0;
-	margin-bottom: calc(2 * var(--gap));
-}
-
-h2.subtitle {
-	font-family: var(--font-family-sans);
-	font-size: var(--font-size-Large);
-	font-weight: 500;
-	line-height: 1;
-	padding: 0;
-	margin: 0;
-	margin-bottom: calc(0.5 * var(--gap));
-}
-
-h3.section {
-	font-family: var(--font-family-serif);
-	font-weight: 600;
-	font-size: var(--font-size-Large);
-	line-height: 1.5;
-
-	padding: 0;
-	margin: 0;
-	margin-top: calc(2 * var(--gap));
-	margin-bottom: calc(0.5 * var(--gap));
-}
-
-h4.subsection {
-	font-family: var(--font-family-serif);
-	font-weight: 600;
-	font-size: var(--font-size-large);
-	line-height: 1.5;
-
-	padding: 0;
-	margin: 0;
-	margin-top: calc(2 * var(--gap));
-}
-
 .post-information {
 	font-family: var(--font-family-sans);
 	font-size: var(--font-size-fnote);
@@ -86,13 +37,13 @@ p {
 	margin-bottom: calc(2 * var(--gap));
 }
 
-.article-body>p:first-of-type:first-letter {
+/* .article-body>p:first-of-type:first-letter {
 	float: left;
-	font-size: calc(1.6 * var(--font-size-Huge));
+	font-size: var(--font-size-Huge);
+	vertical-align: text-bottom;
 	line-height: 1;
-	margin-top: 0;
 	margin-right: calc(0.5 * var(--font-size-normal));
-}
+} */
 
 blockquote {
 	font-style: italic;
@@ -102,8 +53,6 @@ blockquote {
 	padding-right: calc(3 * var(--gap));
 	margin-bottom: calc(2 * var(--gap));
 	position: relative;
-	/* float: right;
-	max-width: 50%; */
 }
 
 blockquote::before {
@@ -158,11 +107,26 @@ blockquote>p {
 }
 
 .figures-container-side {
-	float: left;
 	width: 50%;
-	padding-right: calc(1 * var(--gap));
-	margin-right: calc(1 * var(--gap));
-	margin-bottom: var(--gap);
+	margin-bottom: var(--space-m);
+}
+
+.figures-container-side-left {
+	/* assigned by javascript and not manually */
+	float: left;
+	padding-right: calc(0.5 * var(--space-m));
+	margin-right: calc(0.5 * var(--space-m));
+	padding-left: 0;
+	margin-left: 0;
+}
+
+.figures-container-side-right { 
+	/* assigned by javascript and not manually */
+	float: right;
+	padding-left: calc(0.5 * var(--space-m));
+	margin-left: calc(0.5 * var(--space-m));
+	padding-right: 0;
+	margin-right: 0;
 }
 
 .figure-container {
@@ -239,7 +203,7 @@ a.bib-mark::after {
 	line-height: 1;
 	padding: 0;
 	margin: 0;
-	rotate: 45deg;
+	rotate: 90deg;
 	top: 0;
 }
 
@@ -426,13 +390,18 @@ img {
 
 /* On smaller screens, decrease text size */
 @media (max-width: 640px) {
-	.figures-container-1x2, .figures-container-side, .figures-container-full {
+
+	.figures-container-1x2,
+	.figures-container-side,
+	.figures-container-full {
 		padding: 0 var(--gap);
 	}
+
 	.figures-container-1x2 {
 		flex-direction: column;
 		gap: 0;
 	}
+
 	.figures-container-side {
 		width: 100%;
 	}
