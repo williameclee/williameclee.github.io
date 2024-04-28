@@ -45,14 +45,26 @@ p {
 	margin-right: calc(0.5 * var(--font-size-normal));
 } */
 
+.base-grid>p,
+.base-grid>h1,
+.base-grid>h2,
+.base-grid>h3,
+.base-grid>h4 {
+	grid-column: 1 / -1;
+}
+
 blockquote {
 	font-style: italic;
 
-	padding-top: calc(1 * var(--gap));
-	padding-left: calc(2 * var(--gap));
-	padding-right: calc(3 * var(--gap));
-	margin-bottom: calc(2 * var(--gap));
+	padding-top: var(--space-s);
+	padding-left: var(--space-m);
+	padding-right: calc(var(--space-m) + var(--space-s));
+	margin-bottom: var(--space-m);
 	position: relative;
+}
+
+.figures-container-side blockquote {
+	padding-right: var(--space-m);
 }
 
 blockquote::before {
@@ -120,7 +132,7 @@ blockquote>p {
 	margin-left: 0;
 }
 
-.figures-container-side-right { 
+.figures-container-side-right {
 	/* assigned by javascript and not manually */
 	float: right;
 	padding-left: calc(0.5 * var(--space-m));
@@ -291,11 +303,21 @@ img {
 	position: absolute;
 	top: 50%;
 	width: auto;
-	padding: 16px;
-	margin-top: -22px;
+	padding: var(--space-xs);
+	margin-top: calc(-0.5 * var(--font-size-large) - 0.5 * var(--space-xs));
+	margin-left: 0;
 	transition: var(--animation-duration) ease;
-	border-radius: 0 var(--gap) var(--gap) 0;
 	user-select: none;
+}
+
+.prev {
+	left: 0;
+	border-radius: 0 var(--space-xs) var(--space-xs) 0;
+}
+
+.next {
+	right: 0;
+	border-radius: var(--space-xs) 0 0 var(--space-xs);
 }
 
 .prev::after {
@@ -310,7 +332,7 @@ img {
 .prev:hover::after,
 .next::after,
 .next:hover::after {
-	rotate: -45deg;
+	rotate: 0deg;
 	font-size: var(--font-size-large);
 	font-weight: bold;
 	color: var(--background-colour);
@@ -323,18 +345,6 @@ img {
 }
 
 
-/* Position the "next button" to the right */
-.next {
-	right: 0;
-	border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-	background-color: rgba(0, 0, 0, 0.8);
-}
-
 /* Caption text */
 .text {
 	color: #f2f2f2;
@@ -346,21 +356,12 @@ img {
 	text-align: center;
 }
 
-/* Number text (1/3 etc) */
-.numbertext {
-	color: #f2f2f2;
-	font-size: 12px;
-	padding: 8px 12px;
-	position: absolute;
-	top: 0;
-}
-
 /* The dots/bullets/indicators */
 .dot {
 	cursor: pointer;
 	height: var(--font-size-tiny);
 	width: var(--font-size-tiny);
-	margin: 0 2px;
+	margin: 0 var(--space-xxs);
 	background-color: var(--tertiary-colour);
 	border-radius: 50%;
 	display: inline-block;

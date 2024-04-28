@@ -29,6 +29,7 @@
 	--space-m: 2rem;
 	--space-s: 1rem;
 	--space-xs: 0.5rem;
+	--space-xxs: 0.2rem;
 	--gap: var(--font-size-normal);
 	--linestretch: 140%;
 	--linestretch-tight: 1.2;
@@ -76,7 +77,7 @@ article {
 
 .base-grid {
 	display: grid;
-	grid-gap: calc(1*var(--gap)) calc(2*var(--gap));
+	grid-gap: calc(1*var(--gap)) var(--space-m);
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -155,6 +156,7 @@ h4,
 	font-family: var(--font-family-sans);
 	line-height: var(--linestretch-tight);
 	text-align: left;
+	text-wrap: balance;
 }
 
 h1,
@@ -168,7 +170,7 @@ h4,
 
 h1,
 .title {
-	font-size: calc(var(--font-size-Huge));
+	font-size: var(--font-size-Huge);
 	font-weight: 800;
 
 	margin-bottom: var(--space-m);
@@ -297,11 +299,6 @@ table {
 .accordion:hover .accordion-toggle {
 	left: calc(var(--gap) * 2);
 	transition: var(--animation-duration) ease-in-out;
-}
-
-.cvtable-panels .panel {
-	display: none;
-	overflow: hidden;
 }
 
 /* Page info */
