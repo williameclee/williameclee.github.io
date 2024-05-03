@@ -45,14 +45,6 @@ p {
 	margin-right: calc(0.5 * var(--font-size-normal));
 } */
 
-.base-grid>p,
-.base-grid>h1,
-.base-grid>h2,
-.base-grid>h3,
-.base-grid>h4 {
-	grid-column: 1 / -1;
-}
-
 blockquote {
 	font-style: italic;
 
@@ -102,6 +94,18 @@ blockquote>p {
 
 .quote-attribution-title {
 	font-style: italic;
+}
+
+/* Images and figures */
+
+.section-banner-image > .image-container {
+	width: 100%;
+	aspect-ratio: 2.5/1;
+	overflow: hidden;
+	position: relative;
+
+	margin-top: var(--space-m);
+	margin-bottom: calc(-1*var(--space-s));
 }
 
 .figures-container-full {

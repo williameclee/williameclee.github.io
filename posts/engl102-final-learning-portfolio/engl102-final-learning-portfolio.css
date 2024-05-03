@@ -1,0 +1,39 @@
+/* Tables */
+.learning-goal {
+	margin-bottom: var(--space-s);
+}
+
+.table-header {
+	font-family: var(--font-family-sans);
+	line-height: var(--linestretch-tight);
+
+	width: 33.33%;
+	padding-right: calc(0.5*var(--space-m));
+	vertical-align: baseline;
+}
+
+.table-body {
+	width: 66.67%;
+	padding-left: calc(0.5*var(--space-m));
+	vertical-align: baseline;
+}
+
+@media (max-width: 640px) {
+
+	.learning-goal tr {
+		display: flex;
+		flex-direction: column;
+
+		margin-bottom: var(--space-s);
+	}
+
+	.table-header {
+		width: 100%;
+		padding-right: 0;
+	}
+
+	.table-body {
+		width: 100%;
+		padding-left: var(--space-m);
+	}
+}
