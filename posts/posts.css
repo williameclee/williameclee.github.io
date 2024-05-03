@@ -98,7 +98,7 @@ blockquote>p {
 
 /* Images and figures */
 
-.section-banner-image > .image-container {
+.section-banner-image .image-container {
 	width: 100%;
 	aspect-ratio: 2.5/1;
 	overflow: hidden;
