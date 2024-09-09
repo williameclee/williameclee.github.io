@@ -193,6 +193,10 @@ img {
 	margin: 0;
 }
 
+.figure-source > .caption {
+	display: inline;
+}
+
 .figure-label {
 	font-weight: 500;
 }

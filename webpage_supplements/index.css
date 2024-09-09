@@ -93,13 +93,13 @@ td.cv-items {
 }
 
 .cv-org_name {
-    display: inline;
+    display: block;
     font-weight: bold;
     margin-right: var(--gap);
 }
 
 .cv-org_location {
-    display: inline;
+    display: block;
 }
 
 .cv-item {
