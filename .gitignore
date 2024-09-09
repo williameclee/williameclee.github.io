@@ -1,3 +1,10 @@
+# Abandoned files
+ENGL101-Project4_Filled.pdf
+revision-outtro.md
+project.html
+project
+Project-Fluid
+
 # LaTeX related cache files
 .texpadtmp
 *.tex
@@ -12,3 +19,7 @@
 # Designing progress
 *.key
 cv-inspirations
+MD-rendering_test
+
+# Mac related cache files
+Icon?
