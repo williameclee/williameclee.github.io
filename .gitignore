@@ -15,6 +15,7 @@ Project-Fluid
 *.log
 *.out
 *.synctex.gz
+academic/
 
 # Designing progress
 *.key
