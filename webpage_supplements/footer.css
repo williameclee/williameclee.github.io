@@ -13,6 +13,7 @@ footer {
 }
 
 .footer-container {
+	margin-bottom: var(--gap);
 	color: var(--secondary-colour);
 	font-size: var(--font-size-fnote);
 }
@@ -24,4 +25,8 @@ footer {
 /* Social media list */
 footer li {
 	font-size: var(--font-size-normal);
+}
+
+footer .s_media-list a {
+	color: inherit;
 }
