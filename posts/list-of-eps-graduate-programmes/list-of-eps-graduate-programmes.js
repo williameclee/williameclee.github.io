@@ -1,5 +1,5 @@
 // Fetch JSON data from an external file
-fetch('eps-grad-schools-list/eps-grad-schools-list.json')
+fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 	.then(response => response.json())
 	.then(programmes => {
 		const tableBody = document.querySelector('#jsonTable tbody');
@@ -8,6 +8,30 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 
 		// Function to populate the table
 		function populateTable(filteredProgrammes) {
+			function addContentToCell(cell, content, textField = 'NAME') {
+				if (content.hasOwnProperty('LINK')) {
+					const cellLink = document.createElement('a');
+					cellLink.href = content.LINK;
+					cellLink.textContent = content[textField];
+					cell.appendChild(cellLink);
+				} else if (content.hasOwnProperty(textField)) {
+					cell.textContent = content[textField];
+				} else {
+					cell.textContent = content;
+				}
+			}
+			function addArrayToList(cell, contentArray, textField = 'NAME', className = null) {
+				const list = document.createElement('ul');
+				if (className) {
+					list.classList.add(className);
+				}
+				contentArray.forEach(arrayItem => {
+					const listItem = document.createElement('li');
+					addContentToCell(listItem, arrayItem, textField);
+					list.appendChild(listItem);
+				});
+				cell.appendChild(list);
+			}
 			tableBody.innerHTML = ''; // Clear previous rows
 
 			for (const institution in filteredProgrammes) {
@@ -17,21 +41,9 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 				const universityCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('UNIVERSITY')) {
 					if (Array.isArray(filteredProgrammes[institution].UNIVERSITY)) {
-						const universitiesList = document.createElement('ul');
-						universitiesList.classList.add('universities-list');
-						filteredProgrammes[institution].UNIVERSITY.forEach(item => {
-							const listItem = document.createElement('li');
-							const listItemLink = document.createElement('a');
-							listItemLink.textContent = item.NAME;
-							if (item.hasOwnProperty('LINK')) {
-								listItemLink.href = item.LINK;
-							}
-							listItem.appendChild(listItemLink);
-							universitiesList.appendChild(listItem);
-						});
-						universityCell.appendChild(universitiesList);
+						addArrayToList(universityCell, filteredProgrammes[institution].UNIVERSITY, 'NAME', 'universities-list');
 					} else {
-						universityCell.textContent = filteredProgrammes[institution].UNIVERSITY;
+						addContentToCell(universityCell, filteredProgrammes[institution].UNIVERSITY);
 					}
 				}
 				row.appendChild(universityCell);
@@ -40,30 +52,9 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 				const departmentCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('DEPARTMENT')) {
 					if (Array.isArray(filteredProgrammes[institution].DEPARTMENT)) {
-						const departmentsList = document.createElement('ul');
-						departmentsList.classList.add('universities-list');
-						filteredProgrammes[institution].DEPARTMENT.forEach(item => {
-							const listItem = document.createElement('li');
-							const listItemLink = document.createElement('a');
-							listItemLink.textContent = item.NAME;
-							if (item.hasOwnProperty('LINK')) {
-								listItemLink.href = item.LINK;
-							}
-							listItem.appendChild(listItemLink);
-							departmentsList.appendChild(listItem);
-						});
-						departmentCell.appendChild(departmentsList);
+						addArrayToList(departmentCell, filteredProgrammes[institution].DEPARTMENT, 'NAME', 'departments-list');
 					} else {
-						if (filteredProgrammes[institution].DEPARTMENT.hasOwnProperty('LINK')) {
-							const departmentLink = document.createElement('a');
-							departmentLink.href = filteredProgrammes[institution].DEPARTMENT.LINK;
-							departmentLink.textContent = filteredProgrammes[institution].DEPARTMENT.NAME;
-							departmentCell.appendChild(departmentLink);
-						} else {
-							const departmentLink = document.createElement('div');
-							departmentLink.textContent = filteredProgrammes[institution].DEPARTMENT.NAME;
-							departmentCell.appendChild(departmentLink);
-						}
+						addContentToCell(departmentCell, filteredProgrammes[institution].DEPARTMENT);
 					}
 				}
 				row.appendChild(departmentCell);
@@ -77,88 +68,42 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 
 				// Create Programme cell with link
 				const programmeCell = document.createElement('td');
-				const programmeLink = document.createElement('a');
 				if (filteredProgrammes[institution].hasOwnProperty('PROGRAMME')) {
-					programmeLink.textContent = filteredProgrammes[institution].PROGRAMME.NAME;
-					if (filteredProgrammes[institution].PROGRAMME.hasOwnProperty('LINK')) {
-						programmeLink.href = filteredProgrammes[institution].PROGRAMME.LINK;
-					}
-					programmeCell.appendChild(programmeLink);
+					addContentToCell(programmeCell, filteredProgrammes[institution].PROGRAMME);
 				}
-				programmeCell.appendChild(programmeLink);
 				row.appendChild(programmeCell);
 
 				// Create concentration cell with link
 				const concentrationCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('CONCENTRATION')) {
 					if (Array.isArray(filteredProgrammes[institution].CONCENTRATION)) {
-						const concentrationsList = document.createElement('ul');
-						concentrationsList.classList.add('concentrations-list');
-						filteredProgrammes[institution].CONCENTRATION.forEach(concentration => {
-							const listItem = document.createElement('li');
-							if (concentration.hasOwnProperty('LINK')) {
-								const listItemLink = document.createElement('a');
-								listItemLink.textContent = concentration.NAME;
-								listItemLink.href = concentration.LINK;
-								listItem.appendChild(listItemLink);
-							} else {
-								const listItemLink = document.createElement('div');
-								listItemLink.textContent = concentration.NAME;
-								listItem.appendChild(listItemLink);
-							}
-							concentrationsList.appendChild(listItem);
-						});
-						concentrationCell.appendChild(concentrationsList);
+						addArrayToList(concentrationCell, filteredProgrammes[institution].CONCENTRATION, 'NAME', 'concentrations-list');
 					} else {
-						if (filteredProgrammes[institution].CONCENTRATION.hasOwnProperty('LINK')) {
-							const concentrationLink = document.createElement('a');
-							concentrationLink.href = filteredProgrammes[institution].CONCENTRATION.LINK;
-							concentrationLink.textContent = filteredProgrammes[institution].CONCENTRATION.NAME;
-							concentrationCell.appendChild(concentrationLink);
-						} else {
-							const concentrationLink = document.createElement('div');
-							concentrationLink.textContent = filteredProgrammes[institution].CONCENTRATION.NAME;
-							concentrationCell.appendChild(concentrationLink);
-						}
+						addContentToCell(concentrationCell, filteredProgrammes[institution].CONCENTRATION);
 					}
 				}
 				row.appendChild(concentrationCell);
 
-				// Create Programme cell with link
+				// Create funding cell with link
 				const fundingCell = document.createElement('td');
-				const fundingLink = document.createElement('a');
 				if (filteredProgrammes[institution].hasOwnProperty('FUNDING')) {
-					fundingLink.textContent = filteredProgrammes[institution].FUNDING.LENGTH;
-					if (filteredProgrammes[institution].FUNDING.hasOwnProperty('LINK')) {
-						fundingLink.href = filteredProgrammes[institution].FUNDING.LINK;
-					}
-					fundingCell.appendChild(fundingLink);
+					addContentToCell(fundingCell, filteredProgrammes[institution].FUNDING, 'LENGTH');
 				}
 				row.appendChild(fundingCell);
 
 				// Create GRE cell with link
 				const greCell = document.createElement('td');
-				const greLink = document.createElement('a');
 				if (filteredProgrammes[institution].hasOwnProperty('REQUIREMENTS') &&
 					filteredProgrammes[institution].REQUIREMENTS.hasOwnProperty('GRE')) {
-					greLink.textContent = filteredProgrammes[institution].REQUIREMENTS.GRE.STATUS;
-					if (filteredProgrammes[institution].REQUIREMENTS.GRE.hasOwnProperty('LINK')) {
-						greLink.href = filteredProgrammes[institution].REQUIREMENTS.GRE.LINK;
-					}
-					greCell.appendChild(greLink);
+					addContentToCell(greCell, filteredProgrammes[institution].REQUIREMENTS.GRE, 'STATUS');
 				}
 				row.appendChild(greCell);
 
 				// Create letter of recommendation cell with link
 				const lorCell = document.createElement('td');
-				const lorLink = document.createElement('a');
 				if (filteredProgrammes[institution].hasOwnProperty('REQUIREMENTS') &&
 					filteredProgrammes[institution].REQUIREMENTS.hasOwnProperty('LETTERS_OF_RECOMMENDATION')) {
-					lorLink.textContent = filteredProgrammes[institution].REQUIREMENTS.LETTERS_OF_RECOMMENDATION.NUMBER;
-					if (filteredProgrammes[institution].REQUIREMENTS.LETTERS_OF_RECOMMENDATION.hasOwnProperty('LINK')) {
-						lorLink.href = filteredProgrammes[institution].REQUIREMENTS.LETTERS_OF_RECOMMENDATION.LINK;
-					}
-					lorCell.appendChild(lorLink);
+					addContentToCell(lorCell, filteredProgrammes[institution].REQUIREMENTS.LETTERS_OF_RECOMMENDATION, 'NUMBER');
 				}
 				row.appendChild(lorCell);
 
@@ -166,60 +111,21 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 				const materialsCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('REQUIREMENTS') &&
 					filteredProgrammes[institution].REQUIREMENTS.hasOwnProperty('MATERIALS')) {
-					const materialsList = document.createElement('ul');
-					materialsList.classList.add('materials-list');
-
-					// Extract materials from the "REQUIREMENTS"
-					filteredProgrammes[institution].REQUIREMENTS.MATERIALS.forEach(material => {
-						const listItem = document.createElement('li');
-						if (material.LINK) {
-							const materialLink = document.createElement('a');
-							materialLink.href = material.LINK;
-							materialLink.textContent = material.DOCUMENT;
-							listItem.appendChild(materialLink);
-						} else {
-							listItem.textContent = material.DOCUMENT;
-						}
-						materialsList.appendChild(listItem);
-					});
-					materialsCell.appendChild(materialsList);
+					addArrayToList(materialsCell, filteredProgrammes[institution].REQUIREMENTS.MATERIALS, 'DOCUMENT', 'materials-list');
 				}
 				row.appendChild(materialsCell);
 
 				// Create resources cell
 				const resourcessCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('APPLICATION_RESOURCES')) {
-					const resourcessList = document.createElement('ul');
-					resourcessList.classList.add('resources-list');
-
-					// Extract materials from the "REQUIREMENTS"
-					filteredProgrammes[institution].APPLICATION_RESOURCES.forEach(material => {
-						const listItem = document.createElement('li');
-						if (material.LINK) {
-							const materialLink = document.createElement('a');
-							materialLink.href = material.LINK;
-							materialLink.textContent = material.NAME;
-							listItem.appendChild(materialLink);
-						} else {
-							listItem.textContent = material.NAME;
-						}
-						resourcessList.appendChild(listItem);
-					});
-					resourcessCell.appendChild(resourcessList);
+					addArrayToList(resourcessCell, filteredProgrammes[institution].APPLICATION_RESOURCES, 'NAME', 'resources-list');
 				}
 				row.appendChild(resourcessCell);
 
-				// Create degree type cell
+				// Create acceptance rate type cell
 				const acceptanceRateCell = document.createElement('td');
 				if (filteredProgrammes[institution].hasOwnProperty('ACCEPTANCE_RATE')) {
-					if (filteredProgrammes[institution].ACCEPTANCE_RATE.hasOwnProperty('LINK')) {
-						const acceptanceRateLink = document.createElement('a');
-						acceptanceRateLink.href = filteredProgrammes[institution].ACCEPTANCE_RATE.LINK;
-						acceptanceRateLink.textContent = filteredProgrammes[institution].ACCEPTANCE_RATE.VALUE;
-						acceptanceRateCell.appendChild(acceptanceRateLink);
-					} else {
-						acceptanceRateCell.textContent = filteredProgrammes[institution].ACCEPTANCE_RATE;
-					}
+					addContentToCell(acceptanceRateCell, filteredProgrammes[institution].ACCEPTANCE_RATE, 'VALUE');
 				}
 				row.appendChild(acceptanceRateCell);
 
@@ -270,17 +176,16 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 
 			// Check if the tag starts with 'subject/' and modify the displayed text accordingly
 			let displayText;
-			if (tag.startsWith('subject/')) {
-				displayText = tag.replace('subject/', '');  // Remove 'subject/'
-				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);  // Capitalize the first letter
+			if (tag.startsWith('subject:')) {
+				displayText = tag.replace('subject:', '');
+				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);
 				subjectTagsContainer.appendChild(checkboxLabel);
-			} else if (tag.startsWith('GRE/')) {
-				displayText = tag.replace(/^GRE\/\d+-/, '');  // Remove 'GRE/' and number
-				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);  // Capitalize the first letter
+			} else if (tag.startsWith('GRE:')) {
+				displayText = tag.replace(/GRE:\d+-/, '');  // Remove 'GRE:' and number
+				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);
 				greTagsContainer.appendChild(checkboxLabel);
-			} else if (tag.startsWith('location/')) {
-				displayText = tag.replace('location/', '');  // Remove 'location/'
-				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);  // Capitalize the first letter
+			} else if (tag.startsWith('location:')) {
+				displayText = tag.replace('location:', '');
 				locationTagsContainer.appendChild(checkboxLabel);
 			} else {
 				displayText = tag;
@@ -306,26 +211,31 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 		// Function to filter the table based on selected tags from both subject and other tags
 		function filterTableByTags() {
 			// Get selected subject tags and other tags
+			const nSubjectTags = subjectTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedSubjectTags = [
 				...subjectTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
+			const nGreTags = greTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedGreTags = [
 				...greTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
+			const nLocationTags = locationTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedLocationTags = [
 				...locationTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
+			const nOtherTags = otherTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedOtherTags = [
 				...otherTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
-			if (selectedSubjectTags.length === 0 &&
-				selectedGreTags.length === 0 &&
-				selectedLocationTags.length === 0 &&
-				selectedOtherTags.length === 0) {
+			// if not selected or all selected, show all
+			if ((selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags) &&
+				(selectedGreTags.length === 0 || selectedGreTags.length === nGreTags) &&
+				(selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags) &&
+				(selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags)) {
 				// If no tag is selected in either category, display all rows
 				populateTable(programmes);
 			} else {
@@ -336,22 +246,22 @@ fetch('eps-grad-schools-list/eps-grad-schools-list.json')
 
 					// Check if the institution has any of the selected subject tags
 					const hasSubjectTag =
-						selectedSubjectTags.length === 0 ||
+						selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags ||
 						selectedSubjectTags.some(tag => institutionTags.includes(tag));
 
 					// Check if the institution has any of the selected GRE tags
 					const hasGreTag =
-						selectedGreTags.length === 0 ||
+						selectedGreTags.length === 0 || selectedGreTags.length === nGreTags ||
 						selectedGreTags.some(tag => institutionTags.includes(tag));
 
 					// Check if the institution has any of the selected location tags
 					const hasLocationTag =
-						selectedLocationTags.length === 0 ||
+						selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags ||
 						selectedLocationTags.some(tag => institutionTags.includes(tag));
 
 					// Check if the institution has any of the selected other tags
 					const hasOtherTag =
-						selectedOtherTags.length === 0 ||
+						selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags ||
 						selectedOtherTags.some(tag => institutionTags.includes(tag));
 
 					// Add the institution to the filtered data if it matches any subject tags AND any other tags

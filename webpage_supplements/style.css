@@ -146,6 +146,13 @@ a:hover::after {
 	rotate: 180deg;
 }
 
+.link-mail::after {
+	content: "\f1d8";
+	font: var(--fa-font-regular);
+	margin-left: 0.1em;
+	rotate: none;
+}
+
 /* Headings */
 h1,
 .title,

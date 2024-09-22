@@ -102,6 +102,7 @@ thead {
 }
 
 .universities-list,
+.departments-list,
 .concentrations-list,
 .materials-list,
 .resources-list {
@@ -111,6 +112,7 @@ thead {
 }
 
 .universities-list li:not(:last-child),
+.departments-list li:not(:last-child),
 .concentrations-list li:not(:last-child),
 .materials-list li:not(:last-child),
 .resources-list li:not(:last-child) {

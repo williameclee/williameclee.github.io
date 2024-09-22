@@ -55,12 +55,12 @@
       }
     ],
     "TAGS": [
-      "subject/geophysics",
-      "subject/marine sciences",
-      "degree/phd",
-      "funding/05",
-      "GRE/02-optional",
-      "location/massachusetts"
+      "subject:geophysics",
+      "subject:marine sciences",
+      "degree:phd",
+      "funding:05",
+      "GRE:02-optional",
+      "location:Massachusetts"
     ]
   },
   "Caltech/Geophysics": {
@@ -107,11 +107,11 @@
       "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
     },
     "TAGS": [
-      "subject/geophysics",
-      "degree/phd",
-      "funding/99",
-      "GRE/04-required",
-      "location/california"
+      "subject:geophysics",
+      "degree:phd",
+      "funding:99",
+      "GRE:04-required",
+      "location:California"
     ]
   },
   "Scripps/Geophysics": {
@@ -162,13 +162,13 @@
       "LINK": "https://grad.ucsd.edu/about/grad-data/admissions.html"
     },
     "TAGS": [
-      "subject/marine sciences",
-      "subject/geophysics",
-      "subject/geodesy",
-      "degree/phd",
-      "funding/05",
-      "GRE/02-optional",
-      "location/california"
+      "subject:marine sciences",
+      "subject:geophysics",
+      "subject:geodesy",
+      "degree:phd",
+      "funding:05",
+      "GRE:02-optional",
+      "location:California"
     ]
   },
   "MIT/Geophysics": {
@@ -212,11 +212,11 @@
       "LINK": "https://ir.mit.edu/projects/graduate-education-statistics/"
     },
     "TAGS": [
-      "subject/geophysics",
-      "degree/phd",
-      "funding/99",
-      "GRE/04-required",
-      "location/massachusetts"
+      "subject:geophysics",
+      "degree:phd",
+      "funding:99",
+      "GRE:04-required",
+      "location:Massachusetts"
     ]
   },
   "UWSeattle/Oceanography": {
@@ -262,11 +262,11 @@
       }
     ],
     "TAGS": [
-      "subject/marine sciences",
-      "degree/phd",
-      "funding/06",
-      "GRE/01-not accepted",
-      "location/washington"
+      "subject:marine sciences",
+      "degree:phd",
+      "funding:06",
+      "GRE:01-not accepted",
+      "location:Washington"
     ]
   },
   "CUBoulder/Geophysics": {
@@ -310,11 +310,11 @@
       "LINK": "https://public.tableau.com/app/profile/university.of.colorado.boulder.ir/viz/Grad_Admissions/ApplicantCounts"
     },
     "TAGS": [
-      "subject/geophysics",
-      "degree/phd",
-      "funding/02",
-      "GRE/01-not accepted",
-      "location/colorado"
+      "subject:geophysics",
+      "degree:phd",
+      "funding:02",
+      "GRE:01-not accepted",
+      "location:Colorado"
     ]
   },
   "UWSeattle/ESS": {
@@ -345,15 +345,15 @@
       }
     },
     "TAGS": [
-      "subject/general geosciences",
-      "subject/planetery sciences",
-      "subject/geophysics",
-      "subject/climate science",
-      "subject/data or computational sciences",
-      "degree/phd",
-      "funding/05",
-      "GRE/01-not accepted",
-      "location/washington"
+      "subject:general geosciences",
+      "subject:planetery sciences",
+      "subject:geophysics",
+      "subject:climate science",
+      "subject:data/computational sciences",
+      "degree:phd",
+      "funding:05",
+      "GRE:01-not accepted",
+      "location:Washington"
     ]
   },
   "UTAustin/Geosciences": {
@@ -389,16 +389,16 @@
       "LINK": "https://gradschool.utexas.edu/about/statistics-surveys/admissions-enrollment"
     },
     "TAGS": [
-      "subject/general geosciences",
-      "subject/geodesy",
-      "subject/geophysics",
-      "subject/climate science",
-      "subject/marine sciences",
-      "subject/planetery sciences",
-      "degree/phd",
-      "funding/05",
-      "GRE/01-not accepted",
-      "location/texas"
+      "subject:general geosciences",
+      "subject:geodesy",
+      "subject:geophysics",
+      "subject:climate science",
+      "subject:marine sciences",
+      "subject:planetery sciences",
+      "degree:phd",
+      "funding:05",
+      "GRE:01-not accepted",
+      "location:Texas"
     ]
   },
   "MIT/ComputationalEAPS": {
@@ -442,13 +442,13 @@
       ]
     },
     "TAGS": [
-      "subject/general geosciences",
-      "subject/planetery sciences",
-      "subject/data or computational sciences",
-      "degree/phd",
-      "funding/99",
-      "GRE/02-optional",
-      "location/massachusetts"
+      "subject:general geosciences",
+      "subject:planetery sciences",
+      "subject:data/computational sciences",
+      "degree:phd",
+      "funding:99",
+      "GRE:02-optional",
+      "location:Massachusetts"
     ]
   },
   "Stanford/Geophysics": {
@@ -478,10 +478,10 @@
       "LINK": "https://irds.stanford.edu/data-findings/doctoral-admissions"
     },
     "TAGS": [
-      "subject/geophysics",
-      "degree/phd",
-      "GRE/02-optional",
-      "location/california"
+      "subject:geophysics",
+      "degree:phd",
+      "GRE:02-optional",
+      "location:California"
     ]
   },
   "Stanford/EPS": {
@@ -511,11 +511,11 @@
       ]
     },
     "TAGS": [
-      "subject/general geosciences",
-      "subject/planetery sciences",
-      "degree/phd",
-      "GRE/01-not accepted",
-      "location/california"
+      "subject:general geosciences",
+      "subject:planetery sciences",
+      "degree:phd",
+      "GRE:01-not accepted",
+      "location:California"
     ]
   },
   "OSU/Geophysics": {
@@ -563,11 +563,11 @@
       ]
     },
     "TAGS": [
-      "subject/geophysics",
-      "subject/marine sciences",
-      "degree/phd",
-      "GRE/02-optional",
-      "location/oregon"
+      "subject:geophysics",
+      "subject:marine sciences",
+      "degree:phd",
+      "GRE:02-optional",
+      "location:Oregon"
     ]
   },
   "PennState/Geosciences/PhD": {
@@ -586,9 +586,9 @@
       "LINK": "https://secure.gradsch.psu.edu/programReview/programReview.cfm?programCode=GEOSC&campus=UP&college=EM"
     },
     "TAGS": [
-      "subject/general geosciences",
-      "degree/phd",
-      "location/pennsylvania"
+      "subject:general geosciences",
+      "degree:phd",
+      "location:Pennsylvania"
     ]
   },
   "PennState/Geosciences/MS": {
@@ -607,9 +607,9 @@
       "LINK": "https://secure.gradsch.psu.edu/programReview/programReview.cfm?programCode=GEOSC&campus=UP&college=EM"
     },
     "TAGS": [
-      "subject/general geosciences",
-      "degree/MS",
-      "location/pennsylvania"
+      "subject:general geosciences",
+      "degree:MS",
+      "location:Pennsylvania"
     ]
   },
   "Princeton/Geosciences": {
@@ -629,14 +629,17 @@
       }
     },
     "TAGS": [
-      "subject/general geosciences",
-      "degree/phd",
-      "GRE/04-required",
-      "location/new Jersey"
+      "subject:general geosciences",
+      "degree:phd",
+      "GRE:04-required",
+      "location:New Jersey"
     ]
   },
   "UCLA/Geophysics": {
-    "UNIVERSITY": "University of California, Los Angeles",
+    "UNIVERSITY": {
+      "NAME": "University of California, Los Angeles",
+      "LINK": "https://www.ucla.edu"
+    },
     "DEPARTMENT": {
       "NAME": "Earth, Planetary, and Space Sciences",
       "LINK": "https://epss.ucla.edu"
@@ -673,12 +676,12 @@
       "LINK": "https://grad.ucla.edu/graduate-program-statistics/admissions/?t=Historicaltrends"
     },
     "TAGS": [
-      "subject/geophysics",
-      "subject/planetery sciences",
-      "degree/phd",
-      "funding/99",
-      "GRE/03-recommended",
-      "location/california"
+      "subject:geophysics",
+      "subject:planetery sciences",
+      "degree:phd",
+      "funding:99",
+      "GRE:03-recommended",
+      "location:California"
     ]
   },
   "UCLA/PlanetaryScience": {
@@ -719,11 +722,11 @@
       "LINK": "https://grad.ucla.edu/graduate-program-statistics/admissions/?t=Historicaltrends"
     },
     "TAGS": [
-      "subject/planetery sciences",
-      "degree/phd",
-      "funding/99",
-      "GRE/02-optional",
-      "location/california"
+      "subject:planetery sciences",
+      "degree:phd",
+      "funding:99",
+      "GRE:02-optional",
+      "location:California"
     ]
   },
   "UCBerkeley/EPS": {
@@ -744,10 +747,10 @@
       }
     },
     "TAGS": [
-      "subject/planetery sciences",
-      "degree/phd",
-      "GRE/02-optional",
-      "location/california"
+      "subject:planetery sciences",
+      "degree:phd",
+      "GRE:02-optional",
+      "location:California"
     ]
   }
 }
