@@ -88,8 +88,8 @@ code {
 
 a {
 	text-decoration: none;
-	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
 	color: var(--primary-colour);
 	background: linear-gradient(to left,
 			var(--secondary-colour),

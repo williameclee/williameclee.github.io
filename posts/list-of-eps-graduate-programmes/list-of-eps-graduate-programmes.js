@@ -96,6 +96,12 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				if (filteredProgrammes[institution].hasOwnProperty('REQUIREMENTS') &&
 					filteredProgrammes[institution].REQUIREMENTS.hasOwnProperty('GRE')) {
 					addContentToCell(greCell, filteredProgrammes[institution].REQUIREMENTS.GRE, 'STATUS');
+					if (filteredProgrammes[institution].REQUIREMENTS.GRE.hasOwnProperty('SUBJECTS')) {
+						const greSubjects = document.createElement('div');
+						greSubjects.classList.add('gre-subjects');
+						greSubjects.textContent = filteredProgrammes[institution].REQUIREMENTS.GRE.SUBJECTS.join(', ');
+						greCell.appendChild(greSubjects);
+					}
 				}
 				row.appendChild(greCell);
 
@@ -128,6 +134,13 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 					addContentToCell(acceptanceRateCell, filteredProgrammes[institution].ACCEPTANCE_RATE, 'VALUE');
 				}
 				row.appendChild(acceptanceRateCell);
+
+				// Create notes type cell
+				const notesCell = document.createElement('td');
+				if (filteredProgrammes[institution].hasOwnProperty('NOTES')) {
+					addContentToCell(notesCell, filteredProgrammes[institution].NOTES);
+				}
+				row.appendChild(notesCell);
 
 				// Append the row to the table body
 				tableBody.appendChild(row);
@@ -170,7 +183,7 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 			const checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';
 			checkbox.value = tag;
-			checkbox.checked = true;
+			// checkbox.checked = true;
 
 			checkbox.addEventListener('change', filterTableByTags);
 

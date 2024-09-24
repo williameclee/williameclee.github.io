@@ -19,7 +19,12 @@ td {
 	line-height: 1;
 	padding: var(--space-xs);
 	text-align: left;
+	text-wrap: balance;
 	vertical-align: top;
+}
+
+td {
+	border-bottom: 0.1rem solid var(--primary-colour);
 }
 
 thead {

@@ -1,12 +1,8 @@
 {
   "MITWHOI/MGG": {
     "UNIVERSITY": [
-      {
-        "NAME": "Massachusetts Institute of Technology"
-      },
-      {
-        "NAME": "Woods Hole Oceanographic Institution"
-      }
+      "Massachusetts Institute of Technology",
+      "Woods Hole Oceanographic Institution"
     ],
     "DEPARTMENT": [
       {
@@ -57,7 +53,7 @@
     "TAGS": [
       "subject:geophysics",
       "subject:marine sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:05",
       "GRE:02-optional",
       "location:Massachusetts"
@@ -108,13 +104,13 @@
     },
     "TAGS": [
       "subject:geophysics",
-      "degree:phd",
+      "degree:PhD",
       "funding:99",
       "GRE:04-required",
       "location:California"
     ]
   },
-  "Scripps/Geophysics": {
+  "Scripps/GEO": {
     "UNIVERSITY": "University of California, San Diego",
     "DEPARTMENT": {
       "NAME": "Scripps Institution of Oceanography",
@@ -124,10 +120,20 @@
       "NAME": "Geosciences of the Earth, Oceans and Planets",
       "LINK": "https://scripps.ucsd.edu/doctoral/program-areas#geo"
     },
-    "CONCENTRATION": {
-      "NAME": "Geophysics",
-      "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/geophysics-gp"
-    },
+    "CONCENTRATION": [
+      {
+        "NAME": "Geophysics",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/geophysics-gp"
+      },
+      {
+        "NAME": "Geosciences",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/geosciences-gs"
+      },
+      {
+        "NAME": "Marine Chemistry and Geochemistry",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/marine-chemistry-geochemistry-mcg"
+      }
+    ],
     "TYPE": "PhD",
     "FUNDING": {
       "LENGTH": "5 years",
@@ -153,8 +159,12 @@
     },
     "APPLICATION_RESOURCES": [
       {
-        "NAME": "2023 info session recording",
+        "NAME": "2023 info session recording (Geophysics)",
         "LINK": "https://www.youtube.com/watch?v=1kPKiiDmpx8"
+      },
+      {
+        "NAME": "2023 info session recording (Geosciences; Marine Chemistry and Geochemistry)",
+        "LINK": "https://www.youtube.com/watch?v=CM64OmLzO1k"
       }
     ],
     "ACCEPTANCE_RATE": {
@@ -163,9 +173,77 @@
     },
     "TAGS": [
       "subject:marine sciences",
+      "subject:general geosciences",
       "subject:geophysics",
-      "subject:geodesy",
-      "degree:phd",
+      "subject:geochemistry",
+      "degree:PhD",
+      "funding:05",
+      "GRE:02-optional",
+      "location:California"
+    ]
+  },
+  "Scripps/COAP": {
+    "UNIVERSITY": "University of California, San Diego",
+    "DEPARTMENT": {
+      "NAME": "Scripps Institution of Oceanography",
+      "LINK": "http://www.sio.ucsd.edu/"
+    },
+    "PROGRAMME": {
+      "NAME": "Climate - Ocean - Atmosphere Program",
+      "LINK": "https://scripps.ucsd.edu/doctoral/program-areas#coap"
+    },
+    "CONCENTRATION": [
+      {
+        "NAME": "Applied Ocean Science",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/applied-ocean-science-aos"
+      },
+      {
+        "NAME": "Climate Sciences",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/climate-sciences-cs"
+      },
+      {
+        "NAME": "Physical Oceanography",
+        "LINK": "https://scripps.ucsd.edu/doctoral/program-areas/physical-oceanography-po"
+      }
+    ],
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://scripps.ucsd.edu/doctoral/cost-funding"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://scripps.ucsd.edu/doctoral/admissions/how-apply"
+        },
+        {
+          "DOCUMENT": "Resume"
+        }
+      ]
+    },
+    "ACCEPTANCE_RATE": {
+      "VALUE": "17-24% (institution)",
+      "LINK": "https://grad.ucsd.edu/about/grad-data/admissions.html"
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "2023 info session recording",
+        "LINK": "https://www.youtube.com/watch?v=b9oMdWLQNPM"
+      }
+    ],
+    "TAGS": [
+      "subject:marine sciences",
+      "subject:climate science",
+      "subject:applied sciences",
+      "degree:PhD",
       "funding:05",
       "GRE:02-optional",
       "location:California"
@@ -189,7 +267,8 @@
     "REQUIREMENTS": {
       "GRE": {
         "STATUS": "Required",
-        "LINK": "https://eaps.mit.edu/education/graduate-program/graduate-admissions"
+        "LINK": "https://eaps.mit.edu/education/graduate-program/graduate-admissions",
+        "SUBJECTS": ["General"]
       },
       "LETTERS_OF_RECOMMENDATION": {
         "NUMBER": "3"
@@ -213,7 +292,56 @@
     },
     "TAGS": [
       "subject:geophysics",
-      "degree:phd",
+      "degree:PhD",
+      "funding:99",
+      "GRE:04-required",
+      "location:Massachusetts"
+    ]
+  },
+  "MIT/PPS": {
+    "UNIVERSITY": "Massachusetts Institute of Technology",
+    "DEPARTMENT": {
+      "NAME": "Earth, Atmospheric + Planetary Sciences",
+      "LINK": "https://eaps.mit.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Planetary Science",
+      "LINK": "https://eaps.mit.edu/academic-programs/planetary-science/"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Full",
+      "LINK": "https://eaps.mit.edu/education/graduate-program/graduate-funding"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Required",
+        "LINK": "https://eaps.mit.edu/education/graduate-program/graduate-admissions",
+        "SUBJECTS": ["General", "Physics (optional)"]
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of objectives",
+          "LINK": "https://oge.mit.edu/programs/earth-atmospheric-and-planetary-sciences"
+        }
+      ]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "EAPS Application Mentorship Programme",
+        "LINK": "https://sites.google.com/view/eaps-student-advisory-council/application-assistance"
+      }
+    ],
+    "ACCEPTANCE_RATE": {
+      "VALUE": "11-28% (department)",
+      "LINK": "https://ir.mit.edu/projects/graduate-education-statistics/"
+    },
+    "TAGS": [
+      "subject:planetery sciences",
+      "degree:PhD",
       "funding:99",
       "GRE:04-required",
       "location:Massachusetts"
@@ -263,7 +391,7 @@
     ],
     "TAGS": [
       "subject:marine sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:06",
       "GRE:01-not accepted",
       "location:Washington"
@@ -272,7 +400,8 @@
   "CUBoulder/Geophysics": {
     "UNIVERSITY": "University of Colorado Boulder",
     "DEPARTMENT": {
-      "NAME": "Geological Sciences"
+      "NAME": "Geological Sciences",
+      "LINK": "https://www.colorado.edu/geologicalsciences/"
     },
     "PROGRAMME": {
       "NAME": "Geological Sciences",
@@ -311,7 +440,7 @@
     },
     "TAGS": [
       "subject:geophysics",
-      "degree:phd",
+      "degree:PhD",
       "funding:02",
       "GRE:01-not accepted",
       "location:Colorado"
@@ -328,7 +457,7 @@
       "LINK": "https://ess.uw.edu/education/graduate-program/"
     },
     "CONCENTRATION": {
-      "NAME": "Data Science option",
+      "NAME": "Data Science (optional)",
       "LINK": "https://ess.uw.edu/education/graduate-program/phd-data-science-option/"
     },
     "TYPE": "PhD",
@@ -347,10 +476,8 @@
     "TAGS": [
       "subject:general geosciences",
       "subject:planetery sciences",
-      "subject:geophysics",
-      "subject:climate science",
       "subject:data/computational sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:05",
       "GRE:01-not accepted",
       "location:Washington"
@@ -390,12 +517,8 @@
     },
     "TAGS": [
       "subject:general geosciences",
-      "subject:geodesy",
       "subject:geophysics",
-      "subject:climate science",
-      "subject:marine sciences",
-      "subject:planetery sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:05",
       "GRE:01-not accepted",
       "location:Texas"
@@ -414,7 +537,8 @@
       }
     ],
     "PROGRAMME": {
-      "NAME": "Computational Science and Engineering"
+      "NAME": "Computational Science and Engineering",
+      "LINK": "https://cse.mit.edu/programs/phd/dept-cse/"
     },
     "CONCENTRATION": {
       "NAME": "Computational Earth, Atmospheric and Planetary Sciences"
@@ -443,9 +567,8 @@
     },
     "TAGS": [
       "subject:general geosciences",
-      "subject:planetery sciences",
       "subject:data/computational sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:99",
       "GRE:02-optional",
       "location:Massachusetts"
@@ -454,7 +577,8 @@
   "Stanford/Geophysics": {
     "UNIVERSITY": "Stanford University",
     "DEPARTMENT": {
-      "NAME": "Geophysics"
+      "NAME": "Geophysics",
+      "LINK": "https://geophysics.stanford.edu"
     },
     "PROGRAMME": {
       "NAME": "Geophysics",
@@ -467,6 +591,10 @@
         "LINK": "https://geophysics.stanford.edu/academics-admissions/admissions/common-questions"
       }
     },
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://geophysics.stanford.edu/academics-admissions/admissions/funding"
+    },
     "APPLICATION_RESOURCES": [
       {
         "NAME": "2023 info session recording",
@@ -477,9 +605,11 @@
       "VALUE": "13-22%",
       "LINK": "https://irds.stanford.edu/data-findings/doctoral-admissions"
     },
+    "NOTES": "One can only apply to one programme at Stanford",
     "TAGS": [
       "subject:geophysics",
-      "degree:phd",
+      "degree:PhD",
+      "funding:99",
       "GRE:02-optional",
       "location:California"
     ]
@@ -487,13 +617,18 @@
   "Stanford/EPS": {
     "UNIVERSITY": "Stanford University",
     "DEPARTMENT": {
-      "NAME": "Earth and Planetary Sciences"
+      "NAME": "Earth and Planetary Sciences",
+      "LINK": "https://epsci.stanford.edu"
     },
     "PROGRAMME": {
       "NAME": "Earth and Planetary Sciences",
       "LINK": "https://epsci.stanford.edu/academics-admissions/graduate-program"
     },
     "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://epsci.stanford.edu/academics-admissions/graduate-program/application-information#:~:text=Graduate%20students%20admitted%20to%20EPS,sources%20(including%20external%20fellowships)."
+    },
     "REQUIREMENTS": {
       "GRE": {
         "STATUS": "No",
@@ -510,10 +645,12 @@
         }
       ]
     },
+    "NOTES": "One can only apply to one programme at Stanford",
     "TAGS": [
       "subject:general geosciences",
       "subject:planetery sciences",
-      "degree:phd",
+      "degree:PhD",
+      "funding:99",
       "GRE:01-not accepted",
       "location:California"
     ]
@@ -565,7 +702,7 @@
     "TAGS": [
       "subject:geophysics",
       "subject:marine sciences",
-      "degree:phd",
+      "degree:PhD",
       "GRE:02-optional",
       "location:Oregon"
     ]
@@ -581,13 +718,35 @@
       "LINK": "https://www.geosc.psu.edu/academics/find-program-study/geosciences-ms-phd-degree-program"
     },
     "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Short responses",
+          "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+        }
+      ]
+    },
     "ACCEPTANCE_RATE": {
       "VALUE": "15-28%",
       "LINK": "https://secure.gradsch.psu.edu/programReview/programReview.cfm?programCode=GEOSC&campus=UP&college=EM"
     },
     "TAGS": [
       "subject:general geosciences",
-      "degree:phd",
+      "degree:PhD",
+      "funding:99",
+      "GRE:02-optional",
       "location:Pennsylvania"
     ]
   },
@@ -602,6 +761,26 @@
       "LINK": "https://www.geosc.psu.edu/academics/find-program-study/geosciences-ms-phd-degree-program"
     },
     "TYPE": "MS",
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Short responses",
+          "LINK": "https://www.geosc.psu.edu/graduate/prospective-students/application-graduate-program-geosciences-penn-state"
+        }
+      ]
+    },
     "ACCEPTANCE_RATE": {
       "VALUE": "10-21%",
       "LINK": "https://secure.gradsch.psu.edu/programReview/programReview.cfm?programCode=GEOSC&campus=UP&college=EM"
@@ -609,6 +788,7 @@
     "TAGS": [
       "subject:general geosciences",
       "degree:MS",
+      "funding:99",
       "location:Pennsylvania"
     ]
   },
@@ -622,24 +802,81 @@
       "LINK": "https://geosciences.princeton.edu/graduate"
     },
     "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "4 years",
+      "LINK": "https://geosciences.princeton.edu/graduate/applications#:~:text=In%20general%2C%20graduate%20students%20are,through%20an%20Assistantship%20in%20Instruction."
+    },
     "REQUIREMENTS": {
       "GRE": {
         "STATUS": "Yes",
         "LINK": "https://geosciences.princeton.edu/graduate/applications"
-      }
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of academic purpose",
+          "LINK": "https://gradschool.princeton.edu/admission-onboarding/prepare/academic-statement-purpose"
+        },
+        {
+          "DOCUMENT": "CV/resume",
+          "LINK": "https://gradschool.princeton.edu/admission-onboarding/prepare/resume-curriculum-vitae"
+        }
+      ]
     },
     "TAGS": [
       "subject:general geosciences",
-      "degree:phd",
+      "degree:PhD",
+      "funding:04",
       "GRE:04-required",
       "location:New Jersey"
     ]
   },
-  "UCLA/Geophysics": {
-    "UNIVERSITY": {
-      "NAME": "University of California, Los Angeles",
-      "LINK": "https://www.ucla.edu"
+  "Princeton/AOS": {
+    "UNIVERSITY": "Princeton University",
+    "DEPARTMENT": {
+      "NAME": "Geosciences"
     },
+    "PROGRAMME": {
+      "NAME": "Atmospheric and Oceanic Sciences",
+      "LINK": "https://aos.princeton.edu/phd_program/overview"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://aos.princeton.edu/phd_program/overview"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://aos.princeton.edu/phd_program/prospective-students"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of academic purpose",
+          "LINK": "https://gradschool.princeton.edu/admission-onboarding/prepare/academic-statement-purpose"
+        },
+        {
+          "DOCUMENT": "CV/resume",
+          "LINK": "https://gradschool.princeton.edu/admission-onboarding/prepare/resume-curriculum-vitae"
+        }
+      ]
+    },
+    "TAGS": [
+      "subject:marine sciences",
+      "subject:atmospheric sciences",
+      "degree:PhD",
+      "funding:05",
+      "GRE:02-optional",
+      "location:New Jersey"
+    ]
+  },
+  "UCLA/Geophysics": {
+    "UNIVERSITY": "University of California, Los Angeles",
     "DEPARTMENT": {
       "NAME": "Earth, Planetary, and Space Sciences",
       "LINK": "https://epss.ucla.edu"
@@ -655,8 +892,9 @@
     },
     "REQUIREMENTS": {
       "GRE": {
-        "STATUS": "Recommended (physics & maths)",
-        "LINK": "https://grad.ucla.edu/programs/physical-sciences/earth-planetary-and-space-sciences-department/geophysics-space-physics/#program-requirements"
+        "STATUS": "Recommended",
+        "LINK": "https://grad.ucla.edu/programs/physical-sciences/earth-planetary-and-space-sciences-department/geophysics-space-physics/#program-requirements",
+        "SUBJECTS": ["Physics", "Mathematics"]
       },
       "LETTERS_OF_RECOMMENDATION": {
         "NUMBER": "3",
@@ -678,7 +916,7 @@
     "TAGS": [
       "subject:geophysics",
       "subject:planetery sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:99",
       "GRE:03-recommended",
       "location:California"
@@ -723,7 +961,7 @@
     },
     "TAGS": [
       "subject:planetery sciences",
-      "degree:phd",
+      "degree:PhD",
       "funding:99",
       "GRE:02-optional",
       "location:California"
@@ -748,9 +986,269 @@
     },
     "TAGS": [
       "subject:planetery sciences",
-      "degree:phd",
+      "degree:PhD",
       "GRE:02-optional",
       "location:California"
+    ]
+  },
+  "UCSB/EarthScience": {
+    "UNIVERSITY": "University of California, Santa Barbara",
+    "DEPARTMENT": {
+      "NAME": "Earth Science",
+      "LINK": "https://www.geol.ucsb.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Earth Science",
+      "LINK": "https://www.geol.ucsb.edu/graduate"
+    },
+    "CONCENTRATION": [
+      "Climate Science and Climate Change (optional)",
+      "Computational Science and Engineering (optional)",
+      "Environment and Society (optional)"
+    ],
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://www.geol.ucsb.edu/graduate-overview"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+        },
+        {
+          "DOCUMENT": "Personal achievements/contributions statement",
+          "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+        },
+        {
+          "DOCUMENT": "CV/resume"
+        }
+      ]
+    },
+    "ACCEPTANCE_RATE": {
+      "VALUE": "19-35%",
+      "LINK": "https://www.graddiv.ucsb.edu/ucsb-graduate-statistics"
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "subject:data/computational sciences",
+      "subject:climate science",
+      "degree:PhD",
+      "funding:05",
+      "GRE:01-not accepted",
+      "location:California"
+    ]
+  },
+  "UCSB/EarthScience/MS": {
+    "UNIVERSITY": "University of California, Santa Barbara",
+    "DEPARTMENT": {
+      "NAME": "Earth Science",
+      "LINK": "https://www.geol.ucsb.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Earth Science",
+      "LINK": "https://www.geol.ucsb.edu/graduate"
+    },
+    "TYPE": "MS",
+    "FUNDING": {
+      "LENGTH": "2 years",
+      "LINK": "https://www.geol.ucsb.edu/graduate-overview"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+        },
+        {
+          "DOCUMENT": "Personal achievements/contributions statement",
+          "LINK": "https://www.geol.ucsb.edu/applyFAQs"
+        },
+        {
+          "DOCUMENT": "CV/resume"
+        }
+      ]
+    },
+    "ACCEPTANCE_RATE": {
+      "VALUE": "14-31%",
+      "LINK": "https://www.graddiv.ucsb.edu/ucsb-graduate-statistics"
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "degree:MS",
+      "funding:02",
+      "GRE:01-not accepted",
+      "location:California"
+    ]
+  },
+  "UCSB/IGMPS": {
+    "UNIVERSITY": "University of California, Santa Barbara",
+    "DEPARTMENT": {
+      "NAME": "Interdepartmental Graduate Program in Marine Science",
+      "LINK": "https://www.igmps.ucsb.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Marine Science",
+      "LINK": "https://www.igmps.ucsb.edu/graduate-program"
+    },
+    "TYPE": "PhD"
+  },
+  "UA/LPL": {
+    "UNIVERSITY": "University of Arizona",
+    "DEPARTMENT": {
+      "NAME": "Lunar and Planetary Laboratory",
+      "LINK": "https://www.lpl.arizona.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Planetary Sciences",
+      "LINK": "https://www.lpl.arizona.edu/graduate/planetary-sciences"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years*",
+      "LINK": "https://intranet.lpl.arizona.edu/faq/prospective-graduate-student?_gl=1%2A6mbvns%2A_gcl_au%2AMjEyMjczNTgzMC4xNzI3MTE3MjQz%2A_ga%2AOTI3OTAwNjM1LjE3MjcxMTQ3MTE.%2A_ga_7PV3540XS3%2AMTcyNzExNzI0My4xLjEuMTcyNzExNzI2Mi4wLjAuODM0NjY5ODM4"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.lpl.arizona.edu/admissions"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.lpl.arizona.edu/admissions/how-to-apply"
+        }
+      ]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "2023 info session recording",
+        "LINK": "https://epsci.stanford.edu/academics-admissions/graduate-program/application-information"
+      }
+    ],
+    "ACCEPTANCE_RATE": {
+      "VALUE": "14%",
+      "LINK": "https://grad.arizona.edu/admissions-guides/#program/PTYSPHD"
+    },
+    "NOTES": "Funding is not guaranteed",
+    "TAGS": [
+      "subject:planetery sciences",
+      "degree:PhD",
+      "funding:05",
+      "GRE:01-not accepted",
+      "location:Arizona"
+    ]
+  },
+  "UA/GEOS": {
+    "UNIVERSITY": "University of Arizona",
+    "DEPARTMENT": {
+      "NAME": "Geosciences",
+      "LINK": "https://www.geo.arizona.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Geosciences",
+      "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "4 years",
+      "LINK": "https://www.geo.arizona.edu/GradAdmissionsFAQ"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+        },
+        {
+          "DOCUMENT": "CV/resume"
+        }
+      ]
+    },
+    "ACCEPTANCE_RATE": {
+      "VALUE": "24%",
+      "LINK": "https://grad.arizona.edu/admissions-guides/#program/GEOSPHD"
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "degree:PhD",
+      "funding:04",
+      "GRE:01-not accepted",
+      "location:Arizona"
+    ]
+  },
+  "UA/GEOS/MS": {
+    "UNIVERSITY": "University of Arizona",
+    "DEPARTMENT": {
+      "NAME": "Geosciences",
+      "LINK": "https://www.geo.arizona.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Geosciences",
+      "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+    },
+    "TYPE": "MS",
+    "FUNDING": {
+      "LENGTH": "2 years",
+      "LINK": "https://www.geo.arizona.edu/GradAdmissionsFAQ"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.geo.arizona.edu/prospective-graduate-students"
+        },
+        {
+          "DOCUMENT": "CV/resume"
+        }
+      ]
+    },
+    "ACCEPTANCE_RATE": {
+      "VALUE": "11%",
+      "LINK": "https://grad.arizona.edu/admissions-guides/#program/GEOSMS"
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "degree:MS",
+      "funding:02",
+      "GRE:01-not accepted",
+      "location:Arizona"
     ]
   }
 }
