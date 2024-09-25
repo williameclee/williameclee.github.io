@@ -745,7 +745,7 @@
     "TAGS": [
       "subject:general geosciences",
       "degree:PhD",
-      "funding:99",
+      "funding:??",
       "GRE:02-optional",
       "location:Pennsylvania"
     ]
@@ -788,7 +788,7 @@
     "TAGS": [
       "subject:general geosciences",
       "degree:MS",
-      "funding:99",
+      "funding:??",
       "location:Pennsylvania"
     ]
   },
@@ -1108,7 +1108,45 @@
       "NAME": "Marine Science",
       "LINK": "https://www.igmps.ucsb.edu/graduate-program"
     },
-    "TYPE": "PhD"
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://www.igpms.ucsb.edu/academics/support"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "No",
+        "LINK": "https://www.igpms.ucsb.edu/academics/apply"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://www.igpms.ucsb.edu/academics/apply"
+      },
+      "MATERIALS": [
+        "Statement of purpose",
+        "CV/resume",
+        {
+          "DOCUMENT": "Personal history and diversity Statement",
+          "LINK": "https://www.igpms.ucsb.edu/academics/apply"
+        }
+      ]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "Graduate Application/Admission Process Timeline & Tips",
+        "LINK": "https://docs.google.com/document/d/e/2PACX-1vQcAcPKrThKidO-o4inKguECF81jpes1Cjbrs0Jn5aky5zEKXr8xtGBB9NkL5mV56lQTnKfykKhm1zT/pub"
+      }
+    ],
+    "ACCEPTANCE_RATE": {
+      "VALUE": "6-26%",
+      "LINK": "https://www.graddiv.ucsb.edu/ucsb-graduate-statistics"
+    },
+    "TAGS": [
+      "subject:marine sciences",
+      "degree:PhD",
+      "funding:??",
+      "location:California"
+    ]
   },
   "UA/LPL": {
     "UNIVERSITY": "University of Arizona",
@@ -1249,6 +1287,106 @@
       "funding:02",
       "GRE:01-not accepted",
       "location:Arizona"
+    ]
+  },
+  "ASU/GeologicalSciences": {
+    "UNIVERSITY": "Arizona State University",
+    "DEPARTMENT": {
+      "NAME": "School of Earth and Space Exploration",
+      "LINK": "https://sese.asu.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Geological Sciences",
+      "LINK": "https://sese.asu.edu/degree/graduate/geological-sciences-phd"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://sese.asu.edu/student-life/financial-support"
+    },
+    "REQUIREMENTS": {
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": ["Statement of purpose"]
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "degree:PhD",
+      "funding:05",
+      "location:Arizona"
+    ]
+  },
+  "ASU/GeologicalSciences/MS": {
+    "UNIVERSITY": "Arizona State University",
+    "DEPARTMENT": {
+      "NAME": "School of Earth and Space Exploration",
+      "LINK": "https://sese.asu.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Geological Sciences",
+      "LINK": "https://sese.asu.edu/degree/graduate/geological-sciences-ms"
+    },
+    "TYPE": "MS",
+    "FUNDING": {
+      "LENGTH": "2 years",
+      "LINK": "https://sese.asu.edu/student-life/financial-support"
+    },
+    "REQUIREMENTS": {
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3"
+      },
+      "MATERIALS": ["Statement of purpose"]
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "degree:MS",
+      "funding:02",
+      "location:Arizona"
+    ]
+  },
+  "ETH/ES/MS": {
+    "UNIVERSITY": "ETH Zürich",
+    "DEPARTMENT": {
+      "NAME": "Earth Sciences",
+      "LINK": "https://eaps.ethz.ch/en/"
+    },
+    "PROGRAMME": {
+      "NAME": "Earth Sciences",
+      "LINK": "https://eaps.ethz.ch/en/studies/master.html"
+    },
+    "CONCENTRATION": [
+      {
+        "NAME": "Geology",
+        "LINK": "https://eaps.ethz.ch/en/studies/master/earth-sciences/geology.html"
+      },
+      {
+        "NAME": "Mineralogy and Geochemistry",
+        "LINK": "https://eaps.ethz.ch/en/studies/master/earth-sciences/mineralogy-geochemistry.html"
+      },
+      {
+        "NAME": "Engineering Geology",
+        "LINK": "https://eaps.ethz.ch/en/studies/master/earth-sciences/engineering-geology.html"
+      },
+      {
+        "NAME": "Geophysics",
+        "LINK": "https://eaps.ethz.ch/en/studies/master/earth-sciences/geophysics.html"
+      }
+    ],
+    "TYPE": "MS",
+    "REQUIREMENTS": {
+      "MATERIALS": [
+        {
+          "DOCUMENT": "English proficiency",
+          "LINK": "https://ethz.ch/content/dam/ethz/common/docs/master-profile/englisch/systemorientierte-wissenschaften/MSc-Earth-Sciences-Appendix.pdf"
+        }
+      ]
+    },
+    "TAGS": [
+      "subject:general geosciences",
+      "subject:geophysics",
+      "degree:MS",
+      "location:Switzerland"
     ]
   }
 }
