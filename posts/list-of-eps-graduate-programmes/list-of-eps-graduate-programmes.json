@@ -745,7 +745,7 @@
     "TAGS": [
       "subject:general geosciences",
       "degree:PhD",
-      "funding:??",
+      "funding:unspecified",
       "GRE:02-optional",
       "location:Pennsylvania"
     ]
@@ -788,7 +788,7 @@
     "TAGS": [
       "subject:general geosciences",
       "degree:MS",
-      "funding:??",
+      "funding:unspecified",
       "location:Pennsylvania"
     ]
   },
@@ -1042,6 +1042,7 @@
       "subject:general geosciences",
       "subject:data/computational sciences",
       "subject:climate science",
+      "subject:environmental sciences",
       "degree:PhD",
       "funding:05",
       "GRE:01-not accepted",
@@ -1144,7 +1145,7 @@
     "TAGS": [
       "subject:marine sciences",
       "degree:PhD",
-      "funding:??",
+      "funding:unspecified",
       "location:California"
     ]
   },
@@ -1386,7 +1387,102 @@
       "subject:general geosciences",
       "subject:geophysics",
       "degree:MS",
-      "location:Switzerland"
+      "location:Switzerland (international)"
+    ]
+  },
+  "NYU/AOSM": {
+    "UNIVERSITY": "New York University",
+    "DEPARTMENT": [
+      {
+        "NAME": "Center for Atmosphere Ocean Science",
+        "LINK": "https://math.nyu.edu/dynamic/atmosphere-ocean-science/"
+      },
+      {
+        "NAME": "Mathematics",
+        "LINK": "https://math.nyu.edu/dynamic/"
+      }
+    ],
+    "PROGRAMME": {
+      "NAME": "Atmosphere Ocean Science and Mathematics",
+      "LINK": "https://caos.cims.nyu.edu/dynamic/phd-program/overview/"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://caos.cims.nyu.edu/dynamic/phd-program/admissions-and-financial-support/"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Yes",
+        "LINK": "https://gsas.nyu.edu/admissions/arc/programs/mathematics.html",
+        "SUBJECTS": ["Mathematics"]
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://gsas.nyu.edu/admissions/arc/letters-of-recommendation.html"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of academic purpose",
+          "LINK": "https://gsas.nyu.edu/admissions/arc/programs/mathematics.html"
+        },
+        "CV/resume",
+        {
+          "DOCUMENT": "Personal history statement (optional)",
+          "LINK": "https://gsas.nyu.edu/admissions/arc/statements.html#phs"
+        }
+      ]
+    },
+    "NOTES": "Applied theough the mathematics departnment",
+    "TAGS": [
+      "subject:atmospheric sciences",
+      "subject:marine sciences",
+      "subject:mathematics",
+      "degree:PhD",
+      "funding:05",
+      "GRE:04-required",
+      "location:New York"
+    ]
+  },
+  "Columbias/DEES": {
+    "UNIVERSITY": "Columbia University",
+    "DEPARTMENT": {
+      "NAME": "Earth and Environmental Sciences",
+      "LINK": "https://eesc.columbia.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Earth and Environmental Sciences",
+      "LINK": "https://eesc.columbia.edu/content/graduate-prospective-students"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "5 years",
+      "LINK": "https://eesc.columbia.edu/content/admissions-faq"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Not required",
+        "LINK": "https://eesc.columbia.edu/content/admissions-requirements"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://eesc.columbia.edu/content/admissions-requirements"
+      },
+      "MATERIALS": ["Personal statement of academic purpose"]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "DEES Application Mentorship Program",
+        "LINK": "https://eesc.columbia.edu/content/dees-application-mentorship-program-dees-amp"
+      }
+    ],
+    "TAGS": [
+      "subject:general geosciences",
+      "subject:environmental sciences",
+      "degree:PhD",
+      "funding:05",
+      "GRE:02-optional",
+      "location:New York"
     ]
   }
 }

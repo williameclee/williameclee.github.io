@@ -162,17 +162,22 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 
 		// Create containers for subject tags and other tags
 		const subjectTagsContainer = document.createElement('div');
-		const greTagsContainer = document.createElement('div');
-		const locationTagsContainer = document.createElement('div');
-		const otherTagsContainer = document.createElement('div');
 		subjectTagsContainer.classList.add('tag-container');
-		subjectTagsContainer.id = 'subject-tags-container';
-		greTagsContainer.classList.add('tag-container');
-		locationTagsContainer.classList.add('tag-container');
-		otherTagsContainer.classList.add('tag-container');
 		subjectTagsContainer.innerHTML = '<h3>Subjects</h3>';
+		const greTagsContainer = document.createElement('div');
+		greTagsContainer.classList.add('tag-container');
 		greTagsContainer.innerHTML = '<h3>GRE</h3>';
+		const locationTagsContainer = document.createElement('div');
+		locationTagsContainer.classList.add('tag-container');
 		locationTagsContainer.innerHTML = '<h3>Location</h3>';
+		const degreeTypeTagsContainer = document.createElement('div');
+		degreeTypeTagsContainer.classList.add('tag-container');
+		degreeTypeTagsContainer.innerHTML = '<h3>Degree</h3>';
+		const fundingTagsContainer = document.createElement('div');
+		fundingTagsContainer.classList.add('tag-container');
+		fundingTagsContainer.innerHTML = '<h3>Funding</h3>';
+		const otherTagsContainer = document.createElement('div');
+		otherTagsContainer.classList.add('tag-container');
 		otherTagsContainer.innerHTML = '<h3>Other Tags</h3>';
 
 		// Populate the tag checklist with sorted tags and split into two groups
@@ -200,6 +205,16 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 			} else if (tag.startsWith('location:')) {
 				displayText = tag.replace('location:', '');
 				locationTagsContainer.appendChild(checkboxLabel);
+			} else if (tag.startsWith('degree:')) {
+				displayText = tag.replace('degree:', '');
+				degreeTypeTagsContainer.appendChild(checkboxLabel);
+			} else if (tag.startsWith('funding:')) {
+				displayText = tag.replace('funding:', '');
+				displayText = displayText.charAt(0).toUpperCase() + displayText.slice(1);
+				if (typeof displayText === 'number') {
+					displayText = displayText + ' years';
+				}
+				fundingTagsContainer.appendChild(checkboxLabel);
 			} else {
 				displayText = tag;
 				otherTagsContainer.appendChild(checkboxLabel);
@@ -219,7 +234,11 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 		tagChecklist.appendChild(subjectTagsContainer);
 		tagChecklist.appendChild(greTagsContainer);
 		tagChecklist.appendChild(locationTagsContainer);
-		tagChecklist.appendChild(otherTagsContainer);
+		tagChecklist.appendChild(degreeTypeTagsContainer);
+		tagChecklist.appendChild(fundingTagsContainer);
+		if (otherTagsContainer.childElementCount > 1) { // Only append if there are child elements except the header
+			tagChecklist.appendChild(otherTagsContainer);
+		}
 
 		// Function to filter the table based on selected tags from both subject and other tags
 		function filterTableByTags() {
@@ -239,51 +258,73 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				...locationTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
+			const nDegreeTypeTags = degreeTypeTagsContainer.querySelectorAll('input[type=checkbox]').length;
+			const selectedDegreeTypeTags = [
+				...degreeTypeTagsContainer.querySelectorAll('input[type=checkbox]:checked')
+			].map(cb => cb.value);
+
+			const nFundingTags = fundingTagsContainer.querySelectorAll('input[type=checkbox]').length;
+			const selectedFundingTags = [
+				...fundingTagsContainer.querySelectorAll('input[type=checkbox]:checked')
+			].map(cb => cb.value);
+
 			const nOtherTags = otherTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedOtherTags = [
 				...otherTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
-			// if not selected or all selected, show all
-			if ((selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags) &&
-				(selectedGreTags.length === 0 || selectedGreTags.length === nGreTags) &&
-				(selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags) &&
-				(selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags)) {
-				// If no tag is selected in either category, display all rows
-				populateTable(programmes);
-			} else {
-				// Filter the data
-				const filteredData = {};
-				for (const institution in programmes) {
-					const institutionTags = programmes[institution].TAGS;
 
-					// Check if the institution has any of the selected subject tags
-					const hasSubjectTag =
-						selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags ||
-						selectedSubjectTags.some(tag => institutionTags.includes(tag));
+			// // if not selected or all selected, show all
+			// if ((selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags) &&
+			// 	(selectedGreTags.length === 0 || selectedGreTags.length === nGreTags) &&
+			// 	(selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags) &&
+			// 	(selectedDegreeTypeTags.length === 0 || selectedDegreeTypeTags.length === nDegreeTypeTags) &&
+			// 	(selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags)) {
+			// 	// If no tag is selected in either category, display all rows
+			// 	populateTable(programmes);
+			// } else {
+			// Filter the data
+			const filteredData = {};
+			for (const institution in programmes) {
+				const institutionTags = programmes[institution].TAGS;
 
-					// Check if the institution has any of the selected GRE tags
-					const hasGreTag =
-						selectedGreTags.length === 0 || selectedGreTags.length === nGreTags ||
-						selectedGreTags.some(tag => institutionTags.includes(tag));
+				// Check if the institution has any of the selected subject tags
+				const hasSubjectTag =
+					selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags ||
+					selectedSubjectTags.some(tag => institutionTags.includes(tag));
 
-					// Check if the institution has any of the selected location tags
-					const hasLocationTag =
-						selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags ||
-						selectedLocationTags.some(tag => institutionTags.includes(tag));
+				// Check if the institution has any of the selected GRE tags
+				const hasGreTag =
+					selectedGreTags.length === 0 || selectedGreTags.length === nGreTags ||
+					selectedGreTags.some(tag => institutionTags.includes(tag));
 
-					// Check if the institution has any of the selected other tags
-					const hasOtherTag =
-						selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags ||
-						selectedOtherTags.some(tag => institutionTags.includes(tag));
+				// Check if the institution has any of the selected location tags
+				const hasLocationTag =
+					selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags ||
+					selectedLocationTags.some(tag => institutionTags.includes(tag));
 
-					// Add the institution to the filtered data if it matches any subject tags AND any other tags
-					if (hasSubjectTag && hasGreTag && hasLocationTag && hasOtherTag) {
-						filteredData[institution] = programmes[institution];
-					}
+				// Check if the institution has any of the selected degree type tags
+				const hasDegreeTypeTag =
+					selectedDegreeTypeTags.length === 0 || selectedDegreeTypeTags.length === nDegreeTypeTags ||
+					selectedDegreeTypeTags.some(tag => institutionTags.includes(tag));
+
+				// Check if the institution has any of the selected other tags
+				const hasOtherTag =
+					selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags ||
+					selectedOtherTags.some(tag => institutionTags.includes(tag));
+
+				// Check if the institution has any of the selected funding tags
+				const hasFundingTag =
+					selectedFundingTags.length === 0 || selectedFundingTags.length === nFundingTags ||
+					selectedFundingTags.some(tag => institutionTags.includes(tag));
+
+				// Add the institution to the filtered data if it matches any subject tags AND any other tags
+				if (hasSubjectTag && hasGreTag && hasLocationTag && hasDegreeTypeTag && hasFundingTag && hasOtherTag) {
+					filteredData[institution] = programmes[institution];
 				}
-				populateTable(filteredData);
 			}
+			populateTable(filteredData);
+			// }
 		}
 	})
 	.catch(error => {
