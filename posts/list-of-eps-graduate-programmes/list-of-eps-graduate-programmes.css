@@ -30,6 +30,7 @@ td {
 thead {
 	color: var(--primary-colour);
 	background-color: var(--secondary-colour);
+	cursor: pointer;
 	padding: var(--space-s);
 	position: sticky;
 	z-index: 1;

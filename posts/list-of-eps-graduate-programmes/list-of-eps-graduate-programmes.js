@@ -273,16 +273,6 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				...otherTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
-
-			// // if not selected or all selected, show all
-			// if ((selectedSubjectTags.length === 0 || selectedSubjectTags.length === nSubjectTags) &&
-			// 	(selectedGreTags.length === 0 || selectedGreTags.length === nGreTags) &&
-			// 	(selectedLocationTags.length === 0 || selectedLocationTags.length === nLocationTags) &&
-			// 	(selectedDegreeTypeTags.length === 0 || selectedDegreeTypeTags.length === nDegreeTypeTags) &&
-			// 	(selectedOtherTags.length === 0 || selectedOtherTags.length === nOtherTags)) {
-			// 	// If no tag is selected in either category, display all rows
-			// 	populateTable(programmes);
-			// } else {
 			// Filter the data
 			const filteredData = {};
 			for (const institution in programmes) {
@@ -324,9 +314,48 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				}
 			}
 			populateTable(filteredData);
-			// }
+			// Reapply the sorting after populating the table
+			if (currentSortColumn !== -1) {
+				sortTable(currentSortColumn, false);
+			}
 		}
 	})
 	.catch(error => {
 		console.error('Error loading JSON:', error);
 	});
+
+
+// Sorting function
+// Store the current sort column and direction
+let currentSortColumn = -1;
+
+function sortTable(columnIndex, doSwitch = true) {
+	const table = document.getElementById("jsonTable");
+	let rows = Array.from(table.rows).slice(2);  // Get all rows except header
+	let isAsc = table.getAttribute("data-sort-asc") == "true";
+	if (!doSwitch) {
+		isAsc = !isAsc;
+	}
+
+	// Sort rows
+	rows.sort((rowA, rowB) => {
+		let cellA = rowA.cells[columnIndex].innerText.toLowerCase();
+		let cellB = rowB.cells[columnIndex].innerText.toLowerCase();
+		if (cellA < cellB) {
+			return isAsc ? -1 : 1;
+		}
+		if (cellA > cellB) {
+			return isAsc ? 1 : -1;
+		}
+		return 0;
+	});
+
+	// Append the sorted rows back to the table
+	rows.forEach(row => table.querySelector('tbody').appendChild(row));
+
+	// Toggle sort order for next click
+	if (doSwitch) {
+		table.setAttribute("data-sort-asc", !isAsc);
+	}
+	currentSortColumn = columnIndex;
+}

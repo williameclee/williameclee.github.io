@@ -110,6 +110,57 @@
       "location:California"
     ]
   },
+  "Caltech/PlanetaryScience": {
+    "UNIVERSITY": "California Institute of Technology",
+    "DEPARTMENT": {
+      "NAME": "Geological and Planetary Sciences",
+      "LINK": "http://www.gps.caltech.edu/"
+    },
+    "PROGRAMME": {
+      "NAME": "Planetary Science",
+      "LINK": "https://www.gps.caltech.edu/academics/graduate-program/graduate-program-requirements/graduate-requirements-planetary-science"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Full",
+      "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Required",
+        "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "Yes"
+      },
+      "MATERIALS": [
+        {
+          "DOCUMENT": "Statement of purpose",
+          "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
+        },
+        {
+          "DOCUMENT": "CV/resume"
+        }
+      ]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "Admission rubric",
+        "LINK": "https://www.gps.caltech.edu/documents/4355/GPS_AdmissionsRubric_Fall2021_Final.pdf"
+      }
+    ],
+    "ACCEPTANCE_RATE": {
+      "VALUE": "2-5% (division)",
+      "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
+    },
+    "TAGS": [
+      "subject:planetery sciences",
+      "degree:PhD",
+      "funding:99",
+      "GRE:04-required",
+      "location:California"
+    ]
+  },
   "Scripps/GEO": {
     "UNIVERSITY": "University of California, San Diego",
     "DEPARTMENT": {
@@ -652,6 +703,31 @@
       "degree:PhD",
       "funding:99",
       "GRE:01-not accepted",
+      "location:California"
+    ]
+  },
+  "Stanford/Oceans": {
+    "UNIVERSITY": "Stanford University",
+    "DEPARTMENT": {
+      "NAME": "Oceans",
+      "LINK": "https://oceans.stanford.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Oceans",
+      "LINK": "https://oceans.stanford.edu/academics-admissions/graduate-program"
+    },
+    "TYPE": "PhD",
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://gradadmissions.stanford.edu/explore-programs"
+      }
+    },
+    "TAGS": [
+      "subject:marine sciences",
+      "degree:PhD",
+      "funding:unspecified",
+      "GRE:02-optional",
       "location:California"
     ]
   },
@@ -1483,6 +1559,47 @@
       "funding:05",
       "GRE:02-optional",
       "location:New York"
+    ]
+  },
+  "Harvard/EPS": {
+    "UNIVERSITY": "Harvard University",
+    "DEPARTMENT": {
+      "NAME": "Earth and Planetary Sciences",
+      "LINK": "https://eps.harvard.edu"
+    },
+    "PROGRAMME": {
+      "NAME": "Earth and Planetary Sciences",
+      "LINK": "https://eps.harvard.edu/pages/graduate"
+    },
+    "TYPE": "PhD",
+    "FUNDING": {
+      "LENGTH": "Yes",
+      "LINK": "https://eps.harvard.edu/pages/admissions"
+    },
+    "REQUIREMENTS": {
+      "GRE": {
+        "STATUS": "Optional",
+        "LINK": "https://eps.harvard.edu/pages/admissions"
+      },
+      "LETTERS_OF_RECOMMENDATION": {
+        "NUMBER": "3",
+        "LINK": "https://gsas.harvard.edu/apply/applying-degree-programs/letters-recommendation"
+      },
+      "MATERIALS": ["Personal statement"]
+    },
+    "APPLICATION_RESOURCES": [
+      {
+        "NAME": "Graduate Application Assistance Program",
+        "LINK": "https://eps.harvard.edu/graduate-admissions-assistance-program-gaap-application"
+      }
+    ],
+    "TAGS": [
+      "subject:general geosciences",
+      "subject:planetery sciences",
+      "degree:PhD",
+      "funding:unspecified",
+      "GRE:02-optional",
+      "location:Massachusetts"
     ]
   }
 }
