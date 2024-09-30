@@ -37,14 +37,6 @@ p {
 	margin-bottom: calc(2 * var(--gap));
 }
 
-/* .article-body>p:first-of-type:first-letter {
-	float: left;
-	font-size: var(--font-size-Huge);
-	vertical-align: text-bottom;
-	line-height: 1;
-	margin-right: calc(0.5 * var(--font-size-normal));
-} */
-
 blockquote {
 	font-style: italic;
 
