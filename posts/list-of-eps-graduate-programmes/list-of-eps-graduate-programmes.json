@@ -52,7 +52,7 @@
     ],
     "TAGS": [
       "subject:geophysics",
-      "subject:marine sciences",
+      "subject:oceanography",
       "degree:PhD",
       "funding:05",
       "GRE:02-optional",
@@ -154,7 +154,7 @@
       "LINK": "https://www.gps.caltech.edu/academics/graduate-program/gps-graduate-program-faq"
     },
     "TAGS": [
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:99",
       "GRE:04-required",
@@ -223,10 +223,10 @@
       "LINK": "https://grad.ucsd.edu/about/grad-data/admissions.html"
     },
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "subject:general geosciences",
       "subject:geophysics",
-      "subject:geochemistry",
+      "subject:geochemistry/chemistry",
       "degree:PhD",
       "funding:05",
       "GRE:02-optional",
@@ -291,7 +291,7 @@
       }
     ],
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "subject:climate science",
       "subject:applied sciences",
       "degree:PhD",
@@ -391,7 +391,7 @@
       "LINK": "https://ir.mit.edu/projects/graduate-education-statistics/"
     },
     "TAGS": [
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:99",
       "GRE:04-required",
@@ -441,7 +441,7 @@
       }
     ],
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "degree:PhD",
       "funding:06",
       "GRE:01-not accepted",
@@ -526,7 +526,7 @@
     },
     "TAGS": [
       "subject:general geosciences",
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "subject:data/computational sciences",
       "degree:PhD",
       "funding:05",
@@ -699,7 +699,7 @@
     "NOTES": "One can only apply to one programme at Stanford",
     "TAGS": [
       "subject:general geosciences",
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:99",
       "GRE:01-not accepted",
@@ -724,7 +724,7 @@
       }
     },
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "degree:PhD",
       "funding:unspecified",
       "GRE:02-optional",
@@ -748,6 +748,15 @@
       {
         "NAME": "Physical Oceanography",
         "LINK": "https://oregonstate.app.box.com/s/2uu3etxkc1tw9l1r9io9fefbvf0xpbs9"
+      },
+      {
+        "NAME": "Atmospheric Sciences"
+      },
+      {
+        "NAME": "Geological Oceanography"
+      },
+      {
+        "NAME": "Ocean Ecology and Biogeochemistry"
       }
     ],
     "TYPE": "PhD",
@@ -777,7 +786,9 @@
     },
     "TAGS": [
       "subject:geophysics",
-      "subject:marine sciences",
+      "subject:oceanography",
+      "subject:atmospheric sciences",
+      "subject:geobiology/biology",
       "degree:PhD",
       "GRE:02-optional",
       "location:Oregon"
@@ -943,7 +954,7 @@
       ]
     },
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "subject:atmospheric sciences",
       "degree:PhD",
       "funding:05",
@@ -991,7 +1002,7 @@
     },
     "TAGS": [
       "subject:geophysics",
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:99",
       "GRE:03-recommended",
@@ -1036,7 +1047,7 @@
       "LINK": "https://grad.ucla.edu/graduate-program-statistics/admissions/?t=Historicaltrends"
     },
     "TAGS": [
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:99",
       "GRE:02-optional",
@@ -1061,7 +1072,7 @@
       }
     },
     "TAGS": [
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "GRE:02-optional",
       "location:California"
@@ -1219,7 +1230,7 @@
       "LINK": "https://www.graddiv.ucsb.edu/ucsb-graduate-statistics"
     },
     "TAGS": [
-      "subject:marine sciences",
+      "subject:oceanography",
       "degree:PhD",
       "funding:unspecified",
       "location:California"
@@ -1267,7 +1278,7 @@
     },
     "NOTES": "Funding is not guaranteed",
     "TAGS": [
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:05",
       "GRE:01-not accepted",
@@ -1463,7 +1474,7 @@
       "subject:general geosciences",
       "subject:geophysics",
       "degree:MS",
-      "location:Switzerland (international)"
+      "location:ZZ_Switzerland (Intl.)"
     ]
   },
   "NYU/AOSM": {
@@ -1512,7 +1523,7 @@
     "NOTES": "Applied through the mathematics departnment",
     "TAGS": [
       "subject:atmospheric sciences",
-      "subject:marine sciences",
+      "subject:oceanography",
       "subject:mathematics",
       "degree:PhD",
       "funding:05",
@@ -1595,7 +1606,7 @@
     ],
     "TAGS": [
       "subject:general geosciences",
-      "subject:planetery sciences",
+      "subject:planetary/space sciences",
       "degree:PhD",
       "funding:unspecified",
       "GRE:02-optional",

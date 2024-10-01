@@ -1,35 +1,14 @@
 {
-  "grad-schools-list": {
-    "DATE": "2024-09-30UTC-7",
-    "TITLE": "Graduate Programmes in Earth and Planetary Sciences",
+  "list-of-eps-graduate-programmes": {
     "LINK": "posts/list-of-eps-graduate-programmes.html",
-    "STATUS": "Draft",
-    "TAGS": ["Graduate school", "Earth science"]
+    "INFO": "posts/list-of-eps-graduate-programmes/info.json"
   },
-  "Taiwan-pizza-hut": {
-    "DATE": "2024-04-12UTC-7",
-    "TITLE": "Exploring Outlandish Pizza Mashups in Taiwan",
-    "SUBTITLE": "Cuisine Fusion and Cultural Politics",
+  "exploring-outlandish-pizza-mashups-in-taiwan": {
     "LINK": "posts/exploring-outlandish-pizza-mashups-in-taiwan.html",
-    "IMAGE": {
-      "SRC": "posts/exploring-outlandish-pizza-mashups-in-taiwan/figures/PizzaHutTW2023-zero-damage-pizza.jpg",
-      "ALT": "Zero damage pizza"
-    },
-    "STATUS": "Complete",
-    "TAGS": ["Culture", "Food", "Taiwan"],
-    "PREVIEW": "Italians, with a deep-rooted passion, consider their pizzas not just a dish but the art of making them a cultural heritage. Consequently, few dishes stir up more controversy than Hawaiian pizza..."
+    "INFO": "posts/exploring-outlandish-pizza-mashups-in-taiwan/info.json"
   },
-  "NCG-ads": {
-    "DATE": "2023-11-17UTC-7",
-    "TITLE": "Genre Analysis of ‘None-Core Gameplay Ads’",
-    "SUBTITLE": "Decoding the Deception",
+  "genre-analysis-of-ncg-ads": {
     "LINK": "posts/genre-analysis-of-ncg-ads.html",
-    "IMAGE": {
-      "SRC": "posts/genre-analysis-of-ncg-ads/figures/homescapes-spider.jpg",
-      "ALT": "Homescapes commercial with a screaming man and a spider"
-    },
-    "STATUS": "Complete",
-    "TAGS": ["Culture", "Gaming", "YouTube"],
-    "PREVIEW": "After an exhaustive day at school, I turned to YouTube for relaxation while my dinner rotated in the microwave. My calm was, however, soon shattered by a loud mobile game advertisement..."
+    "INFO": "posts/genre-analysis-of-ncg-ads/info.json"
   }
 }

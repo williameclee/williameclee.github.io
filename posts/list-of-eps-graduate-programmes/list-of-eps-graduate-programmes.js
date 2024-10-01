@@ -204,6 +204,7 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				greTagsContainer.appendChild(checkboxLabel);
 			} else if (tag.startsWith('location:')) {
 				displayText = tag.replace('location:', '');
+				displayText = displayText.replace('ZZ_', '');
 				locationTagsContainer.appendChild(checkboxLabel);
 			} else if (tag.startsWith('degree:')) {
 				displayText = tag.replace('degree:', '');
@@ -232,10 +233,10 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 
 		// Append both containers to the tag checklist area
 		tagChecklist.appendChild(subjectTagsContainer);
-		tagChecklist.appendChild(greTagsContainer);
 		tagChecklist.appendChild(locationTagsContainer);
 		tagChecklist.appendChild(degreeTypeTagsContainer);
 		tagChecklist.appendChild(fundingTagsContainer);
+		tagChecklist.appendChild(greTagsContainer);
 		if (otherTagsContainer.childElementCount > 1) { // Only append if there are child elements except the header
 			tagChecklist.appendChild(otherTagsContainer);
 		}
@@ -248,14 +249,14 @@ fetch('list-of-eps-graduate-programmes/list-of-eps-graduate-programmes.json')
 				...subjectTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
-			const nGreTags = greTagsContainer.querySelectorAll('input[type=checkbox]').length;
-			const selectedGreTags = [
-				...greTagsContainer.querySelectorAll('input[type=checkbox]:checked')
-			].map(cb => cb.value);
-
 			const nLocationTags = locationTagsContainer.querySelectorAll('input[type=checkbox]').length;
 			const selectedLocationTags = [
 				...locationTagsContainer.querySelectorAll('input[type=checkbox]:checked')
+			].map(cb => cb.value);
+
+			const nGreTags = greTagsContainer.querySelectorAll('input[type=checkbox]').length;
+			const selectedGreTags = [
+				...greTagsContainer.querySelectorAll('input[type=checkbox]:checked')
 			].map(cb => cb.value);
 
 			const nDegreeTypeTags = degreeTypeTagsContainer.querySelectorAll('input[type=checkbox]').length;

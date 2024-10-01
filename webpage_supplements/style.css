@@ -350,3 +350,10 @@ table {
 .mrow>a::after {
 	content: none;
 }
+
+@media screen and (max-width: 640px) {
+	:root {
+		--font-size-normal: 0.85rem;
+	}
+	
+}

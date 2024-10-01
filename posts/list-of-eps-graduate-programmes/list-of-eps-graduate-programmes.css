@@ -48,7 +48,7 @@ thead {
 	flex-wrap: wrap;
 	flex-direction: row; */
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 	gap: var(--space-m);
 }
 
@@ -58,7 +58,13 @@ thead {
 	flex-direction: column;
 }
 
+.tag-container h3 {
+	font-size: var(--font-size-normal);
+	margin-top: 0;
+}
+
 .tag-checkbox {
+	font-size: var(--font-size-fnote);
 	position: relative;
 	cursor: pointer;
 	padding-left: calc(1rem + var(--space-xs));

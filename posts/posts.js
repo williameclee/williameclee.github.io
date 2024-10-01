@@ -2,11 +2,45 @@
 fetch('posts/posts.json').then(response => response.json())
   .then(posts => {
     const postsList = document.querySelector('#posts-list');
+
+    async function populateInfo(posts) {
+      function assignField(input, output, field) {
+        if (input.hasOwnProperty(field)) {
+          output[field] = input[field];
+        }
+      }
+      const fetchPromises = [];
+
+      for (const postId in posts) {
+        const fetchPromise = fetch(posts[postId].INFO)
+          .then(response => response.json())
+          .then(info => {
+            assignField(info, posts[postId], 'DATE');
+            assignField(info, posts[postId], 'AUTHOR');
+            assignField(info, posts[postId], 'TITLE');
+            assignField(info, posts[postId], 'SUBTITLE');
+            assignField(info, posts[postId], 'TAGS');
+            assignField(info, posts[postId], 'IMAGE');
+            assignField(info, posts[postId], 'PREVIEW');
+          })
+          .catch(error => {
+            console.error(`Error fetching post info for postId ${postId}:`, error);
+          });
+
+        fetchPromises.push(fetchPromise);
+      }
+
+      // Return a promise that resolves when all fetches are complete
+      await Promise.all(fetchPromises);
+      return posts;
+    }
+
     function populatePostsList(posts) {
       for (const postId in posts) {
         const post = posts[postId];
         const postElement = document.createElement('div');
         postElement.classList.add('post');
+
         // Image
         const postImageContainer = document.createElement('a');
         postImageContainer.classList.add('post-image-container');
@@ -23,6 +57,7 @@ fetch('posts/posts.json').then(response => response.json())
         }
         postImageContainer.href = post.LINK;
         postImageContainer.appendChild(postImage);
+
         // Text
         const postText = document.createElement('div');
         const postLink = document.createElement('a');
@@ -42,6 +77,16 @@ fetch('posts/posts.json').then(response => response.json())
         const postInfo = document.createElement('div');
         postInfo.classList.add('post-info');
         if (post.hasOwnProperty('DATE')) {
+          const postAuthor = document.createElement('span');
+          postAuthor.classList.add('post-author');
+          postAuthor.textContent = post.AUTHOR;
+          postInfo.appendChild(postAuthor);
+          if (post.hasOwnProperty('AUTHOR') & post.hasOwnProperty('DATE')) {
+            const postAuthorDateSeparator = document.createElement('span');
+            postAuthorDateSeparator.classList.add('post-author-date-separator');
+            postAuthorDateSeparator.textContent = ' ‧ ';
+            postInfo.appendChild(postAuthorDateSeparator);
+          }
           const postDate = document.createElement('span');
           postDate.classList.add('post-date');
           const date = new Date(post.DATE);
@@ -66,40 +111,90 @@ fetch('posts/posts.json').then(response => response.json())
           }
           postText.appendChild(postTags);
         }
-        // 
+
+        // Add image and link to the post element
         postElement.appendChild(postImageContainer);
         postElement.appendChild(postLink);
+
+        // Add the post element to the posts list
         postsList.appendChild(postElement);
       };
     }
-    populatePostsList(posts);
+
+    // Populate posts info and wait for all the fetches to complete
+    populateInfo(posts).then(populatedPosts => {
+      populatePostsList(populatedPosts);
+    });
   }).catch(error => {
     console.error('Error loading JSON:', error);
   });
+
+// Make title
+const titleConatiner = document.querySelector("#title-container");
+titleConatiner.classList.add("container");
+titleConatiner.addEventListener("load",
+  makeTitle(titleConatiner.attributes["data-info"].value)
+);
+function makeTitle(infoPath) {
+  fetch(infoPath)
+    .then(response => response.json())
+    .then(info => {
+      if (info.hasOwnProperty("SUBTITLE")) {
+        const subtitle = document.createElement("h2");
+        subtitle.classList.add("subtitle");
+        subtitle.textContent = info.SUBTITLE;
+        titleConatiner.appendChild(subtitle);
+      }
+      const title = document.createElement("h1");
+      title.classList.add("title");
+      title.textContent = info.TITLE;
+      titleConatiner.appendChild(title);
+      const postInfo = document.createElement("div");
+      postInfo.classList.add("post-information");
+      if (info.hasOwnProperty("AUTHOR")) {
+        const author = document.createElement("span");
+        author.textContent = info.AUTHOR;
+        postInfo.appendChild(author);
+        if (info.hasOwnProperty("DATE")) {
+          const authorDateSeparator = document.createElement("span");
+          authorDateSeparator.classList.add("author-date-separator");
+          authorDateSeparator.textContent = " ‧ ";
+          postInfo.appendChild(authorDateSeparator);
+        }
+        const date = new Date(info.DATE);
+        const dateElement = document.createElement("span");
+        dateElement.textContent = date.toDateString();
+        postInfo.appendChild(dateElement);
+        titleConatiner.appendChild(postInfo);
+        const divider = document.createElement("div");
+        divider.classList.add("divider");
+        titleConatiner.appendChild(divider);
+      }
+    }).catch
+    (error => {
+      console.error('Error loading JSON:', error);
+    });
+}
 
 // Figures in the post
 var figures_container_side = document.getElementsByClassName(
   "figures-container-side"
 );
 
-var figures_container_side_counter;
-for (
-  figures_container_side_counter = 0;
-  figures_container_side_counter < figures_container_side.length;
-  figures_container_side_counter++
-) {
-  if (figures_container_side_counter % 2 == 0) {
-    figures_container_side[figures_container_side_counter].classList.add(
+var iSide;
+for (iSide = 0; iSide < figures_container_side.length; iSide++) {
+  if (iSide % 2 == 0) {
+    figures_container_side[iSide].classList.add(
       "figures-container-side-left"
     );
-    figures_container_side[figures_container_side_counter].classList.remove(
+    figures_container_side[iSide].classList.remove(
       "figures-container-side-right"
     );
   } else {
-    figures_container_side[figures_container_side_counter].classList.add(
+    figures_container_side[iSide].classList.add(
       "figures-container-side-right"
     );
-    figures_container_side[figures_container_side_counter].classList.remove(
+    figures_container_side[iSide].classList.remove(
       "figures-container-side-left"
     );
   }

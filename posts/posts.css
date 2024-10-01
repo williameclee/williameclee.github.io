@@ -1,7 +1,7 @@
 article {
 	font-family: var(--font-family-serif);
 	line-height: 2;
-	padding: 10%;
+	padding: var(--space-m) 0;
 	counter-reset: bib-item;
 }
 
@@ -49,6 +49,8 @@ blockquote {
 
 .figures-container-side blockquote {
 	padding-right: var(--space-m);
+	margin-bottom: 0;
+	padding-top: var(--space-xs);
 }
 
 blockquote::before {
@@ -90,6 +92,9 @@ blockquote>p {
 
 ol {
 	margin-left: var(--space-m);
+}
+.bib-list {
+	margin-left: 0;
 }
 
 /* Images and figures */
@@ -404,6 +409,8 @@ img {
 
 .post-subtitle {
 	font-family: var(--font-family-sans);
+	line-height: 1;
+	margin-bottom: var(--space-xxs);
 }
 
 .post-title {
@@ -435,7 +442,7 @@ img {
 	width: 100%;
 }
 
-.post-date,
+.post-info,
 .post-tags {
 	font-family: var(--font-family-sans);
 }
