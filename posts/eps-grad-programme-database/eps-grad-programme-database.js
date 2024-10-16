@@ -520,7 +520,7 @@ const stickyContainer = document.getElementById("tableContainer");
 window.addEventListener('scroll', () => {
   const containerTop = stickyContainer.getBoundingClientRect().top;
 
-  if (containerTop <= 0) {
+  if (containerTop <= 0.5) { // to prevent Safari from freaking out
     stickyContainer.style.overflowY = 'scroll';
   } else {
     stickyContainer.style.overflowY = 'hidden';
