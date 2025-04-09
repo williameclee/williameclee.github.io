@@ -26,3 +26,6 @@ MD-rendering_test
 
 # Mac related cache files
 Icon?
+
+# Other cache files
+.vscode

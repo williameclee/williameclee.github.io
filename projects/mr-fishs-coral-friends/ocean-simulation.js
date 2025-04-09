@@ -1,27 +1,3 @@
-var canvas = document.getElementById("myCanvas");
-var gl = canvas.getContext("webgl");
-canvas.width = window.innerWidth - 20;
-canvas.height = window.innerHeight - 20;
-
-
-canvas.focus();
-
-var simHeight = 3.0;
-var cScale = canvas.height / simHeight;
-var simWidth = canvas.width / cScale;
-
-var U_FIELD = 0;
-var V_FIELD = 1;
-
-var FLUID_CELL = 0;
-var AIR_CELL = 1;
-var SOLID_CELL = 2;
-var ICE_CELL = 4;
-
-var tempRef = 10.0;
-
-var cnt = 0;
-
 function clamp(x, min, max) {
 	if (x < min)
 		return min;
@@ -30,8 +6,6 @@ function clamp(x, min, max) {
 	else
 		return x;
 }
-
-// ----------------- start of simulator ------------------------------
 
 class FlipFluid {
 	constructor(density, width, height, spacing, particleRadius, maxParticles) {
@@ -252,37 +226,6 @@ class FlipFluid {
 		}
 	}
 
-	// convertIce2Water(obstacleX, obstacleY, obstacleRadius) {
-	// var r = this.particleRadius;
-	// var minDist = obstacleRadius + r / 2;
-	// var minDist2 = minDist * minDist;
-
-	// for (var i = 0; i < this.numWaterParticles; i++) {
-	// 	if (this.pType[i]) continue;
-
-	// 	// Only check for ice particles (type 0)
-	// 	var x = this.pPosition[2 * i];
-	// 	var y = this.pPosition[2 * i + 1];
-	// 	var xi = Math.floor(x * this.fInvSpacing) * this.h;
-	// 	var yi = Math.floor(y * this.fInvSpacing) * this.h;
-
-	// 	var dxi = xi - obstacleX;
-	// 	var dyi = yi - obstacleY;
-	// 	var d2 = dxi * dxi + dyi * dyi;
-
-	// 	if (d2 >= minDist2) continue;
-
-	// 	this.pType[i] = 1;
-	// 	xi = Math.floor(x * this.fInvSpacing);
-	// 	yi = Math.floor(y * this.fInvSpacing);
-
-	// 	if (this.cellType[xi * this.fNumY + yi] == SOLID_CELL) continue;
-
-	// 	this.cell[xi * this.fNumY + yi] = 1.0;
-	// 	this.cellType[xi * this.fNumY + yi] = FLUID_CELL;
-	// 	this.cellTemp[xi * this.fNumY + yi] = -10.0;
-	// }
-	// }
 	heatWater(obstacleX, obstacleY, obstacleRadius) {
 		const r = this.particleRadius;
 		const minDist = obstacleRadius + r / 2;
@@ -720,7 +663,6 @@ class FlipFluid {
 				let t = (this.cellTemp[i] + 3) / 3;
 				t = Math.max(0, Math.min(1, t));
 
-				// this.cellColor[3 * i] = 0.4;
 				this.cellColor[3 * i] = 0.4 + 0.2 * t; // Red component (0.4 to 0.8)
 				this.cellColor[3 * i + 1] = 0.6;
 				this.cellColor[3 * i + 2] = 0.8;
@@ -729,7 +671,7 @@ class FlipFluid {
 				this.cellColor[3 * i + 1] = 0.5;
 				this.cellColor[3 * i + 2] = 0.8;
 			} else {
-				let t = this.cellTemp[i] / 20;
+				let t = Math.round(this.cellTemp[i]) / 20;
 				t = Math.max(0, Math.min(1, t));
 
 				let depth = 0;
@@ -743,9 +685,9 @@ class FlipFluid {
 				let lightFactor = Math.exp(-0.001 * Math.max(depth - 20, 0) ** 2); // tweak for smoother/faster falloff
 
 				// Blend temperature and sunlight (lightFactor)
-				this.cellColor[3 * i] = (0.2 + 0.2 * t) * lightFactor;
-				this.cellColor[3 * i + 1] = (0.2 + 0.4 * (1 - t)) * lightFactor;
-				this.cellColor[3 * i + 2] = (0.5 + 0.5 * (1 - t)) * lightFactor;
+				this.cellColor[3 * i] = (22 + (63 - 22) * (1 - t)) / 255 * lightFactor;
+				this.cellColor[3 * i + 1] = (231 + (90 - 231) * (t)) / 255 * lightFactor;
+				this.cellColor[3 * i + 2] = (207 + (183 - 207) * (t)) / 255 * lightFactor;
 			}
 		}
 	}
@@ -764,7 +706,9 @@ class FlipFluid {
 			this.sampleTemperature();
 			this.diffuseTemperature(sdt, 20.0);
 			this.updateTemperature();
-			this.heatWater(obstacleX, obstacleY, obstacleRadius); // Heat water particles near the obstacle
+			if (mouseDown) {
+				this.heatWater(obstacleX, obstacleY, obstacleRadius); // Heat water particles near the obstacle
+			}
 			this.updatepDensity();
 			this.solveIncompressibility(numPressureIters, sdt, overRelaxation, compensateDrift);
 			this.transferVelocities(false, flipRatio);
@@ -776,678 +720,100 @@ class FlipFluid {
 	}
 }
 
-// ----------------- end of simulator ------------------------------
-
-var scene = {
-	gravity: -9.81,
-	dt: 1.0 / 120.0,
-	flipRatio: 0.1,
-	numPressureIters: 100,
-	numParticleIters: 2,
-	frameNr: 0,
-	overRelaxation: 1.9,
-	compensateDrift: true,
-	separateParticles: true,
-	obstacleX: 0.0,
-	obstacleY: 0.0,
-	obstacleRadius: 0.15,
-	paused: false,
-	showObstacle: true,
-	obstacleVelX: 0.0,
-	obstacleVelY: 0.0,
-	showParticles: false,
-	showGrid: true,
-	fluid: null
-};
-
-var corals = [];
-
-function addCorals() {
+function updateFish() {
 	const f = scene.fluid;
+	const fNumX = f.fNumX;
+	const fNumY = f.fNumY;
+	const now = performance.now();
 
-	corals = []; // Array to hold coral cells
+	const shouldChaseMouse = !mouseDown;
 
-	var colourId = 0;
-	const visited = new Set();
+	// === Update fish target ===
+	const needNewTarget = (shouldChaseMouse && (
+		(now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) ||
+		(now - lastMouseMoveTime < 100)
+	));
 
-	for (let xi = 1; xi <= f.fNumX; xi++) {
-		if (Math.random() >= 0.1) { // Random chance to skip a row for more sparse growth
-			continue; // Skip this row
-		}
-		// const xi = Math.floor(i * coralSpacing);
-		var baseYi = 2; // just above solid bottom
-		var cellNr = xi * f.fNumY + baseYi;
+	if (needNewTarget) {
+		// Chase target near mouse
+		const dx = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
+		const dy = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
 
-		// Check if the cell is a valid location for a coral
-		while (baseYi < f.fNumY && f.cellType[cellNr] === SOLID_CELL) {
-			baseYi++;
-			cellNr = xi * f.fNumY + baseYi; // Update cellNr to the next row
-		}
+		fishTargetXi = Math.max(0, Math.min(fNumX - 1, mouseXi + dx));
+		fishTargetYi = Math.max(0, Math.min(fNumY - 1, mouseYi + dy));
 
-		if (f.cellType[cellNr] === ICE_CELL) {
-			continue;
-		}
-
-		let coralCells = [];
-
-		// Recursive sparse growth
-		const maxBranchDepth = 10;
-		// Grows one branch (can call itself recursively to fork)
-		function growBranch(x, y, depth, colourId = 1, canHorizontal = true) {
-			if (depth > maxBranchDepth) return;
-			if (f.cellType[x * f.fNumY + y] === SOLID_CELL) {
-				return; // Stop if we hit a non-fluid cell
-			}
-
-			const key = `${x},${y}`;
-			if (visited.has(key)) return;
-			visited.add(key);
-			coralCells.push({ xi: x, yi: y, colour: colourId, health: 1.0 });
-
-			// Maybe fork left-up
-			if (canHorizontal && Math.random() < 1 - depth / maxBranchDepth / 2) {
-				coralCells.push({ xi: x, yi: y + 1, colour: colourId, health: 1.0 });
-
-				if (!visited.has(`${x - 1},${y + 1}`) && !visited.has(`${x - 1},${y}`)) {
-					growBranch(x - 1, y + 1, depth + 1, colourId, false);
-				}
-				if (!visited.has(`${x + 1},${y + 1}`) && !visited.has(`${x + 1},${y}`)) {
-					growBranch(x + 1, y + 1, depth + 1, colourId, false);
-				}
-			} else if (Math.random() < 1 - depth / maxBranchDepth / 2) {
-				if (visited.has(`${x},${y + 1}`)) {
-					return;
-				}
-				growBranch(x, y + 1, depth + 1, colourId);
-			}
-
-		}
-		growBranch(xi, baseYi, 0, colourId);
-		colourId = (colourId + 1) % 3;
-
-		corals.push(coralCells);
-
-		// corals.push({
-		// 	xi: xi,
-		// 	yi: baseYi,
-		// 	cellNr: cellNr,
-		// 	health: 1.0 // full health
-		// });
-	}
-}
-
-function setupScene() {
-	scene.obstacleRadius = 0.2;
-	scene.overRelaxation = 1.9;
-
-	scene.dt = 1.0 / 60.0;
-	scene.numPressureIters = 50;
-	scene.numParticleIters = 2;
-
-	var res = 144;
-
-	var tankHeight = 1.0 * simHeight;
-	var tankWidth = 1.0 * simWidth;
-	var h = tankHeight / res;
-	var density = 1000.0;
-
-	var relWaterHeight = 0.4
-	var relWaterWidth = 1.0
-	var relIceHeight = 0.6
-	var relIceWidth = 0.3
-	var relIceOffset = 0.2
-
-	// compute number of particles
-	var r = 0.3 * h;	// particle radius w.r.t. cell size
-	var dx = 2.0 * r;
-	var dy = Math.sqrt(3.0) / 2.0 * dx;
-
-	var numX = Math.floor((tankWidth - 2.0 * h - 2.0 * r) / dx);
-	var numY = Math.floor((tankHeight - 2.0 * h - 2.0 * r) / dy);
-	var maxParticles = numX * numY;
-
-	// create fluid
-	f = scene.fluid = new FlipFluid(density, tankWidth, tankHeight, h, r, maxParticles);
-
-	// setup grid cells for tank
-	var Lx = f.fNumX;
-	var Ly = f.fNumY;
-
-	for (var i = 0; i < Lx; i++) {
-		for (var j = 0; j < Ly; j++) {
-			var s = 1.0;	// fluid
-			if (i == 0 || i == Lx - 1 || j == 0)
-				s = 0.0;	// solid
-			f.cell[i * Ly + j] = s
-			f.cellType[i * Ly + j] = s == 0.0 ? SOLID_CELL : AIR_CELL;
-		}
+		lastTargetSetTime = now;
 	}
 
-	// Create a raised basin on the left side
-	for (var i = 0; i < Lx; i++) {
-		for (var j = 0; j < Ly; j++) {
-			f.cellTemp[i * Ly + j] = tempRef;
-			var slope = Ly * (Lx - i) / Lx * 0.3;
-			// ice
-			if (i < Lx * relIceWidth && j < slope + Ly * relIceHeight) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = ICE_CELL;
-				f.cellTemp[i * Ly + j] = -3.0;
-			}
-			// basin
-			if (j < slope) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = SOLID_CELL;
-				f.cellTemp[i * Ly + j] = 0.0;
-			} else if (i < Lx * relIceWidth && j < slope + relIceOffset * Ly) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = SOLID_CELL;
-				f.cellTemp[i * Ly + j] = 0.0;
+	// === Optional: Random wander when mouse held down ===
+	if (!shouldChaseMouse && now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) {
+		fishTargetXi = Math.floor(Math.random() * fNumX);
+		fishTargetYi = Math.floor(Math.random() * fNumY);
+		lastTargetSetTime = now;
+	}
+
+	// === Move toward target ===
+	let dx = fishTargetXi - fishXi;
+	let dy = fishTargetYi - fishYi;
+
+	const stepX = dx === 0 ? 0 : dx > 0 ? 1 : -1;
+	const stepY = dy === 0 ? 0 : dy > 0 ? 1 : -1;
+
+	const tryMove = (xi, yi) => {
+		if (xi >= 0 && xi < fNumX && yi >= 0 && yi < fNumY) {
+			const cellType = f.cellType[xi * fNumY + yi];
+			if (cellType === FLUID_CELL) {
+				fishXi = xi;
+				fishYi = yi;
+				return true;
 			}
 		}
-	}
+		return false;
+	};
 
-	// create water particles
-	var p = 0;
-	for (var i = 0; i < numX; i++) {
-		for (var j = 0; j < numY; j++) {
-			// skip if this particle is in the basin
-			var x = h + r + dx * i + (j % 2 == 0 ? 0.0 : r);
-			var y = h + r + dy * j;
-			var xi = Math.floor(x / tankWidth * Lx);
-			var yi = Math.floor(y / tankHeight * Ly);
-			if (f.cell[xi * Ly + yi] == 1.0 && x < relWaterWidth * tankWidth && y < relWaterHeight * tankHeight) {
-				// is water particle
-				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
-				f.pType[p] = 1;
-				f.pTemp[p] = tempRef;
-				f.cellTemp[xi * Ly + yi] = 20.0;
-			}
-			else if (f.cellType[xi * Ly + yi] == ICE_CELL) {
-				// is ice particle
-				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
-				f.pType[p] = 0;
-				f.pTemp[p] = -3.0;
-			}
+	const moved = tryMove(fishXi + stepX, fishYi + stepY) ||
+		tryMove(fishXi + stepX, fishYi) ||
+		tryMove(fishXi, fishYi + stepY);
+
+	// === Snap correction ===
+	let idx = fishXi * fNumY + fishYi;
+	let type = f.cellType[idx];
+
+	if (type === SOLID_CELL) {
+		while (fishYi > 0) {
+			fishYi++;
+			idx = fishXi * fNumY + fishYi;
+			if (f.cellType[idx] === FLUID_CELL) break;
 		}
-	}
-	f.numWaterParticles = p;
-
-	addCorals(); // Add corals to the scene
-
-	setObstacle(3.0, 2.0, true);
-}
-
-
-// draw -------------------------------------------------------
-
-const pointVertexShader = `
-		attribute vec2 attrPosition;
-		attribute vec3 attrColor;
-		uniform vec2 domainSize;
-		uniform float pointSize;
-		uniform float drawDisk;
-
-		varying vec3 fragColor;
-		varying float fragDrawDisk;
-
-		void main() {
-		vec4 screenTransform = 
-			vec4(2.0 / domainSize.x, 2.0 / domainSize.y, -1.0, -1.0);
-		gl_Position =
-			vec4(attrPosition * screenTransform.xy + screenTransform.zw, 0.0, 1.0);
-
-		gl_PointSize = pointSize;
-		fragColor = attrColor;
-		fragDrawDisk = drawDisk;
-		}
-	`;
-
-const pointFragmentShader = `
-		precision mediump float;
-		varying vec3 fragColor;
-		varying float fragDrawDisk;
-
-		void main() {
-			if (fragDrawDisk == 1.0) {
-				float rx = 0.5 - gl_PointCoord.x;
-				float ry = 0.5 - gl_PointCoord.y;
-				float r2 = rx * rx + ry * ry;
-				if (r2 > 0.25)
-					discard;
-			}
-			gl_FragColor = vec4(fragColor, 1.0);
-		}
-	`;
-
-const meshVertexShader = `
-		attribute vec2 attrPosition;
-		uniform vec2 domainSize;
-		uniform vec3 color;
-		uniform vec2 translation;
-		uniform float scale;
-
-		varying vec3 fragColor;
-
-		void main() {
-			vec2 v = translation + attrPosition * scale;
-		vec4 screenTransform = 
-			vec4(2.0 / domainSize.x, 2.0 / domainSize.y, -1.0, -1.0);
-		gl_Position =
-			vec4(v * screenTransform.xy + screenTransform.zw, 0.0, 1.0);
-
-		fragColor = color;
-		}
-	`;
-
-const meshFragmentShader = `
-		precision mediump float;
-		varying vec3 fragColor;
-
-		void main() {
-			gl_FragColor = vec4(fragColor, 1.0);
-		}
-	`;
-
-function createShader(gl, vsSource, fsSource) {
-	const vsShader = gl.createShader(gl.VERTEX_SHADER);
-	gl.shaderSource(vsShader, vsSource);
-	gl.compileShader(vsShader);
-	if (!gl.getShaderParameter(vsShader, gl.COMPILE_STATUS))
-		console.log("vertex shader compile error: " + gl.getShaderInfoLog(vsShader));
-
-	const fsShader = gl.createShader(gl.FRAGMENT_SHADER);
-	gl.shaderSource(fsShader, fsSource);
-	gl.compileShader(fsShader);
-	if (!gl.getShaderParameter(fsShader, gl.COMPILE_STATUS))
-		console.log("fragment shader compile error: " + gl.getShaderInfoLog(fsShader));
-
-	var shader = gl.createProgram();
-	gl.attachShader(shader, vsShader);
-	gl.attachShader(shader, fsShader);
-	gl.linkProgram(shader);
-
-	return shader;
-}
-
-var pointShader = null;
-var meshShader = null;
-
-var pointVertexBuffer = null;
-var pointColorBuffer = null;
-
-var gridVertBuffer = null;
-var gridColorBuffer = null;
-
-var diskVertBuffer = null;
-var diskIdBuffer = null;
-
-var coralVertexBuffer = null;
-var coralColorBuffer = null;
-
-function draw() {
-	gl.clearColor(0.0, 0.0, 0.0, 1.0);
-	gl.clear(gl.COLOR_BUFFER_BIT);
-
-	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-	// prepare shaders
-
-	if (pointShader == null)
-		pointShader = createShader(gl, pointVertexShader, pointFragmentShader);
-	if (meshShader == null)
-		meshShader = createShader(gl, meshVertexShader, meshFragmentShader);
-
-	// grid
-
-	if (gridVertBuffer == null) {
-
-		var f = scene.fluid;
-		gridVertBuffer = gl.createBuffer();
-		var cellCenters = new Float32Array(2 * f.fNumCells);
-		var p = 0;
-
-		for (var i = 0; i < f.fNumX; i++) {
-			for (var j = 0; j < f.fNumY; j++) {
-				cellCenters[p++] = (i + 0.5) * f.h;
-				cellCenters[p++] = (j + 0.5) * f.h;
-			}
-		}
-		gl.bindBuffer(gl.ARRAY_BUFFER, gridVertBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, cellCenters, gl.DYNAMIC_DRAW);
-		gl.bindBuffer(gl.ARRAY_BUFFER, null);
-	}
-
-	if (gridColorBuffer == null)
-		gridColorBuffer = gl.createBuffer();
-
-	if (scene.showGrid) {
-
-		var pointSize = 1.0 * scene.fluid.h / simWidth * canvas.width;
-
-		gl.useProgram(pointShader);
-		gl.uniform2f(gl.getUniformLocation(pointShader, 'domainSize'), simWidth, simHeight);
-		gl.uniform1f(gl.getUniformLocation(pointShader, 'pointSize'), pointSize);
-		gl.uniform1f(gl.getUniformLocation(pointShader, 'drawDisk'), 0.0);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, gridVertBuffer);
-		var posLoc = gl.getAttribLocation(pointShader, 'attrPosition');
-		gl.enableVertexAttribArray(posLoc);
-		gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, gridColorBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, scene.fluid.cellColor, gl.DYNAMIC_DRAW);
-
-		var colorLoc = gl.getAttribLocation(pointShader, 'attrColor');
-		gl.enableVertexAttribArray(colorLoc);
-		gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
-
-		gl.drawArrays(gl.POINTS, 0, scene.fluid.fNumCells);
-
-		gl.disableVertexAttribArray(posLoc);
-		gl.disableVertexAttribArray(colorLoc);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, null);
-	}
-
-	// water
-	if (scene.showParticles) {
-		gl.clear(gl.DEPTH_BUFFER_BIT);
-
-		var pointSize = 2.0 * scene.fluid.particleRadius / simWidth * canvas.width;
-
-		gl.useProgram(pointShader);
-		gl.uniform2f(gl.getUniformLocation(pointShader, 'domainSize'), simWidth, simHeight);
-		gl.uniform1f(gl.getUniformLocation(pointShader, 'pointSize'), pointSize);
-		gl.uniform1f(gl.getUniformLocation(pointShader, 'drawDisk'), 1.0);
-
-		if (pointVertexBuffer == null)
-			pointVertexBuffer = gl.createBuffer();
-		if (pointColorBuffer == null)
-			pointColorBuffer = gl.createBuffer();
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, pointVertexBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, scene.fluid.pPosition, gl.DYNAMIC_DRAW);
-
-		var posLoc = gl.getAttribLocation(pointShader, 'attrPosition');
-		gl.enableVertexAttribArray(posLoc);
-		gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, pointColorBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, scene.fluid.pColour, gl.DYNAMIC_DRAW);
-
-		var colorLoc = gl.getAttribLocation(pointShader, 'attrColor');
-		gl.enableVertexAttribArray(colorLoc);
-		gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
-
-		gl.drawArrays(gl.POINTS, 0, scene.fluid.numWaterParticles);
-
-		gl.disableVertexAttribArray(posLoc);
-		gl.disableVertexAttribArray(colorLoc);
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, null);
-	}
-
-	// disk
-
-	// prepare disk mesh
-
-	// var numSegs = 50;
-
-	// if (diskVertBuffer == null) {
-
-	// 	diskVertBuffer = gl.createBuffer();
-	// 	var dphi = 2.0 * Math.PI / numSegs;
-	// 	var diskVerts = new Float32Array(2 * numSegs + 2);
-	// 	var p = 0;
-	// 	diskVerts[p++] = 0.0;
-	// 	diskVerts[p++] = 0.0;
-	// 	for (var i = 0; i < numSegs; i++) {
-	// 		diskVerts[p++] = Math.cos(i * dphi);
-	// 		diskVerts[p++] = Math.sin(i * dphi);
-	// 	}
-	// 	gl.bindBuffer(gl.ARRAY_BUFFER, diskVertBuffer);
-	// 	gl.bufferData(gl.ARRAY_BUFFER, diskVerts, gl.DYNAMIC_DRAW);
-	// 	gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
-	// 	diskIdBuffer = gl.createBuffer();
-	// 	var diskIds = new Uint16Array(3 * numSegs);
-	// 	p = 0;
-	// 	for (var i = 0; i < numSegs; i++) {
-	// 		diskIds[p++] = 0;
-	// 		diskIds[p++] = 1 + i;
-	// 		diskIds[p++] = 1 + (i + 1) % numSegs;
-	// 	}
-
-	// 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, diskIdBuffer);
-	// 	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, diskIds, gl.DYNAMIC_DRAW);
-	// 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-	// }
-
-	// gl.clear(gl.DEPTH_BUFFER_BIT);
-
-	// var diskColor = [1.0, 0.0, 0.0];
-
-	// gl.useProgram(meshShader);
-	// gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), simWidth, simHeight);
-	// gl.uniform3f(gl.getUniformLocation(meshShader, 'color'), diskColor[0], diskColor[1], diskColor[2]);
-	// gl.uniform2f(gl.getUniformLocation(meshShader, 'translation'), scene.obstacleX, scene.obstacleY);
-	// gl.uniform1f(gl.getUniformLocation(meshShader, 'scale'), scene.obstacleRadius + scene.fluid.particleRadius);
-
-	// posLoc = gl.getAttribLocation(meshShader, 'attrPosition');
-	// gl.enableVertexAttribArray(posLoc);
-	// gl.bindBuffer(gl.ARRAY_BUFFER, diskVertBuffer);
-	// gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-	// gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, diskIdBuffer);
-	// gl.drawElements(gl.TRIANGLES, 3 * numSegs, gl.UNSIGNED_SHORT, 0);
-
-	// gl.disableVertexAttribArray(posLoc);
-
-	// coral
-	if (corals.length > 0) {
-		gl.useProgram(meshShader);
-		gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), simWidth, simHeight);
-
-		let posLoc = gl.getAttribLocation(meshShader, 'attrPosition');
-		gl.enableVertexAttribArray(posLoc);
-
-		if (coralVertexBuffer == null) {
-			coralVertexBuffer = gl.createBuffer();
-			const half = 0.5;
-			const squareVerts = new Float32Array([
-				-half, -half,
-				half, -half,
-				half, half,
-				-half, half
-			]);
-			gl.bindBuffer(gl.ARRAY_BUFFER, coralVertexBuffer);
-			gl.bufferData(gl.ARRAY_BUFFER, squareVerts, gl.STATIC_DRAW);
-		}
-
-		gl.bindBuffer(gl.ARRAY_BUFFER, coralVertexBuffer);
-		gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-		const f = scene.fluid;
-		const h = f.h;
-		
-		for (const coral of corals) {
-			for (const cell of coral) {
-				const x = (cell.xi + 0.5) * h;
-				const y = (cell.yi + 0.5) * h;
-
-				const health = cell.health ?? 1.0;
-				if (cell.colour === 0) {
-					var r = 1.0;
-					var g = 0.8;
-					var b = 0.2;
-				} else if (cell.colour === 1) {
-					var r = 0.6;
-					var g = 0.9;
-					var b = 0.3;
-				} else {
-					var r = 1.0;
-					var g = 0.8;
-					var b = 0.8;
-				}
-				r = r + (0.9 - r) * (1 - health); // Red fades as it dies
-				g = g + (0.9 - g) * (1 - health); // Green fades as it dies
-				b = b + (0.9 - b) * (1 - health); // Blue fades as it dies
-
-				gl.uniform3f(gl.getUniformLocation(meshShader, 'color'), r, g, b);
-				gl.uniform2f(gl.getUniformLocation(meshShader, 'translation'), x, y);
-				gl.uniform1f(gl.getUniformLocation(meshShader, 'scale'), h);
-
-				gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-			}
-		}
-
-		gl.disableVertexAttribArray(posLoc);
-	}
-
-}
-
-function setObstacle(x, y, reset) {
-
-	var vx = 0.0;
-	var vy = 0.0;
-
-	if (!reset) {
-		vx = (x - scene.obstacleX) / scene.dt;
-		vy = (y - scene.obstacleY) / scene.dt;
-	}
-
-	scene.obstacleX = x;
-	scene.obstacleY = y;
-	var r = scene.obstacleRadius;
-	var f = scene.fluid;
-	var n = f.numY;
-	var cd = Math.sqrt(2) * f.h;
-
-	for (var i = 1; i < f.numX - 2; i++) {
-		for (var j = 1; j < f.numY - 2; j++) {
-
-			f.cell[i * n + j] = 1.0;
-
-			dx = (i + 0.5) * f.h - x;
-			dy = (j + 0.5) * f.h - y;
-
-			if (dx * dx + dy * dy < r * r) {
-				f.cell[i * n + j] = 0.0;
-				f.u[i * n + j] = vx;
-				f.u[(i + 1) * n + j] = vx;
-				f.v[i * n + j] = vy;
-				f.v[i * n + j + 1] = vy;
-			}
+	} else if (type === AIR_CELL) {
+		while (fishYi < fNumY - 1) {
+			fishYi--;
+			idx = fishXi * fNumY + fishYi;
+			if (f.cellType[idx] === FLUID_CELL) break;
 		}
 	}
 
-	scene.showObstacle = true;
-	scene.obstacleVelX = vx;
-	scene.obstacleVelY = vy;
-}
-
-// interaction -------------------------------------------------------
-var mouseDown = false;
-
-function startDrag(x, y) {
-	let bounds = canvas.getBoundingClientRect();
-
-	let mx = x - bounds.left - canvas.clientLeft;
-	let my = y - bounds.top - canvas.clientTop;
-	mouseDown = true;
-
-	x = mx / cScale;
-	y = (canvas.height - my) / cScale;
-
-	setObstacle(x, y, true);
-	scene.paused = false;
-}
-
-function drag(x, y) {
-	if (mouseDown) {
-		let bounds = canvas.getBoundingClientRect();
-		let mx = x - bounds.left - canvas.clientLeft;
-		let my = y - bounds.top - canvas.clientTop;
-		x = mx / cScale;
-		y = (canvas.height - my) / cScale;
-		setObstacle(x, y, false);
-	}
-}
-
-function endDrag() {
-	mouseDown = false;
-	scene.obstacleVelX = 0.0;
-	scene.obstacleVelY = 0.0;
-}
-
-canvas.addEventListener('mousedown', event => {
-	startDrag(event.x, event.y);
-});
-
-canvas.addEventListener('mouseup', event => {
-	endDrag();
-});
-
-canvas.addEventListener('mousemove', event => {
-	drag(event.x, event.y);
-});
-
-canvas.addEventListener('touchstart', event => {
-	startDrag(event.touches[0].clientX, event.touches[0].clientY)
-});
-
-canvas.addEventListener('touchend', event => {
-	endDrag()
-});
-
-canvas.addEventListener('touchmove', event => {
-	event.preventDefault();
-	event.stopImmediatePropagation();
-	drag(event.touches[0].clientX, event.touches[0].clientY)
-}, { passive: false });
-
-
-document.addEventListener('keydown', event => {
-	switch (event.key) {
-		case 'p': scene.paused = !scene.paused; break;
-		case 'm': scene.paused = false; simulate(); scene.paused = true; break;
-	}
-});
-
-function toggleStart() {
-	var button = document.getElementById('startButton');
-	if (scene.paused)
-		button.innerHTML = "Stop";
-	else
-		button.innerHTML = "Start";
-	scene.paused = !scene.paused;
+	// === Update world coordinates ===
+	const h = f.h;
+	fishX = (fishXi + 0.5) * h;
+	fishY = (fishYi + 0.5) * h;
 }
 
 // main -------------------------------------------------------
-
 function simulate() {
 	if (!scene.paused)
 		scene.fluid.simulate(
 			scene.dt, scene.gravity, scene.flipRatio, scene.numPressureIters, scene.numParticleIters,
 			scene.overRelaxation, scene.compensateDrift, scene.separateParticles,
 			scene.obstacleX, scene.obstacleY, scene.obstacleRadius, scene.colorFieldNr);
+	updateFish();
 	scene.frameNr++;
 }
-
-const fps = 25;
 
 function update() {
 	simulate();
 	draw();
 	requestAnimationFrame(update);
-	// setTimeout(() => {
-	// 	requestAnimationFrame(update);
-	// }, 1000 / fps);
 }
 
 
