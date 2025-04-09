@@ -650,6 +650,7 @@ class FlipFluid {
 		this.cellColor[3 * cellNr + 2] = b;
 	}
 
+	// updateCellColors();
 	updateCellColors() {
 		this.cellColor.fill(0.0);
 
@@ -716,6 +717,7 @@ class FlipFluid {
 
 		this.updatepColours();
 		this.updateCellColors();
+		updateCoralHealthAndColor();
 
 	}
 }
@@ -797,6 +799,55 @@ function updateFish() {
 	const h = f.h;
 	fishX = (fishXi + 0.5) * h;
 	fishY = (fishYi + 0.5) * h;
+}
+
+function updateCoralHealthAndColor() {
+	const f = scene.fluid;
+
+	for (let coralGroup of corals) {
+		for (let coral of coralGroup) {
+			const { xi, yi } = coral;
+			const idx = xi * f.NumCellY + yi;
+
+			// Get temperature and water depth above coral
+			const temp = f.cellTemp[idx];
+
+			// Count fluid cells above this coral (proxy for sea level rise)
+			let depthAbove = 0;
+			for (let j = yi + 1; j < f.NumCellY; j++) {
+				if (f.cellType[xi * f.NumCellY + j] === FLUID_CELL) {
+					depthAbove++;
+				} else {
+					break;
+				}
+			}
+
+			// === Health Degradation ===
+			// Warmer than 28°C = bleaching; more than 10 layers above = too deep
+			let damage = 0;
+			if (temp > 20) damage += 0.05 * (temp - 20); // higher temp = more damage
+			if (depthAbove > 60) damage += 0.005 * (depthAbove - 10); // deeper = less light
+
+			// Apply and clamp health
+			coral.health = Math.max(0, coral.health - damage * scene.dt * 10);
+
+			// === Update coral color ===
+			// Blend from original color to grey (0.8, 0.8, 0.8) based on health
+			const health = coral.health;
+			let baseColor;
+			switch (coral.colour) {
+				case 0: baseColor = [1.0, 0.5, 0.5]; break; // reddish
+				case 1: baseColor = [0.5, 1.0, 0.5]; break; // greenish
+				case 2: baseColor = [0.5, 0.5, 1.0]; break; // bluish
+			}
+			const bleachedColor = [0.8, 0.8, 0.8];
+			const blended = baseColor.map((c, i) => c * health + bleachedColor[i] * (1 - health));
+
+			f.cellColor[3 * idx + 0] = blended[0];
+			f.cellColor[3 * idx + 1] = blended[1];
+			f.cellColor[3 * idx + 2] = blended[2];
+		}
+	}
 }
 
 // main -------------------------------------------------------

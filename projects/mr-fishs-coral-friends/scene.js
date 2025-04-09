@@ -12,7 +12,6 @@ const numCellX = numDisplayCellX + numDisplayCellPadding * 2;
 const numCellY = numDisplayCellY + numDisplayCellPadding * 2;
 
 canvas.focus();
-console.log(gl)
 
 if ((window.innerHeight - 20) / (window.innerWidth - 20) < aspectRatio) {
 	canvas.height = window.innerHeight - 20;
@@ -170,16 +169,9 @@ function setupScene() {
 	scene.numParticleIters = 2;
 
 	var cellSpacing = simWidth / numCellX;
-	console.log(simWidth, numCellX, cellSpacing);
 	var density = 1000.0;
 
-	var relWaterHeight = 0.4
-	var relWaterWidth = 1.0
-	var relIceHeight = 0.6
-	var relIceWidth = 0.3
-	var relIceOffset = 0.2
-
-	// compute number of particles
+	// // compute number of particles
 	var pRadius = 0.3 * cellSpacing;	// particle radius w.r.t. cell size
 	var pHorizontalSpacing = 2.0 * pRadius;
 	var pVerticalSpacing = Math.sqrt(3.0) / 2.0 * pHorizontalSpacing;
@@ -190,82 +182,62 @@ function setupScene() {
 
 	// create fluid
 	f = scene.fluid = new FlipFluid(density, simWidth, simHeight, cellSpacing, pRadius, maxParticles);
+	loadSceneFromImage('mr-fishs-coral-friends/scene.png', (imageData, width, height) => {
+		// Set cell types
+		for (let i = 0; i < f.NumCellX; i++) {
+			for (let j = 0; j < f.NumCellY; j++) {
+				const imgI = Math.floor(i * width / f.NumCellX);
+				const imgJ = Math.floor((f.NumCellY - 1 - j) * height / f.NumCellY);
+				const idx = (imgJ * width + imgI) * 4;
+				const r = imageData[idx];
+				const g = imageData[idx + 1];
+				const b = imageData[idx + 2];
 
-	// setup grid cells for tank
-	var Lx = f.NumCellX;
-	var Ly = f.NumCellY;
+				let cellType = SOLID_CELL;
+				let temp = tempRef;
+				let fill = 0.0;
 
-	for (var i = 0; i < Lx; i++) {
-		for (var j = 0; j < Ly; j++) {
-			var s = 1.0;	// fluid
-			if (i == 0 || i == Lx - 1 || j == 0)
-				s = 0.0;	// solid
-			f.cell[i * Ly + j] = s
-			f.cellType[i * Ly + j] = s == 0.0 ? SOLID_CELL : AIR_CELL;
-		}
-	}
+				if (r > 200 && g > 200 && b > 200) {
+					// White: ice
+					cellType = ICE_CELL;
+					fill = 0.0;
+					temp = -3.0;
+				}
+				else if (r < 100 && g < 100 && b < 100) {
+					// Black: solid
+					cellType = SOLID_CELL;
+					fill = 0.0;
+					temp = tempRef;
+				}
+				else if (b > 150 && r < 50 && g < 50) {
+					// Blue: water
+					cellType = FLUID_CELL;
+					fill = 1.0;
+					temp = tempRef;
+				}
+				else if (g > 150) {
+					// Green: air
+					cellType = AIR_CELL;
+					fill = 1.0;
+					temp = tempRef;
+				}
 
-	// Create a raised basin on the left side
-	for (var i = 0; i < Lx; i++) {
-		for (var j = 0; j < Ly; j++) {
-			f.cellTemp[i * Ly + j] = tempRef;
-			var slope = Ly * (Lx - i) / Lx * 0.3;
-			// ice
-			if (i < Lx * relIceWidth && j < slope + Ly * relIceHeight) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = ICE_CELL;
-				f.cellTemp[i * Ly + j] = -3.0;
-			}
-			// basin
-			if (j < slope) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = SOLID_CELL;
-				f.cellTemp[i * Ly + j] = 0.0;
-			} else if (i < Lx * relIceWidth && j < slope + relIceOffset * Ly) {
-				f.cell[i * Ly + j] = 0.0;
-				f.cellType[i * Ly + j] = SOLID_CELL;
-				f.cellTemp[i * Ly + j] = 0.0;
-			}
-		}
-	}
-
-	// create water particles
-	var p = 0;
-	for (var i = 0; i < numX; i++) {
-		for (var j = 0; j < numY; j++) {
-			// skip if this particle is in the basin
-			var x = cellSpacing + pRadius + pHorizontalSpacing * i + (j % 2 == 0 ? 0.0 : pRadius);
-			var y = cellSpacing + pRadius + pVerticalSpacing * j;
-			var xi = Math.floor(x / simWidth * Lx);
-			var yi = Math.floor(y / simHeight * Ly);
-			if (f.cell[xi * Ly + yi] == 1.0 && x < relWaterWidth * simWidth && y < relWaterHeight * simHeight) {
-				// is water particle
-				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
-				f.pType[p] = 1;
-				f.pTemp[p] = tempRef;
-				f.cellTemp[xi * Ly + yi] = 20.0;
-			}
-			else if (f.cellType[xi * Ly + yi] == ICE_CELL) {
-				// is ice particle
-				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
-				f.pType[p] = 0;
-				f.pTemp[p] = -3.0;
+				const idx1d = i * f.NumCellY + j;
+				f.cell[idx1d] = fill;
+				f.cellType[idx1d] = cellType;
+				f.cellTemp[idx1d] = temp;
 			}
 		}
-	}
-	f.numWaterParticles = p;
 
-	addCorals(); // Add corals to the scene
+		// Now that cellType is ready, place particles & corals
+		placeParticles(f, numX, numY, cellSpacing, pRadius, pHorizontalSpacing, pVerticalSpacing);
+		addCorals();
+		setObstacle(3.0, 2.0, true);
+		initFish(gl);
+		placeFishInFluid();
+	});
 
-	setObstacle(3.0, 2.0, true);
 
-	// Fish state
-	initFish(gl);
-	placeFishInFluid();
 }
 
 function setObstacle(x, y, reset) {
@@ -343,4 +315,54 @@ function placeFishInFluid() {
 
 	fishXi = Math.floor(NumCellX * 2 / 3);
 	fishYi = Math.floor(NumCellY * 1 / 3);
+}
+
+function loadSceneFromImage(src, onReady) {
+	const img = new Image();
+	img.onload = function () {
+		const canvas = document.createElement('canvas');
+		canvas.width = img.width;
+		canvas.height = img.height;
+		const ctx = canvas.getContext('2d');
+		ctx.drawImage(img, 0, 0);
+		const imageData = ctx.getImageData(0, 0, img.width, img.height).data;
+
+		onReady(imageData, img.width, img.height);
+	};
+	img.src = src;
+}
+
+function placeParticles(f, numX, numY, cellSpacing, pRadius, pHorizontalSpacing, pVerticalSpacing) {
+	// create water particles
+	var Lx = f.NumCellX;
+	var Ly = f.NumCellY;
+
+	var p = 0;
+	for (var i = 0; i < numX; i++) {
+		for (var j = 0; j < numY; j++) {
+			// skip if this particle is in the basin
+			var x = cellSpacing + pRadius + pHorizontalSpacing * i + (j % 2 == 0 ? 0.0 : pRadius);
+			var y = cellSpacing + pRadius + pVerticalSpacing * j;
+			var xi = Math.floor(x * Lx / simWidth);
+			var yi = Math.floor(y * Ly / simHeight);
+			cellId = xi * Ly + yi;
+			if (f.cellType[cellId] === FLUID_CELL) {
+				// is water particle
+				p++;
+				f.pPosition[p * 2 - 1] = y;
+				f.pPosition[p * 2] = x;
+				f.pType[p] = 1.0;
+				f.pTemp[p] = f.cellTemp[cellId];
+			}
+			else if (f.cellType[cellId] === ICE_CELL) {
+				// is ice particle
+				p++;
+				f.pPosition[p * 2 - 1] = y;
+				f.pPosition[p * 2] = x;
+				f.pType[p] = 0.0;
+				f.pTemp[p] = f.cellTemp[cellId];
+			}
+		}
+	}
+	f.numWaterParticles = p;
 }

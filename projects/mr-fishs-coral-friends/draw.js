@@ -167,7 +167,7 @@ function drawParticles(gl, scene) {
 		var pointSize = 2.0 * scene.fluid.particleRadius / simWidth * canvas.width;
 
 		gl.useProgram(pointShader);
-		gl.uniform2f(gl.getUniformLocation(pointShader, 'domainSize'), simWidth, simHeight);
+		gl.uniform2f(gl.getUniformLocation(pointShader, 'domainSize'), displayWidth, displayHeight);
 		gl.uniform1f(gl.getUniformLocation(pointShader, 'pointSize'), pointSize);
 		gl.uniform1f(gl.getUniformLocation(pointShader, 'drawDisk'), 1.0);
 
@@ -370,4 +370,3 @@ function loadTexture(gl, url, onReady = () => { }) {
 		return (value & (value - 1)) === 0;
 	}
 }
-
