@@ -50,8 +50,8 @@ function draw() {
 
 	// grid
 	drawGridCells(gl, meshShader, scene, gridVertBuffer);
-	drawParciels(gl, scene);
-	drawCoralsOptimized(gl, meshShader, corals, scene, coralVertexBuffer);
+	drawParticles(gl, scene);
+	drawCorals(gl, meshShader, corals, scene, coralVertexBuffer);
 
 	if (fishTextureReady) {
 		drawFish(gl);
@@ -61,7 +61,7 @@ function draw() {
 function drawFish(gl) {
 	gl.useProgram(fishShader);
 
-	gl.uniform2f(gl.getUniformLocation(fishShader, 'domainSize'), simWidth, simHeight);
+	gl.uniform2f(gl.getUniformLocation(fishShader, 'domainSize'), displayWidth, displayHeight);
 	gl.uniform2f(gl.getUniformLocation(fishShader, 'fishPos'), fishX, fishY);
 	gl.uniform2f(gl.getUniformLocation(fishShader, 'fishSize'), fishWidth, fishHeight);
 
@@ -87,23 +87,23 @@ function drawFish(gl) {
 	gl.disableVertexAttribArray(uvLoc);
 }
 
-function drawCoralsOptimized(gl, meshShader, corals, scene, coralVertexBuffer) {
+function drawCorals(gl, meshShader, corals, scene, coralVertexBuffer) {
 	gl.useProgram(meshShader);
-	gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), simWidth, simHeight);
+	gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), displayWidth, displayHeight);
 
 	if (coralVertexBuffer == null) {
 		coralVertexBuffer = gl.createBuffer();
 	}
 
 	const f = scene.fluid;
-	const h = f.h;
+	const cellSpacing = displayWidth / numDisplayCellX;
 	const vertices = [];
 	const colors = [];
 
 	for (const coral of corals) {
 		for (const cell of coral) {
-			const x = (cell.xi + 0.5) * h;
-			const y = (cell.yi + 0.5) * h;
+			const x = (cell.xi-numDisplayCellPadding + 0.5) * cellSpacing;
+			const y = (cell.yi-numDisplayCellPadding + 0.5) * cellSpacing;
 
 			const health = cell.health ?? 1.0;
 			let r, g, b;
@@ -120,13 +120,13 @@ function drawCoralsOptimized(gl, meshShader, corals, scene, coralVertexBuffer) {
 
 			// Add vertices for the quad (two triangles per quad)
 			vertices.push(
-				x - h / 2, y - h / 2, // Bottom-left
-				x + h / 2, y - h / 2, // Bottom-right
-				x + h / 2, y + h / 2, // Top-right
+				x - cellSpacing / 2, y - cellSpacing / 2, // Bottom-left
+				x + cellSpacing / 2, y - cellSpacing / 2, // Bottom-right
+				x + cellSpacing / 2, y + cellSpacing / 2, // Top-right
 
-				x - h / 2, y - h / 2, // Bottom-left
-				x + h / 2, y + h / 2, // Top-right
-				x - h / 2, y + h / 2  // Top-left
+				x - cellSpacing / 2, y - cellSpacing / 2, // Bottom-left
+				x + cellSpacing / 2, y + cellSpacing / 2, // Top-right
+				x - cellSpacing / 2, y + cellSpacing / 2  // Top-left
 			);
 
 			// Add color for each vertex
@@ -160,7 +160,7 @@ function drawCoralsOptimized(gl, meshShader, corals, scene, coralVertexBuffer) {
 	gl.disableVertexAttribArray(colorLoc);
 }
 
-function drawParciels(gl, scene) {
+function drawParticles(gl, scene) {
 	if (scene.showParticles) {
 		gl.clear(gl.DEPTH_BUFFER_BIT);
 
@@ -201,33 +201,35 @@ function drawParciels(gl, scene) {
 
 function drawGridCells(gl, meshShader, scene, gridVertexBuffer) {
 	gl.useProgram(meshShader);
-	gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), simWidth, simHeight);
+	gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), displayWidth, displayHeight);
 
 	const f = scene.fluid;
-	const h = f.h;
+	const cellSpacing = displayWidth / numDisplayCellX;
 
 	const vertices = [];
 	const colors = [];
 
-	for (let i = 0; i < f.fNumX; i++) {
-		for (let j = 0; j < f.fNumY; j++) {
-			const x = (i + 0.5) * h;
-			const y = (j + 0.5) * h;
+	for (let i = numDisplayCellPadding; i < numDisplayCellX + numDisplayCellPadding; i++) {
+		const iDisp = i - numDisplayCellPadding;
+		for (let j = numDisplayCellPadding; j < numDisplayCellY + numDisplayCellPadding; j++) {
+			const jDisp = j - numDisplayCellPadding;
+			const x = (iDisp + 0.5) * cellSpacing;
+			const y = (jDisp + 0.5) * cellSpacing;
 
-			const idx = i * f.fNumY + j;
+			const idx = i * f.NumCellY + j;
 			const r = scene.fluid.cellColor[3 * idx];
 			const g = scene.fluid.cellColor[3 * idx + 1];
 			const b = scene.fluid.cellColor[3 * idx + 2];
 
 			// Add 6 vertices for the cell quad
 			vertices.push(
-				x - h / 2, y - h / 2,
-				x + h / 2, y - h / 2,
-				x + h / 2, y + h / 2,
+				x - cellSpacing / 2, y - cellSpacing / 2,
+				x + cellSpacing / 2, y - cellSpacing / 2,
+				x + cellSpacing / 2, y + cellSpacing / 2,
 
-				x - h / 2, y - h / 2,
-				x + h / 2, y + h / 2,
-				x - h / 2, y + h / 2
+				x - cellSpacing / 2, y - cellSpacing / 2,
+				x + cellSpacing / 2, y + cellSpacing / 2,
+				x - cellSpacing / 2, y + cellSpacing / 2
 			);
 
 			for (let k = 0; k < 6; k++) {
@@ -317,89 +319,7 @@ function drawDisk() {
 	// gl.disableVertexAttribArray(posLoc);
 }
 
-
-// function loadTexture(gl, url, onReady = () => { }) {
-// 	const texture = gl.createTexture();
-// 	gl.bindTexture(gl.TEXTURE_2D, texture);
-
-// 	// Temporary 1x1 pixel
-// 	const pixel = new Uint8Array([0, 0, 255, 255]);
-// 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
-
-// 	const image = new Image();
-// 	image.src = url;
-// 	image.onload = function () {
-// 		gl.bindTexture(gl.TEXTURE_2D, texture);
-// 		function loadTexture(gl, url, onReady = () => { }) {
-// 	const texture = gl.createTexture();
-// 	gl.bindTexture(gl.TEXTURE_2D, texture);
-
-// 	// Temporary 1x1 pixel
-// 	const pixel = new Uint8Array([0, 0, 255, 255]);
-// 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
-
-// 	const image = new Image();
-// 	image.src = url;
-// 	image.onload = function () {
-// 		gl.bindTexture(gl.TEXTURE_2D, texture);
-// 		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-
-// 		const isPOT = isPowerOf2(image.width) && isPowerOf2(image.height);
-
-// 		if (isPOT) {
-// 			gl.generateMipmap(gl.TEXTURE_2D);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_NEAREST);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-// 		} else {
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-// 		}
-
-// 		onReady({
-// 			texture: texture,
-// 			width: image.width,
-// 			height: image.height
-// 		});
-// 	};
-
-// 	return texture;
-
-// 	function isPowerOf2(value) {
-// 		return (value & (value - 1)) === 0;
-// 	}
-// }
-// 		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-
-// 		const isPOT = isPowerOf2(image.width) && isPowerOf2(image.height);
-
-// 		if (isPOT) {
-// 			gl.generateMipmap(gl.TEXTURE_2D);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_NEAREST);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-// 		} else {
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-// 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-// 		}
-
-// 		onReady({
-// 			texture: texture,
-// 			width: image.width,
-// 			height: image.height
-// 		});
-// 	};
-
-// 	return texture;
-
-// 	function isPowerOf2(value) {
-// 		return (value & (value - 1)) === 0;
-// 	}
-// }
-
-function loadTexture(gl, url, onReady = () => {}) {
+function loadTexture(gl, url, onReady = () => { }) {
 	const texture = gl.createTexture();
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 

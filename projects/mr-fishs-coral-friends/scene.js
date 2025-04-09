@@ -1,14 +1,30 @@
 var canvas = document.getElementById("myCanvas");
 var gl = canvas.getContext("webgl");
-canvas.width = window.innerWidth - 20;
-canvas.height = window.innerHeight - 20;
 
+const numDisplayCellX = 256;
+const numDisplayCellY = 144;
+const numDisplayCellPadding = 2;
+const aspectRatio = 1.0 * numDisplayCellY / numDisplayCellX;
+const displayWidth = 8.0;
+const displayHeight = displayWidth * aspectRatio;
+
+const numCellX = numDisplayCellX + numDisplayCellPadding * 2;
+const numCellY = numDisplayCellY + numDisplayCellPadding * 2;
 
 canvas.focus();
+console.log(gl)
 
-var simHeight = 3.0;
-var cScale = canvas.height / simHeight;
-var simWidth = canvas.width / cScale;
+if ((window.innerHeight - 20) / (window.innerWidth - 20) < aspectRatio) {
+	canvas.height = window.innerHeight - 20;
+	canvas.width = canvas.height / aspectRatio;
+} else {
+	canvas.width = window.innerWidth - 20;
+	canvas.height = canvas.width * aspectRatio;
+}
+const simWidth = displayWidth * numCellX / numDisplayCellX;
+const simHeight = displayWidth * aspectRatio * numCellY / numDisplayCellY;
+
+const cScale = canvas.width / displayWidth;
 
 var U_FIELD = 0;
 var V_FIELD = 1;
@@ -41,7 +57,7 @@ let lastTargetSetTime = 0;
 const TARGET_UPDATE_INTERVAL = 500; // ms
 const TARGET_OFFSET_RANGE = 64; // randomness
 
-let mouseXi  = 10, mouseYi  = 10;
+let mouseXi = 10, mouseYi = 10;
 let lastMouseXi = 10, lastMouseYi = 10;
 let lastMouseMoveTime = 0;
 
@@ -79,18 +95,18 @@ function addCorals() {
 	var colourId = 0;
 	const visited = new Set();
 
-	for (let xi = 1; xi <= f.fNumX; xi++) {
+	for (let xi = 1; xi <= f.NumCellX; xi++) {
 		if (Math.random() >= 0.1) { // Random chance to skip a row for more sparse growth
 			continue; // Skip this row
 		}
 		// const xi = Math.floor(i * coralSpacing);
 		var baseYi = 2; // just above solid bottom
-		var cellNr = xi * f.fNumY + baseYi;
+		var cellNr = xi * f.NumCellY + baseYi;
 
 		// Check if the cell is a valid location for a coral
-		while (baseYi < f.fNumY && f.cellType[cellNr] === SOLID_CELL) {
+		while (baseYi < f.NumCellY && f.cellType[cellNr] === SOLID_CELL) {
 			baseYi++;
-			cellNr = xi * f.fNumY + baseYi; // Update cellNr to the next row
+			cellNr = xi * f.NumCellY + baseYi; // Update cellNr to the next row
 		}
 
 		if (f.cellType[cellNr] === ICE_CELL) {
@@ -104,7 +120,7 @@ function addCorals() {
 		// Grows one branch (can call itself recursively to fork)
 		function growBranch(x, y, depth, colourId = 1, canHorizontal = true) {
 			if (depth > maxBranchDepth) return;
-			if (f.cellType[x * f.fNumY + y] === SOLID_CELL) {
+			if (f.cellType[x * f.NumCellY + y] === SOLID_CELL) {
 				return; // Stop if we hit a non-fluid cell
 			}
 
@@ -153,11 +169,8 @@ function setupScene() {
 	scene.numPressureIters = 50;
 	scene.numParticleIters = 2;
 
-	var res = 160;
-
-	var tankHeight = 1.0 * simHeight;
-	var tankWidth = 1.0 * simWidth;
-	var h = tankHeight / res;
+	var cellSpacing = simWidth / numCellX;
+	console.log(simWidth, numCellX, cellSpacing);
 	var density = 1000.0;
 
 	var relWaterHeight = 0.4
@@ -167,20 +180,20 @@ function setupScene() {
 	var relIceOffset = 0.2
 
 	// compute number of particles
-	var r = 0.3 * h;	// particle radius w.r.t. cell size
-	var dx = 2.0 * r;
-	var dy = Math.sqrt(3.0) / 2.0 * dx;
+	var pRadius = 0.3 * cellSpacing;	// particle radius w.r.t. cell size
+	var pHorizontalSpacing = 2.0 * pRadius;
+	var pVerticalSpacing = Math.sqrt(3.0) / 2.0 * pHorizontalSpacing;
 
-	var numX = Math.floor((tankWidth - 2.0 * h - 2.0 * r) / dx);
-	var numY = Math.floor((tankHeight - 2.0 * h - 2.0 * r) / dy);
+	var numX = Math.floor((simWidth - 2.0 * cellSpacing - 2.0 * pRadius) / pHorizontalSpacing);
+	var numY = Math.floor((simHeight - 2.0 * cellSpacing - 2.0 * pRadius) / pVerticalSpacing);
 	var maxParticles = numX * numY;
 
 	// create fluid
-	f = scene.fluid = new FlipFluid(density, tankWidth, tankHeight, h, r, maxParticles);
+	f = scene.fluid = new FlipFluid(density, simWidth, simHeight, cellSpacing, pRadius, maxParticles);
 
 	// setup grid cells for tank
-	var Lx = f.fNumX;
-	var Ly = f.fNumY;
+	var Lx = f.NumCellX;
+	var Ly = f.NumCellY;
 
 	for (var i = 0; i < Lx; i++) {
 		for (var j = 0; j < Ly; j++) {
@@ -221,11 +234,11 @@ function setupScene() {
 	for (var i = 0; i < numX; i++) {
 		for (var j = 0; j < numY; j++) {
 			// skip if this particle is in the basin
-			var x = h + r + dx * i + (j % 2 == 0 ? 0.0 : r);
-			var y = h + r + dy * j;
-			var xi = Math.floor(x / tankWidth * Lx);
-			var yi = Math.floor(y / tankHeight * Ly);
-			if (f.cell[xi * Ly + yi] == 1.0 && x < relWaterWidth * tankWidth && y < relWaterHeight * tankHeight) {
+			var x = cellSpacing + pRadius + pHorizontalSpacing * i + (j % 2 == 0 ? 0.0 : pRadius);
+			var y = cellSpacing + pRadius + pVerticalSpacing * j;
+			var xi = Math.floor(x / simWidth * Lx);
+			var yi = Math.floor(y / simHeight * Ly);
+			if (f.cell[xi * Ly + yi] == 1.0 && x < relWaterWidth * simWidth && y < relWaterHeight * simHeight) {
 				// is water particle
 				p++;
 				f.pPosition[p * 2 - 1] = y;
@@ -325,9 +338,9 @@ function initFish(gl) {
 
 function placeFishInFluid() {
 	const f = scene.fluid;
-	const fNumX = f.fNumX;
-	const fNumY = f.fNumY;
+	const NumCellX = f.NumCellX;
+	const NumCellY = f.NumCellY;
 
-	fishXi = Math.floor(fNumX * 2 / 3);
-	fishYi = Math.floor(fNumY * 1 / 3);
+	fishXi = Math.floor(NumCellX * 2 / 3);
+	fishYi = Math.floor(NumCellY * 1 / 3);
 }

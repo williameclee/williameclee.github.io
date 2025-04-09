@@ -10,11 +10,11 @@ function clamp(x, min, max) {
 class FlipFluid {
 	constructor(density, width, height, spacing, particleRadius, maxParticles) {
 		this.density = density;
-		this.fNumX = Math.floor(width / spacing) + 1;
-		this.fNumY = Math.floor(height / spacing) + 1;
-		this.h = Math.max(width / this.fNumX, height / this.fNumY);
-		this.fInvSpacing = 1.0 / this.h;
-		this.fNumCells = this.fNumX * this.fNumY;
+		this.NumCellX = Math.floor(width / spacing);
+		this.NumCellY = Math.floor(height / spacing);
+		this.h = Math.max(width / this.NumCellX, height / this.NumCellY);
+		this.cellInvSpacing = 1.0 / this.h;
+		this.fNumCells = this.NumCellX * this.NumCellY;
 
 		// grid
 		this.cellU = new Float32Array(this.fNumCells);
@@ -164,13 +164,13 @@ class FlipFluid {
 	}
 
 	handleParticleCollisions() {
-		const h = 1.0 / this.fInvSpacing;
+		const h = 1.0 / this.cellInvSpacing;
 		const r = this.particleRadius;
 
 		const minX = h + r;
-		const maxX = (this.fNumX - 1) * h - r;
+		const maxX = (this.NumCellX - 1) * h - r;
 		const minY = h + r;
-		const maxY = (this.fNumY - 1) * h - r;
+		const maxY = (this.NumCellY - 1) * h - r;
 
 
 		for (var i = 0; i < this.numWaterParticles; i++) {
@@ -199,9 +199,9 @@ class FlipFluid {
 			this.pPosition[2 * i + 1] = y;
 
 			// Find grid cell spaghetti code
-			const Ly = this.fNumY;
-			const xi = Math.floor(x * this.fInvSpacing);
-			const yi = Math.floor(y * this.fInvSpacing);
+			const Ly = this.NumCellY;
+			const xi = Math.floor(x * this.cellInvSpacing);
+			const yi = Math.floor(y * this.cellInvSpacing);
 			const cellNr = xi * Ly + yi;
 
 			if (this.cell[cellNr] === 0.0) {  // solid cell
@@ -238,8 +238,8 @@ class FlipFluid {
 			// Only check for ice particles (type 0)
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
-			var xi = Math.floor(x * this.fInvSpacing) * this.h;
-			var yi = Math.floor(y * this.fInvSpacing) * this.h;
+			var xi = Math.floor(x * this.cellInvSpacing) * this.h;
+			var yi = Math.floor(y * this.cellInvSpacing) * this.h;
 
 			const dxi = xi - obstacleX;
 			const dyi = yi - obstacleY;
@@ -247,16 +247,16 @@ class FlipFluid {
 
 			if (d2 >= minDist2) continue;
 
-			xi = Math.floor(x * this.fInvSpacing);
-			yi = Math.floor(y * this.fInvSpacing);
+			xi = Math.floor(x * this.cellInvSpacing);
+			yi = Math.floor(y * this.cellInvSpacing);
 
 			this.pTemp[i] += 0.1; // heat rate
 
 			// Cpnvert to water
 			if (this.pTemp[i] >= 0) {
-				if (this.cellType[xi * this.fNumY + yi] == ICE_CELL) {
-					this.cell[xi * this.fNumY + yi] = 1.0;
-					this.cellType[xi * this.fNumY + yi] = FLUID_CELL;
+				if (this.cellType[xi * this.NumCellY + yi] == ICE_CELL) {
+					this.cell[xi * this.NumCellY + yi] = 1.0;
+					this.cellType[xi * this.NumCellY + yi] = FLUID_CELL;
 				}
 			}
 		}
@@ -266,19 +266,19 @@ class FlipFluid {
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
 
-			const xi = Math.floor(x * this.fInvSpacing);
-			const yi = Math.floor(y * this.fInvSpacing);
+			const xi = Math.floor(x * this.cellInvSpacing);
+			const yi = Math.floor(y * this.cellInvSpacing);
 
-			if (this.cellType[xi * this.fNumY + yi] == FLUID_CELL) {
+			if (this.cellType[xi * this.NumCellY + yi] == FLUID_CELL) {
 				this.pType[i] = 1;
 			}
 		}
 	}
 
 	updatepDensity() {
-		const n = this.fNumY;
+		const n = this.NumCellY;
 		const h = this.h;
-		const h1 = this.fInvSpacing;
+		const h1 = this.cellInvSpacing;
 		const h2 = 0.5 * h;
 
 		const d = f.pDensity;
@@ -289,24 +289,24 @@ class FlipFluid {
 			var x = this.pPosition[2 * i];
 			var y = this.pPosition[2 * i + 1];
 
-			x = clamp(x, h, (this.fNumX - 1) * h);
-			y = clamp(y, h, (this.fNumY - 1) * h);
+			x = clamp(x, h, (this.NumCellX - 1) * h);
+			y = clamp(y, h, (this.NumCellY - 1) * h);
 
 			var x0 = Math.floor((x - h2) * h1);
 			var tx = ((x - h2) - x0 * h) * h1;
-			var x1 = Math.min(x0 + 1, this.fNumX - 2);
+			var x1 = Math.min(x0 + 1, this.NumCellX - 2);
 
 			var y0 = Math.floor((y - h2) * h1);
 			var ty = ((y - h2) - y0 * h) * h1;
-			var y1 = Math.min(y0 + 1, this.fNumY - 2);
+			var y1 = Math.min(y0 + 1, this.NumCellY - 2);
 
 			var sx = 1.0 - tx;
 			var sy = 1.0 - ty;
 
-			if (x0 < this.fNumX && y0 < this.fNumY) d[x0 * n + y0] += sx * sy;
-			if (x1 < this.fNumX && y0 < this.fNumY) d[x1 * n + y0] += tx * sy;
-			if (x1 < this.fNumX && y1 < this.fNumY) d[x1 * n + y1] += tx * ty;
-			if (x0 < this.fNumX && y1 < this.fNumY) d[x0 * n + y1] += sx * ty;
+			if (x0 < this.NumCellX && y0 < this.NumCellY) d[x0 * n + y0] += sx * sy;
+			if (x1 < this.NumCellX && y0 < this.NumCellY) d[x1 * n + y0] += tx * sy;
+			if (x1 < this.NumCellX && y1 < this.NumCellY) d[x1 * n + y1] += tx * ty;
+			if (x0 < this.NumCellX && y1 < this.NumCellY) d[x0 * n + y1] += sx * ty;
 		}
 
 		if (this.particleRestDensity == 0.0) {
@@ -336,9 +336,9 @@ class FlipFluid {
 	}
 
 	transferVelocities(toGrid, flipRatio) {
-		var n = this.fNumY;
+		var n = this.NumCellY;
 		var h = this.h;
-		var h1 = this.fInvSpacing;
+		var h1 = this.cellInvSpacing;
 		var h2 = 0.5 * h;
 
 		if (toGrid) {
@@ -368,8 +368,8 @@ class FlipFluid {
 			for (var i = 0; i < this.numWaterParticles; i++) {
 				var x = this.pPosition[2 * i];
 				var y = this.pPosition[2 * i + 1];
-				var xi = clamp(Math.floor(x * h1), 0, this.fNumX - 1);
-				var yi = clamp(Math.floor(y * h1), 0, this.fNumY - 1);
+				var xi = clamp(Math.floor(x * h1), 0, this.NumCellX - 1);
+				var yi = clamp(Math.floor(y * h1), 0, this.NumCellY - 1);
 				var cellNr = xi * n + yi;
 				if (this.cellType[cellNr] == AIR_CELL)
 					this.cellType[cellNr] = FLUID_CELL;
@@ -389,16 +389,16 @@ class FlipFluid {
 				var x = this.pPosition[2 * i];
 				var y = this.pPosition[2 * i + 1];
 
-				x = clamp(x, h, (this.fNumX - 1) * h);
-				y = clamp(y, h, (this.fNumY - 1) * h);
+				x = clamp(x, h, (this.NumCellX - 1) * h);
+				y = clamp(y, h, (this.NumCellY - 1) * h);
 
-				var x0 = Math.min(Math.floor((x - dx) * h1), this.fNumX - 2);
+				var x0 = Math.min(Math.floor((x - dx) * h1), this.NumCellX - 2);
 				var tx = ((x - dx) - x0 * h) * h1;
-				var x1 = Math.min(x0 + 1, this.fNumX - 2);
+				var x1 = Math.min(x0 + 1, this.NumCellX - 2);
 
-				var y0 = Math.min(Math.floor((y - dy) * h1), this.fNumY - 2);
+				var y0 = Math.min(Math.floor((y - dy) * h1), this.NumCellY - 2);
 				var ty = ((y - dy) - y0 * h) * h1;
-				var y1 = Math.min(y0 + 1, this.fNumY - 2);
+				var y1 = Math.min(y0 + 1, this.NumCellY - 2);
 
 				var sx = 1.0 - tx;
 				var sy = 1.0 - ty;
@@ -450,8 +450,8 @@ class FlipFluid {
 
 				// restore solid cells
 
-				for (var i = 0; i < this.fNumX; i++) {
-					for (var j = 0; j < this.fNumY; j++) {
+				for (var i = 0; i < this.NumCellX; i++) {
+					for (var j = 0; j < this.NumCellY; j++) {
 						var solid = this.cell[i * n + j] == 0.0;
 						if (solid || (i > 0 && this.cell[(i - 1) * n + j] == 0.0))
 							this.cellU[i * n + j] = this.prevU[i * n + j];
@@ -469,7 +469,7 @@ class FlipFluid {
 		this.prevU.set(this.cellU);
 		this.prevV.set(this.cellV);
 
-		var Ny = this.fNumY;
+		var Ny = this.NumCellY;
 		var cp = this.density * this.h / dt;
 
 		for (var i = 0; i < this.fNumCells; i++) {
@@ -479,8 +479,8 @@ class FlipFluid {
 
 		for (var iter = 0; iter < numIters; iter++) {
 
-			for (var i = 1; i < this.fNumX - 1; i++) {
-				for (var j = 1; j < this.fNumY - 1; j++) {
+			for (var i = 1; i < this.NumCellX - 1; i++) {
+				for (var j = 1; j < this.NumCellY - 1; j++) {
 
 					if (this.cellType[i * Ny + j] != FLUID_CELL)
 						continue;
@@ -524,7 +524,7 @@ class FlipFluid {
 	}
 
 	diffuseTemperature(dt, diffusionRate = 0.2) {
-		const nx = this.fNumX, ny = this.fNumY;
+		const nx = this.NumCellX, ny = this.NumCellY;
 		const newTemp = new Float32Array(this.fNumCells);
 
 		for (let i = 1; i < nx - 1; i++) {
@@ -569,7 +569,7 @@ class FlipFluid {
 	}
 
 	sampleTemperature() {
-		const nx = this.fNumX, ny = this.fNumY;
+		const nx = this.NumCellX, ny = this.NumCellY;
 		var tempPCount = new Float32Array(this.fNumCells);
 		var tempSum = new Float32Array(this.fNumCells);
 
@@ -578,8 +578,8 @@ class FlipFluid {
 			const y = this.pPosition[2 * i + 1];
 			const temp = this.pTemp[i];
 
-			const xi = Math.floor(x * this.fInvSpacing);
-			const yi = Math.floor(y * this.fInvSpacing);
+			const xi = Math.floor(x * this.cellInvSpacing);
+			const yi = Math.floor(y * this.cellInvSpacing);
 			const cellNr = xi * ny + yi;
 
 			if (this.cellType[cellNr] === FLUID_CELL) {
@@ -609,9 +609,9 @@ class FlipFluid {
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
 
-			const xi = Math.floor(x * this.fInvSpacing);
-			const yi = Math.floor(y * this.fInvSpacing);
-			const cellNr = xi * this.fNumY + yi;
+			const xi = Math.floor(x * this.cellInvSpacing);
+			const yi = Math.floor(y * this.cellInvSpacing);
+			const cellNr = xi * this.NumCellY + yi;
 
 			if (this.cellType[cellNr] === FLUID_CELL || this.cellType[cellNr] === AIR_CELL) {
 				this.pTemp[i] = this.cellTemp[cellNr];
@@ -675,8 +675,8 @@ class FlipFluid {
 				t = Math.max(0, Math.min(1, t));
 
 				let depth = 0;
-				for (let j = i % this.fNumY + 1; j < this.fNumY; j++) {
-					if (this.cellType[Math.floor(i / this.fNumY) * this.fNumY + j] === FLUID_CELL) {
+				for (let j = i % this.NumCellY + 1; j < this.NumCellY; j++) {
+					if (this.cellType[Math.floor(i / this.NumCellY) * this.NumCellY + j] === FLUID_CELL) {
 						depth++;
 					} else {
 						break;
@@ -722,8 +722,8 @@ class FlipFluid {
 
 function updateFish() {
 	const f = scene.fluid;
-	const fNumX = f.fNumX;
-	const fNumY = f.fNumY;
+	const NumCellX = f.NumCellX;
+	const NumCellY = f.NumCellY;
 	const now = performance.now();
 
 	const shouldChaseMouse = !mouseDown;
@@ -739,16 +739,16 @@ function updateFish() {
 		const dx = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
 		const dy = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
 
-		fishTargetXi = Math.max(0, Math.min(fNumX - 1, mouseXi + dx));
-		fishTargetYi = Math.max(0, Math.min(fNumY - 1, mouseYi + dy));
+		fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
+		fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
 
 		lastTargetSetTime = now;
 	}
 
 	// === Optional: Random wander when mouse held down ===
 	if (!shouldChaseMouse && now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) {
-		fishTargetXi = Math.floor(Math.random() * fNumX);
-		fishTargetYi = Math.floor(Math.random() * fNumY);
+		fishTargetXi = Math.floor(Math.random() * NumCellX);
+		fishTargetYi = Math.floor(Math.random() * NumCellY);
 		lastTargetSetTime = now;
 	}
 
@@ -760,8 +760,8 @@ function updateFish() {
 	const stepY = dy === 0 ? 0 : dy > 0 ? 1 : -1;
 
 	const tryMove = (xi, yi) => {
-		if (xi >= 0 && xi < fNumX && yi >= 0 && yi < fNumY) {
-			const cellType = f.cellType[xi * fNumY + yi];
+		if (xi >= 0 && xi < NumCellX && yi >= 0 && yi < NumCellY) {
+			const cellType = f.cellType[xi * NumCellY + yi];
 			if (cellType === FLUID_CELL) {
 				fishXi = xi;
 				fishYi = yi;
@@ -776,19 +776,19 @@ function updateFish() {
 		tryMove(fishXi, fishYi + stepY);
 
 	// === Snap correction ===
-	let idx = fishXi * fNumY + fishYi;
+	let idx = fishXi * NumCellY + fishYi;
 	let type = f.cellType[idx];
 
 	if (type === SOLID_CELL) {
 		while (fishYi > 0) {
 			fishYi++;
-			idx = fishXi * fNumY + fishYi;
+			idx = fishXi * NumCellY + fishYi;
 			if (f.cellType[idx] === FLUID_CELL) break;
 		}
 	} else if (type === AIR_CELL) {
-		while (fishYi < fNumY - 1) {
+		while (fishYi < NumCellY - 1) {
 			fishYi--;
-			idx = fishXi * fNumY + fishYi;
+			idx = fishXi * NumCellY + fishYi;
 			if (f.cellType[idx] === FLUID_CELL) break;
 		}
 	}
