@@ -1,3 +1,24 @@
+function createShader(gl, vsSource, fsSource) {
+	const vsShader = gl.createShader(gl.VERTEX_SHADER);
+	gl.shaderSource(vsShader, vsSource);
+	gl.compileShader(vsShader);
+	if (!gl.getShaderParameter(vsShader, gl.COMPILE_STATUS))
+		console.log("vertex shader compile error: " + gl.getShaderInfoLog(vsShader));
+
+	const fsShader = gl.createShader(gl.FRAGMENT_SHADER);
+	gl.shaderSource(fsShader, fsSource);
+	gl.compileShader(fsShader);
+	if (!gl.getShaderParameter(fsShader, gl.COMPILE_STATUS))
+		console.log("fragment shader compile error: " + gl.getShaderInfoLog(fsShader));
+
+	var shader = gl.createProgram();
+	gl.attachShader(shader, vsShader);
+	gl.attachShader(shader, fsShader);
+	gl.linkProgram(shader);
+
+	return shader;
+}
+
 const pointVertexShader = `
 		attribute vec2 attrPosition;
 		attribute vec3 attrColor;

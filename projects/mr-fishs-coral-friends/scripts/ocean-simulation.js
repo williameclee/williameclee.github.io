@@ -16,7 +16,7 @@ class FlipFluid {
 		this.cellInvSpacing = 1.0 / this.h;
 		this.fNumCells = this.NumCellX * this.NumCellY;
 
-		// grid
+		// cell
 		this.cellU = new Float32Array(this.fNumCells);
 		this.cellV = new Float32Array(this.fNumCells);
 		this.du = new Float32Array(this.fNumCells);
@@ -25,9 +25,10 @@ class FlipFluid {
 		this.prevV = new Float32Array(this.fNumCells);
 		this.p = new Float32Array(this.fNumCells);
 		this.cell = new Float32Array(this.fNumCells);
+		this.cellDepth = new Int32Array(this.fNumCells);
 		this.cellType = new Int32Array(this.fNumCells);
 		this.cellTemp = new Float32Array(this.fNumCells);
-		this.cellColor = new Float32Array(3 * this.fNumCells);
+		this.cellColour = new Float32Array(3 * this.fNumCells);
 
 		// particles
 		this.maxParticles = maxParticles;
@@ -52,11 +53,11 @@ class FlipFluid {
 		this.firstCellParticle = new Int32Array(this.pNumCells + 1);
 		this.cellParticleIds = new Int32Array(maxParticles);
 
-		this.numWaterParticles = 0;
+		this.numParticles = 0;
 	}
 
 	integrateParticles(dt, gravity) {
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			if (!this.pType[i]) continue;
 			this.pUV[2 * i + 1] += dt * gravity;
 			this.pPosition[2 * i] += this.pUV[2 * i] * dt;
@@ -70,7 +71,7 @@ class FlipFluid {
 		// count particles per cell
 		this.numCellParticles.fill(0);
 
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			if (!this.pType[i]) continue;
 			var x = this.pPosition[2 * i];
 			var y = this.pPosition[2 * i + 1];
@@ -91,7 +92,7 @@ class FlipFluid {
 		this.firstCellParticle[this.pNumCells] = first;		// guard
 
 		// fill particles into cells
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			if (!this.pType[i]) continue;
 			var x = this.pPosition[2 * i];
 			var y = this.pPosition[2 * i + 1];
@@ -109,7 +110,7 @@ class FlipFluid {
 
 		for (var iter = 0; iter < numIters; iter++) {
 
-			for (var i = 0; i < this.numWaterParticles; i++) {
+			for (var i = 0; i < this.numParticles; i++) {
 				if (!this.pType[i]) continue;
 				var px = this.pPosition[2 * i];
 				var py = this.pPosition[2 * i + 1];
@@ -173,7 +174,7 @@ class FlipFluid {
 		const maxY = (this.NumCellY - 1) * h - r;
 
 
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			if (!this.pType[i]) continue;
 			var x = this.pPosition[2 * i];
 			var y = this.pPosition[2 * i + 1];
@@ -226,51 +227,61 @@ class FlipFluid {
 		}
 	}
 
-	heatWater(obstacleX, obstacleY, obstacleRadius) {
+	heatWater(obstacleX, obstacleY, obstacleRadius, heatingRate = 0.2) {
 		const r = this.particleRadius;
 		const minDist = obstacleRadius + r / 2;
 		const minDist2 = minDist * minDist;
 
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			// Cap max temperature
-			if (this.pTemp[i] >= 30) continue;
+			if (this.pTemp[i] >= tempMax) {
+				this.pTemp[i] = tempMax;
+				continue;
+			}
 
-			// Only check for ice particles (type 0)
-			const x = this.pPosition[2 * i];
-			const y = this.pPosition[2 * i + 1];
-			var xi = Math.floor(x * this.cellInvSpacing) * this.h;
-			var yi = Math.floor(y * this.cellInvSpacing) * this.h;
+			// Check distance
+			const px = this.pPosition[2 * i];
+			const py = this.pPosition[2 * i + 1];
+			// Heat entire cell
+			const cellxi = Math.floor(px * this.cellInvSpacing);
+			const cellyi = Math.floor(py * this.cellInvSpacing);
+			const cellx = cellxi * this.h;
+			const celly = cellyi * this.h;
 
-			const dxi = xi - obstacleX;
-			const dyi = yi - obstacleY;
+			const dxi = cellx - obstacleX;
+			const dyi = celly - obstacleY;
 			const d2 = dxi * dxi + dyi * dyi;
 
 			if (d2 >= minDist2) continue;
 
-			xi = Math.floor(x * this.cellInvSpacing);
-			yi = Math.floor(y * this.cellInvSpacing);
+			// Heat particle
+			this.pTemp[i] += heatingRate;
 
-			this.pTemp[i] += 0.1; // heat rate
-
-			// Cpnvert to water
-			if (this.pTemp[i] >= 0) {
-				if (this.cellType[xi * this.NumCellY + yi] == ICE_CELL) {
-					this.cell[xi * this.NumCellY + yi] = 1.0;
-					this.cellType[xi * this.NumCellY + yi] = FLUID_CELL;
-				}
+			// Convert ice to water
+			if (this.pTemp[i] < 0) {
+				continue;
 			}
+
+			let cellId = cellxi * this.NumCellY + cellyi;
+			if (this.cellType[cellId] !== ICE_CELL) {
+				continue;
+			}
+			this.cell[cellId] = 1.0;
+			this.cellType[cellId] = FLUID_CELL;
+			this.cellTemp[cellId] = 0;
 		}
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		// Update particle type
+		for (var i = 0; i < this.numParticles; i++) {
 			if (this.pType[i]) continue;
 
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
 
-			const xi = Math.floor(x * this.cellInvSpacing);
-			const yi = Math.floor(y * this.cellInvSpacing);
+			const cellxi = Math.floor(x * this.cellInvSpacing);
+			const cellyi = Math.floor(y * this.cellInvSpacing);
 
-			if (this.cellType[xi * this.NumCellY + yi] == FLUID_CELL) {
-				this.pType[i] = 1;
+			if (this.cellType[cellxi * this.NumCellY + cellyi] == FLUID_CELL) {
+				this.pType[i] = 1.0;
 			}
 		}
 	}
@@ -285,7 +296,7 @@ class FlipFluid {
 
 		d.fill(0.0);
 
-		for (var i = 0; i < this.numWaterParticles; i++) {
+		for (var i = 0; i < this.numParticles; i++) {
 			var x = this.pPosition[2 * i];
 			var y = this.pPosition[2 * i + 1];
 
@@ -327,11 +338,12 @@ class FlipFluid {
 		const expansionCoeff = 0.05;     // thermal expansion coefficient
 
 		for (var i = 0; i < this.fNumCells; i++) {
-			if (this.cellType[i] == FLUID_CELL) {
-				const temp = this.cellTemp[i];
-				const tempFactor = 1.0 + expansionCoeff * (temp - tempRef); // IDK why the sign is flipped for it to work
-				d[i] *= tempFactor;
+			if (this.cellType[i] !== FLUID_CELL) {
+				continue;
 			}
+			const temp = this.cellTemp[i];
+			const tempFactor = 1.0 + expansionCoeff * (temp - tempRef); // IDK why the sign is flipped for it to work
+			d[i] *= tempFactor;
 		}
 	}
 
@@ -365,7 +377,7 @@ class FlipFluid {
 			// 	this.cellType[i] = AIR_CELL;
 			// }
 
-			for (var i = 0; i < this.numWaterParticles; i++) {
+			for (var i = 0; i < this.numParticles; i++) {
 				var x = this.pPosition[2 * i];
 				var y = this.pPosition[2 * i + 1];
 				var xi = clamp(Math.floor(x * h1), 0, this.NumCellX - 1);
@@ -385,7 +397,7 @@ class FlipFluid {
 			var prevF = component == 0 ? this.prevU : this.prevV;
 			var d = component == 0 ? this.du : this.dv;
 
-			for (var i = 0; i < this.numWaterParticles; i++) {
+			for (var i = 0; i < this.numParticles; i++) {
 				var x = this.pPosition[2 * i];
 				var y = this.pPosition[2 * i + 1];
 
@@ -573,7 +585,7 @@ class FlipFluid {
 		var tempPCount = new Float32Array(this.fNumCells);
 		var tempSum = new Float32Array(this.fNumCells);
 
-		for (let i = 0; i < this.numWaterParticles; i++) {
+		for (let i = 0; i < this.numParticles; i++) {
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
 			const temp = this.pTemp[i];
@@ -598,14 +610,14 @@ class FlipFluid {
 			}
 			if (tempPCount[i] > 0) {
 				this.cellTemp[i] = tempSum[i] / tempPCount[i];
-			} else {
+			} else if (this.cellType[i] === ICE_CELL) {
 				this.cellTemp[i] = tempRef;
 			}
 		}
 	}
 
 	updateTemperature() {
-		for (let i = 0; i < this.numWaterParticles; i++) {
+		for (let i = 0; i < this.numParticles; i++) {
 			const x = this.pPosition[2 * i];
 			const y = this.pPosition[2 * i + 1];
 
@@ -619,79 +631,25 @@ class FlipFluid {
 		}
 	}
 
+	calculateDepth() {
+		for (let i = 0; i < this.NumCellX; i++) {
+			let depth = 0; // Initialise depth for the current column
+			for (let j = this.NumCellY - 1; j >= 0; j--) {
+				const cellId = i * this.NumCellY + j;
 
-	updatepColours() {
-		for (var i = 0; i < this.numWaterParticles; i++) {
-			var t = this.pTemp[i] / 20;
-			this.pColour[3 * i] = 0.2 + 0.2 * t;
-			this.pColour[3 * i + 1] = 0.2 + 0.4 * (1 - t);
-			this.pColour[3 * i + 2] = 0.5 + 0.5 * (1 - t);
-		}
-	}
-
-	setSciColor(cellNr, val, minVal, maxVal) {
-		val = Math.min(Math.max(val, minVal), maxVal - 0.0001);
-		var d = maxVal - minVal;
-		val = d == 0.0 ? 0.5 : (val - minVal) / d;
-		var m = 0.25;
-		var num = Math.floor(val / m);
-		var s = (val - num * m) / m;
-		var r, g, b;
-
-		switch (num) {
-			case 0: r = 0.0; g = s; b = 1.0; break;
-			case 1: r = 0.0; g = 1.0; b = 1.0 - s; break;
-			case 2: r = s; g = 1.0; b = 0.0; break;
-			case 3: r = 1.0; g = 1.0 - s; b = 0.0; break;
-		}
-
-		this.cellColor[3 * cellNr] = r;
-		this.cellColor[3 * cellNr + 1] = g;
-		this.cellColor[3 * cellNr + 2] = b;
-	}
-
-	// updateCellColors();
-	updateCellColors() {
-		this.cellColor.fill(0.0);
-
-		for (var i = 0; i < this.fNumCells; i++) {
-
-			if (this.cellType[i] == SOLID_CELL) {
-				this.cellColor[3 * i] = 0.8;
-				this.cellColor[3 * i + 1] = 0.6;
-				this.cellColor[3 * i + 2] = 0.4;
-			} else if (this.cellType[i] == ICE_CELL) {
-				let t = (this.cellTemp[i] + 3) / 3;
-				t = Math.max(0, Math.min(1, t));
-
-				this.cellColor[3 * i] = 0.4 + 0.2 * t; // Red component (0.4 to 0.8)
-				this.cellColor[3 * i + 1] = 0.6;
-				this.cellColor[3 * i + 2] = 0.8;
-			} else if (this.cellType[i] == AIR_CELL) {
-				this.cellColor[3 * i] = 0.5;
-				this.cellColor[3 * i + 1] = 0.5;
-				this.cellColor[3 * i + 2] = 0.8;
-			} else {
-				let t = Math.round(this.cellTemp[i]) / 20;
-				t = Math.max(0, Math.min(1, t));
-
-				let depth = 0;
-				for (let j = i % this.NumCellY + 1; j < this.NumCellY; j++) {
-					if (this.cellType[Math.floor(i / this.NumCellY) * this.NumCellY + j] === FLUID_CELL) {
-						depth++;
-					} else {
-						break;
-					}
+				// If the current cell is not a fluid cell, reset depth
+				if (this.cellType[cellId] !== FLUID_CELL) {
+					this.cellDepth[cellId] = 0;
+					depth = Math.max(depth - 1, 0);
+				} else {
+					// Otherwise, increment depth and assign it
+					depth++;
+					this.cellDepth[cellId] = depth;
 				}
-				let lightFactor = Math.exp(-0.001 * Math.max(depth - 20, 0) ** 2); // tweak for smoother/faster falloff
-
-				// Blend temperature and sunlight (lightFactor)
-				this.cellColor[3 * i] = (22 + (63 - 22) * (1 - t)) / 255 * lightFactor;
-				this.cellColor[3 * i + 1] = (231 + (90 - 231) * (t)) / 255 * lightFactor;
-				this.cellColor[3 * i + 2] = (207 + (183 - 207) * (t)) / 255 * lightFactor;
 			}
 		}
 	}
+
 
 	simulate(dt, gravity, flipRatio, numPressureIters, numParticleIters, overRelaxation, compensateDrift, separateParticles, obstacleX, obstacleY, obstacleRadius) {
 		var numSubSteps = 1;
@@ -702,7 +660,6 @@ class FlipFluid {
 			if (separateParticles)
 				this.pushParticlesApart(numParticleIters);
 			this.handleParticleCollisions()
-			// this.convertIce2Water(obstacleX, obstacleY, obstacleRadius);
 			this.transferVelocities(true);
 			this.sampleTemperature();
 			this.diffuseTemperature(sdt, 20.0);
@@ -715,9 +672,8 @@ class FlipFluid {
 			this.transferVelocities(false, flipRatio);
 		}
 
-		this.updatepColours();
-		this.updateCellColors();
-		updateCoralHealthAndColor();
+		this.calculateDepth();
+		updateCoralHealth();
 
 	}
 }
@@ -801,51 +757,20 @@ function updateFish() {
 	fishY = (fishYi + 0.5) * h;
 }
 
-function updateCoralHealthAndColor() {
+function updateCoralHealth(maxCoralDepth = 60) {
 	const f = scene.fluid;
 
 	for (let coralGroup of corals) {
-		for (let coral of coralGroup) {
-			const { xi, yi } = coral;
+		for (let coralCell of coralGroup) {
+			const { xi, yi } = coralCell;
 			const idx = xi * f.NumCellY + yi;
 
-			// Get temperature and water depth above coral
-			const temp = f.cellTemp[idx];
-
-			// Count fluid cells above this coral (proxy for sea level rise)
-			let depthAbove = 0;
-			for (let j = yi + 1; j < f.NumCellY; j++) {
-				if (f.cellType[xi * f.NumCellY + j] === FLUID_CELL) {
-					depthAbove++;
-				} else {
-					break;
-				}
-			}
-
-			// === Health Degradation ===
-			// Warmer than 28°C = bleaching; more than 10 layers above = too deep
 			let damage = 0;
-			if (temp > 20) damage += 0.05 * (temp - 20); // higher temp = more damage
-			if (depthAbove > 60) damage += 0.005 * (depthAbove - 10); // deeper = less light
+			if (f.cellTemp[idx] > tempRef) damage += 0.005 * (f.cellTemp[idx] - tempRef); // higher temp = more damage
+			if (f.cellDepth[idx] > maxCoralDepth) damage += 0.005 * (f.cellDepth[idx] - 10); // deeper = less light
 
 			// Apply and clamp health
-			coral.health = Math.max(0, coral.health - damage * scene.dt * 10);
-
-			// === Update coral color ===
-			// Blend from original color to grey (0.8, 0.8, 0.8) based on health
-			const health = coral.health;
-			let baseColor;
-			switch (coral.colour) {
-				case 0: baseColor = [1.0, 0.5, 0.5]; break; // reddish
-				case 1: baseColor = [0.5, 1.0, 0.5]; break; // greenish
-				case 2: baseColor = [0.5, 0.5, 1.0]; break; // bluish
-			}
-			const bleachedColor = [0.8, 0.8, 0.8];
-			const blended = baseColor.map((c, i) => c * health + bleachedColor[i] * (1 - health));
-
-			f.cellColor[3 * idx + 0] = blended[0];
-			f.cellColor[3 * idx + 1] = blended[1];
-			f.cellColor[3 * idx + 2] = blended[2];
+			coralCell.health = Math.max(0, coralCell.health - damage * scene.dt * 10);
 		}
 	}
 }

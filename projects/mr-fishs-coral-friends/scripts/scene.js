@@ -28,12 +28,14 @@ const cScale = canvas.width / displayWidth;
 var U_FIELD = 0;
 var V_FIELD = 1;
 
-var FLUID_CELL = 0;
-var AIR_CELL = 1;
-var SOLID_CELL = 2;
-var ICE_CELL = 4;
+const FLUID_CELL = 0;
+const AIR_CELL = 1;
+const SOLID_CELL = 2;
+const ICE_CELL = 3;
 
-var tempRef = 10.0;
+const tempRef = 10.0;
+const tempIce = -3.0;
+const tempMax = 30.0;
 
 var cnt = 0;
 
@@ -72,7 +74,7 @@ var scene = {
 	separateParticles: true,
 	obstacleX: 0.0,
 	obstacleY: 0.0,
-	obstacleRadius: 0.15,
+	obstacleRadius: 32 / numDisplayCellX * displayWidth,
 	paused: false,
 	showObstacle: true,
 	obstacleVelX: 0.0,
@@ -150,13 +152,6 @@ function addCorals() {
 		colourId = (colourId + 1) % 3;
 
 		corals.push(coralCells);
-
-		// corals.push({
-		// 	xi: xi,
-		// 	yi: baseYi,
-		// 	cellNr: cellNr,
-		// 	health: 1.0 // full health
-		// });
 	}
 }
 
@@ -182,7 +177,7 @@ function setupScene() {
 
 	// create fluid
 	f = scene.fluid = new FlipFluid(density, simWidth, simHeight, cellSpacing, pRadius, maxParticles);
-	loadSceneFromImage('mr-fishs-coral-friends/scene.png', (imageData, width, height) => {
+	loadSceneFromImage('mr-fishs-coral-friends/assets/scene.png', (imageData, width, height) => {
 		// Set cell types
 		for (let i = 0; i < f.NumCellX; i++) {
 			for (let j = 0; j < f.NumCellY; j++) {
@@ -201,7 +196,7 @@ function setupScene() {
 					// White: ice
 					cellType = ICE_CELL;
 					fill = 0.0;
-					temp = -3.0;
+					temp = tempIce;
 				}
 				else if (r < 100 && g < 100 && b < 100) {
 					// Black: solid
@@ -298,7 +293,7 @@ function initFish(gl) {
 	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
 
 	// Load texture
-	loadTexture(gl, 'mr-fishs-coral-friends/fish.png', function (sprite) {
+	loadTexture(gl, 'mr-fishs-coral-friends/assets/fish.png', function (sprite) {
 		fishTexture = sprite.texture;
 
 		fishWidth = sprite.width * scene.fluid.h;
@@ -364,5 +359,5 @@ function placeParticles(f, numX, numY, cellSpacing, pRadius, pHorizontalSpacing,
 			}
 		}
 	}
-	f.numWaterParticles = p;
+	f.numParticles = p;
 }
