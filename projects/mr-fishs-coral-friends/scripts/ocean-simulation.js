@@ -704,38 +704,30 @@ function updateFish() {
 	const now = performance.now();
 
 
-	// === Update fish target ===
-	const needNewTarget = (now - lastTargetSetTime > TARGET_UPDATE_INTERVAL);
+	if (fishMustFollowMouse) {
+		fishTargetXi = mouseXi;
+		fishTargetYi = mouseYi;
+	} else {
+		const needNewTarget = (now - lastTargetSetTime > TARGET_UPDATE_INTERVAL);
 
-	if (needNewTarget) {
-		const shouldChaseMouse = (now - lastMouseMoveTime < TARGET_UPDATE_INTERVAL * 2) && !mouseDown;
-		// Chase target near mouse
-		const dx = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
-		const dy = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
+		if (needNewTarget) {
+			const shouldChaseMouse = (now - lastMouseMoveTime < TARGET_UPDATE_INTERVAL * 2) && !mouseDown;
+			// Chase target near mouse
+			const dx = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
+			const dy = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
 
-		if (shouldChaseMouse) {
-			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
-			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
-		} else {
-			// console.log("Fish returning to home");
-			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, fishHomeXi + dx));
-			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, fishHomeYi + dy));
+			if (shouldChaseMouse) {
+				fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
+				fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
+			} else {
+				// console.log("Fish returning to home");
+				fishTargetXi = Math.max(0, Math.min(NumCellX - 1, fishHomeXi + dx));
+				fishTargetYi = Math.max(0, Math.min(NumCellY - 1, fishHomeYi + dy));
+			}
+
+			lastTargetSetTime = now;
 		}
-
-		lastTargetSetTime = now;
 	}
-
-	// // === Optional: Random wander when mouse held down ===
-	// if (!shouldChaseMouse || now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) {
-	// 	console.log("Fish returning to home");
-	// 	fishTargetXi = fishHomeXi + Math.floor(Math.random() * NumCellX * 0.1);
-	// 	fishTargetYi = fishHomeYi + Math.floor(Math.random() * NumCellY * 0.1);
-	// 	// fishTargetXi = Math.floor(Math.random() * NumCellX);
-	// 	// fishTargetYi = Math.floor(Math.random() * NumCellY);
-	// 	lastTargetSetTime = now;
-	// }
-
-	// === Move toward target ===
 	let dx = fishTargetXi - fishXi;
 	let dy = fishTargetYi - fishYi;
 

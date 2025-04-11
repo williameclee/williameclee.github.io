@@ -1,4 +1,5 @@
 var mouseDown = false;
+var fishMustFollowMouse = false;
 
 
 function startDrag(x, y) {
@@ -82,6 +83,7 @@ document.addEventListener('keydown', event => {
 		case 'ArrowRight': scene.paused = false; simulate(); scene.paused = true; break;
 		case 'n': scene.paused = false; simulate(); scene.paused = true; break;
 		case 'c': showSeaLevelLine = !showSeaLevelLine; break;
+		case 'f': fishMustFollowMouse = !fishMustFollowMouse; break;
 	}
 });
 
