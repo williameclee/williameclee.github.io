@@ -666,6 +666,7 @@ class FlipFluid {
 		} else {
 			this.meanTemp = tempRef;
 		}
+		// console.log("Mean temp (sim):", scene.fluid.meanTemp);
 	}
 
 
@@ -716,7 +717,7 @@ function updateFish() {
 			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
 			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
 		} else {
-			console.log("Fish returning to home");
+			// console.log("Fish returning to home");
 			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, fishHomeXi + dx));
 			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, fishHomeYi + dy));
 		}

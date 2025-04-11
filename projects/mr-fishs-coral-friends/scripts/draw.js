@@ -19,7 +19,7 @@ let fishTextureReady = false;
 // Colours
 const MUD_COLOUR = [151.0 / 255.0, 109.0 / 255.0, 77.0 / 255.0];
 const SKY_COLOUR = [135.0 / 255.0, 206.0 / 255.0, 235.0 / 255.0];
-const HOT_SKY_COLOUR = [255.0 / 255.0, 0.0 / 255.0, 0.0 / 255.0];
+const HOT_SKY_COLOUR = [253.0 / 255.0, 94.0 / 255.0, 83.0 / 255.0];
 const ICE_COLOUR = [160.0 / 255.0, 180.0 / 255.0, 255.0 / 255.0];
 const BRIGHT_ICE_COLOUR = [180.0 / 255.0, 200.0 / 255.0, 255.0 / 255.0];
 const COLD_WATER_COLOUR = [15.0 / 255.0, 212.0 / 255.0, 203.0 / 255.0];
@@ -328,7 +328,7 @@ function loadTexture(gl, url, onReady = () => { }) {
 function updateCellColors(f, lightLayerDepth = 20) {
 	f.cellColour.fill(0.0);
 
-	const lerpFactor = (f.meanTemp - tempRef) / (tempMax - tempRef);
+	const lerpFactor = clamp((scene.fluid.meanTemp - tempRef) / (tempMax - tempRef), 0, 1);
 
 	for (var i = 0; i < f.fNumCells; i++) {
 
@@ -342,14 +342,10 @@ function updateCellColors(f, lightLayerDepth = 20) {
 			f.cellColour[3 * i + 1] = lerp(ICE_COLOUR[1] + randomMap[i] * 0.1, BRIGHT_ICE_COLOUR[1], diagonalStripesMap[i]);
 			f.cellColour[3 * i + 2] = lerp(ICE_COLOUR[2] + randomMap[i] * 0.1, BRIGHT_ICE_COLOUR[2], diagonalStripesMap[i]);
 		} else if (f.cellType[i] == AIR_CELL) {
-			// const lerpFactor = (f.meanTemp - tempRef) / (tempMax - tempRef) * (i % f.numCellY) / f.numCellY;
-			// console.log(lerpFactor);
-			// f.cellColour[3 * i] = lerp(SKY_COLOUR[0], HOT_SKY_COLOUR[0], lerpFactor);
-			// f.cellColour[3 * i + 1] = lerp(SKY_COLOUR[1], HOT_SKY_COLOUR[1], lerpFactor);
-			// f.cellColour[3 * i + 2] = lerp(SKY_COLOUR[2], HOT_SKY_COLOUR[2], lerpFactor);
-			f.cellColour[3 * i] = SKY_COLOUR[0];
-			f.cellColour[3 * i + 1] = SKY_COLOUR[1];
-			f.cellColour[3 * i + 2] = SKY_COLOUR[2];
+			const lerpFactorCell = lerpFactor * (i % f.NumCellY) / f.NumCellY;
+			f.cellColour[3 * i] = lerp(SKY_COLOUR[0], HOT_SKY_COLOUR[0], lerpFactorCell);
+			f.cellColour[3 * i + 1] = lerp(SKY_COLOUR[1], HOT_SKY_COLOUR[1], lerpFactorCell);
+			f.cellColour[3 * i + 2] = lerp(SKY_COLOUR[2], HOT_SKY_COLOUR[2], lerpFactorCell);
 		} else {
 			// Colour based on temperature
 			var blendColour = NORMAL_WATER_COLOUR;
