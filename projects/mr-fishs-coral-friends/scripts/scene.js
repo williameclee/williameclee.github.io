@@ -62,6 +62,10 @@ let mouseXi = 10, mouseYi = 10;
 let lastMouseXi = 10, lastMouseYi = 10;
 let lastMouseMoveTime = 0;
 
+seaLevelLineYi = Math.round(numCellY / 3); // in simulation coordinates
+draggingSeaLevel = false;
+showSeaLevelLine = false;
+
 var scene = {
 	gravity: -9.81,
 	dt: 1.0 / 120.0,
@@ -81,79 +85,13 @@ var scene = {
 	obstacleVelY: 0.0,
 	showParticles: false,
 	showGrid: true,
-	fluid: null
+	fluid: null,
 };
 
 var corals = [];
 var fishXi, fishYi;
+var fishHomeXi = 210, fishHomeYi = 22;
 var fishWidth, fishHeight;
-
-function addCorals() {
-	const f = scene.fluid;
-
-	corals = []; // Array to hold coral cells
-
-	var colourId = 0;
-	const visited = new Set();
-
-	for (let xi = 1; xi <= f.NumCellX; xi++) {
-		if (Math.random() >= 0.1) { // Random chance to skip a row for more sparse growth
-			continue; // Skip this row
-		}
-		// const xi = Math.floor(i * coralSpacing);
-		var baseYi = 2; // just above solid bottom
-		var cellNr = xi * f.NumCellY + baseYi;
-
-		// Check if the cell is a valid location for a coral
-		while (baseYi < f.NumCellY && f.cellType[cellNr] === SOLID_CELL) {
-			baseYi++;
-			cellNr = xi * f.NumCellY + baseYi; // Update cellNr to the next row
-		}
-
-		if (f.cellType[cellNr] === ICE_CELL) {
-			continue;
-		}
-
-		let coralCells = [];
-
-		// Recursive sparse growth
-		const maxBranchDepth = 10;
-		// Grows one branch (can call itself recursively to fork)
-		function growBranch(x, y, depth, colourId = 1, canHorizontal = true) {
-			if (depth > maxBranchDepth) return;
-			if (f.cellType[x * f.NumCellY + y] === SOLID_CELL) {
-				return; // Stop if we hit a non-fluid cell
-			}
-
-			const key = `${x},${y}`;
-			if (visited.has(key)) return;
-			visited.add(key);
-			coralCells.push({ xi: x, yi: y, colour: colourId, health: 1.0 });
-
-			// Maybe fork left-up
-			if (canHorizontal && Math.random() < 1 - depth / maxBranchDepth / 2) {
-				coralCells.push({ xi: x, yi: y + 1, colour: colourId, health: 1.0 });
-
-				if (!visited.has(`${x - 1},${y + 1}`) && !visited.has(`${x - 1},${y}`)) {
-					growBranch(x - 1, y + 1, depth + 1, colourId, false);
-				}
-				if (!visited.has(`${x + 1},${y + 1}`) && !visited.has(`${x + 1},${y}`)) {
-					growBranch(x + 1, y + 1, depth + 1, colourId, false);
-				}
-			} else if (Math.random() < 1 - depth / maxBranchDepth / 2) {
-				if (visited.has(`${x},${y + 1}`)) {
-					return;
-				}
-				growBranch(x, y + 1, depth + 1, colourId);
-			}
-
-		}
-		growBranch(xi, baseYi, 0, colourId);
-		colourId = (colourId + 1) % 3;
-
-		corals.push(coralCells);
-	}
-}
 
 function setupScene() {
 	scene.obstacleRadius = 0.2;
@@ -226,9 +164,32 @@ function setupScene() {
 
 		// Now that cellType is ready, place particles & corals
 		placeParticles(f, numX, numY, cellSpacing, pRadius, pHorizontalSpacing, pVerticalSpacing);
-		addCorals();
+		// addCorals();
+		loadSceneFromImage('mr-fishs-coral-friends/assets/corals.png', (imageData, Lx, Ly) => {
+
+			if (Lx !== f.NumCellX || Ly !== f.NumCellY) {
+				console.error('Coral image size does not match fluid size');
+				return;
+			}
+
+			for (let i = 0; i < Lx; i++) {
+				for (let j = 0; j < Ly; j++) {
+					const imgI = Math.floor(i * width / Lx);
+					const imgJ = Math.floor((Ly - 1 - j) * height / Ly);
+					const idx = (imgJ * width + imgI) * 4;
+					const a = imageData[idx + 3];
+					if (a === 0) continue; // skip fully transparent
+					const r = imageData[idx] / 255.0;
+					const g = imageData[idx + 1] / 255.0;
+					const b = imageData[idx + 2] / 255.0;
+
+					corals.push([{ xi: i, yi: j, colour: [r, g, b], health: 1.0 }]);
+				}
+			}
+		});
+
 		setObstacle(3.0, 2.0, true);
-		initFish(gl);
+		loadFish(gl);
 		placeFishInFluid();
 	});
 
@@ -275,7 +236,7 @@ function setObstacle(x, y, reset) {
 	scene.obstacleVelY = vy;
 }
 
-function initFish(gl) {
+function loadFish(gl) {
 	// Create quad buffer
 	fishVertexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, fishVertexBuffer);
@@ -298,6 +259,8 @@ function initFish(gl) {
 
 		fishWidth = sprite.width * scene.fluid.h;
 		fishHeight = sprite.height * scene.fluid.h;
+		fishXi = fishHomeXi;
+		fishYi = fishHomeYi;
 
 		fishTextureReady = true;
 	});
@@ -336,27 +299,27 @@ function placeParticles(f, numX, numY, cellSpacing, pRadius, pHorizontalSpacing,
 	for (var i = 0; i < numX; i++) {
 		for (var j = 0; j < numY; j++) {
 			// skip if this particle is in the basin
-			var x = cellSpacing + pRadius + pHorizontalSpacing * i + (j % 2 == 0 ? 0.0 : pRadius);
-			var y = cellSpacing + pRadius + pVerticalSpacing * j;
-			var xi = Math.floor(x * Lx / simWidth);
-			var yi = Math.floor(y * Ly / simHeight);
+			const x = cellSpacing + pRadius + pHorizontalSpacing * i + (j % 2 == 0 ? 0.0 : pRadius);
+			const y = cellSpacing + pRadius + pVerticalSpacing * j;
+			const xi = Math.floor(x * Lx / simWidth);
+			const yi = Math.floor(y * Ly / simHeight);
 			cellId = xi * Ly + yi;
+
 			if (f.cellType[cellId] === FLUID_CELL) {
 				// is water particle
 				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
 				f.pType[p] = 1.0;
-				f.pTemp[p] = f.cellTemp[cellId];
 			}
 			else if (f.cellType[cellId] === ICE_CELL) {
 				// is ice particle
 				p++;
-				f.pPosition[p * 2 - 1] = y;
-				f.pPosition[p * 2] = x;
 				f.pType[p] = 0.0;
-				f.pTemp[p] = f.cellTemp[cellId];
+			} else {
+				continue;
 			}
+			f.pPosition[p * 2 - 1] = y;
+			f.pPosition[p * 2] = x;
+			f.pTemp[p] = f.cellTemp[cellId];
 		}
 	}
 	f.numParticles = p;

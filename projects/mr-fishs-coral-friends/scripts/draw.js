@@ -19,6 +19,7 @@ let fishTextureReady = false;
 // Colours
 const MUD_COLOUR = [151.0 / 255.0, 109.0 / 255.0, 77.0 / 255.0];
 const SKY_COLOUR = [135.0 / 255.0, 206.0 / 255.0, 235.0 / 255.0];
+const HOT_SKY_COLOUR = [255.0 / 255.0, 0.0 / 255.0, 0.0 / 255.0];
 const ICE_COLOUR = [160.0 / 255.0, 180.0 / 255.0, 255.0 / 255.0];
 const BRIGHT_ICE_COLOUR = [180.0 / 255.0, 200.0 / 255.0, 255.0 / 255.0];
 const COLD_WATER_COLOUR = [15.0 / 255.0, 212.0 / 255.0, 203.0 / 255.0];
@@ -28,6 +29,8 @@ const CORAL_COLOUR_1 = [1.0, 0.5, 0.5];
 const CORAL_COLOUR_2 = [0.5, 1.0, 0.5];
 const CORAL_COLOUR_3 = [0.5, 0.5, 1.0];
 const CORAL_COLOUR_BLEACHED = [0.8, 0.8, 0.8];
+
+const SEA_LEVEL_LINE_COLOUR = [0.8, 0.4, 0.4];
 
 // Colour variations
 var randomMap = new Float32Array(numCellX * numCellY);
@@ -56,16 +59,17 @@ function draw() {
 	// Update colours
 	updateCellColors(scene.fluid);
 	updatepColours(scene.fluid);
-	// updateCoralColours();
+	updateCoralColours();
+	if (showSeaLevelLine) drawSeaLevelLineAndHandle();
 
 	// grid
 	drawGridCells(gl, meshShader, scene, gridVertBuffer);
 	drawParticles(gl, scene);
-	drawCorals(gl, meshShader, corals, scene, coralVertexBuffer);
 
 	if (fishTextureReady) {
 		drawFish(gl);
 	}
+
 }
 
 function drawFish(gl) {
@@ -95,80 +99,6 @@ function drawFish(gl) {
 
 	gl.disableVertexAttribArray(posLoc);
 	gl.disableVertexAttribArray(uvLoc);
-}
-
-function drawCorals(gl, meshShader, corals, scene, coralVertexBuffer) {
-	gl.useProgram(meshShader);
-	gl.uniform2f(gl.getUniformLocation(meshShader, 'domainSize'), displayWidth, displayHeight);
-
-	if (coralVertexBuffer == null) {
-		coralVertexBuffer = gl.createBuffer();
-	}
-
-	const f = scene.fluid;
-	const cellSpacing = displayWidth / numDisplayCellX;
-	const vertices = [];
-	const colors = [];
-	const cellHalfSpacing = cellSpacing / 2;
-
-	for (const coralGroup of corals) {
-		for (const coralCell of coralGroup) {
-			const x = (coralCell.xi - numDisplayCellPadding + 0.5) * cellSpacing;
-			const y = (coralCell.yi - numDisplayCellPadding + 0.5) * cellSpacing;
-
-			const health = coralCell.health ?? 1.0;
-			let r, g, b;
-			if (coralCell.colour === 0) {
-				r = 1.0; g = 0.8; b = 0.2;
-			} else if (coralCell.colour === 1) {
-				r = 0.6; g = 0.9; b = 0.3;
-			} else {
-				r = 1.0; g = 0.8; b = 0.8;
-			}
-			r = r + (0.9 - r) * (1 - health);
-			g = g + (0.9 - g) * (1 - health);
-			b = b + (0.9 - b) * (1 - health);
-
-			// Add vertices for the quad (two triangles per quad)
-			vertices.push(
-				x - cellHalfSpacing, y - cellHalfSpacing, // Bottom-left
-				x + cellHalfSpacing, y - cellHalfSpacing, // Bottom-right
-				x + cellHalfSpacing, y + cellHalfSpacing, // Top-right
-
-				x - cellHalfSpacing, y - cellHalfSpacing, // Bottom-left
-				x + cellHalfSpacing, y + cellHalfSpacing, // Top-right
-				x - cellHalfSpacing, y + cellHalfSpacing  // Top-left
-			);
-
-			// Add color for each vertex
-			for (let i = 0; i < 6; i++) { // 6 vertices per quad
-				colors.push(r, g, b);
-			}
-		}
-	}
-
-	// Upload positions
-	gl.bindBuffer(gl.ARRAY_BUFFER, coralVertexBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
-
-	const posLoc = gl.getAttribLocation(meshShader, 'attrPosition');
-	gl.enableVertexAttribArray(posLoc);
-	gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
-	// Upload colours
-	const colourBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, colourBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW);
-
-	const colourLoc = gl.getAttribLocation(meshShader, 'attrColor');
-	gl.enableVertexAttribArray(colourLoc);
-	gl.vertexAttribPointer(colourLoc, 3, gl.FLOAT, false, 0, 0);
-
-	// Draw all quads as triangles
-	gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
-
-	gl.disableVertexAttribArray(posLoc);
-	gl.disableVertexAttribArray(colourLoc);
 }
 
 function drawParticles(gl, scene) {
@@ -219,7 +149,7 @@ function drawGridCells(gl, meshShader, scene, gridVertexBuffer) {
 
 	const vertices = [];
 	const colours = [];
-	
+
 	const cellHalfSpacing = cellSpacing / 2;
 
 	for (let i = numDisplayCellPadding; i < numDisplayCellX + numDisplayCellPadding; i++) {
@@ -332,6 +262,17 @@ function drawDisk() {
 	// gl.disableVertexAttribArray(posLoc);
 }
 
+function drawSeaLevelLineAndHandle() {
+	for (let i = 0; i < numCellX; i++) {
+		const cellId = i * numCellY + seaLevelLineYi;
+		if (scene.fluid.cellType[cellId] == AIR_CELL || scene.fluid.cellType[cellId] == FLUID_CELL) {
+			scene.fluid.cellColour[3 * cellId] = SEA_LEVEL_LINE_COLOUR[0];
+			scene.fluid.cellColour[3 * cellId + 1] = SEA_LEVEL_LINE_COLOUR[1];
+			scene.fluid.cellColour[3 * cellId + 2] = SEA_LEVEL_LINE_COLOUR[2];
+		}
+	}
+}
+
 function loadTexture(gl, url, onReady = () => { }) {
 	const texture = gl.createTexture();
 	gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -387,6 +328,8 @@ function loadTexture(gl, url, onReady = () => { }) {
 function updateCellColors(f, lightLayerDepth = 20) {
 	f.cellColour.fill(0.0);
 
+	const lerpFactor = (f.meanTemp - tempRef) / (tempMax - tempRef);
+
 	for (var i = 0; i < f.fNumCells; i++) {
 
 		if (f.cellType[i] == SOLID_CELL) {
@@ -399,6 +342,11 @@ function updateCellColors(f, lightLayerDepth = 20) {
 			f.cellColour[3 * i + 1] = lerp(ICE_COLOUR[1] + randomMap[i] * 0.1, BRIGHT_ICE_COLOUR[1], diagonalStripesMap[i]);
 			f.cellColour[3 * i + 2] = lerp(ICE_COLOUR[2] + randomMap[i] * 0.1, BRIGHT_ICE_COLOUR[2], diagonalStripesMap[i]);
 		} else if (f.cellType[i] == AIR_CELL) {
+			// const lerpFactor = (f.meanTemp - tempRef) / (tempMax - tempRef) * (i % f.numCellY) / f.numCellY;
+			// console.log(lerpFactor);
+			// f.cellColour[3 * i] = lerp(SKY_COLOUR[0], HOT_SKY_COLOUR[0], lerpFactor);
+			// f.cellColour[3 * i + 1] = lerp(SKY_COLOUR[1], HOT_SKY_COLOUR[1], lerpFactor);
+			// f.cellColour[3 * i + 2] = lerp(SKY_COLOUR[2], HOT_SKY_COLOUR[2], lerpFactor);
 			f.cellColour[3 * i] = SKY_COLOUR[0];
 			f.cellColour[3 * i + 1] = SKY_COLOUR[1];
 			f.cellColour[3 * i + 2] = SKY_COLOUR[2];
@@ -436,11 +384,6 @@ function updatepColours(f) {
 	}
 }
 
-// Linear interpolation
-function lerp(a, b, t) {
-	return a + (b - a) * t;
-}
-
 function updateCoralColours() {
 	const f = scene.fluid;
 
@@ -449,16 +392,14 @@ function updateCoralColours() {
 			const { xi, yi } = coral;
 			const idx = xi * f.NumCellY + yi;
 
-			let baseColour;
-			switch (coral.colour) {
-				case 0: baseColour = CORAL_COLOUR_1; break;
-				case 1: baseColour = CORAL_COLOUR_2; break;
-				case 2: baseColour = CORAL_COLOUR_3; break;
-			}
-
-			f.cellColour[3 * idx + 0] = lerp(baseColour[0], CORAL_COLOUR_BLEACHED[0], 1 - coral.health);
-			f.cellColour[3 * idx + 1] = lerp(baseColour[1], CORAL_COLOUR_BLEACHED[1], 1 - coral.health);
-			f.cellColour[3 * idx + 2] = lerp(baseColour[2], CORAL_COLOUR_BLEACHED[2], 1 - coral.health);
+			f.cellColour[3 * idx + 0] = lerp(coral.colour[0], CORAL_COLOUR_BLEACHED[0], 1 - coral.health);
+			f.cellColour[3 * idx + 1] = lerp(coral.colour[1], CORAL_COLOUR_BLEACHED[1], 1 - coral.health);
+			f.cellColour[3 * idx + 2] = lerp(coral.colour[2], CORAL_COLOUR_BLEACHED[2], 1 - coral.health);
 		}
 	}
+}
+
+// Linear interpolation
+function lerp(a, b, t) {
+	return a + (b - a) * t;
 }

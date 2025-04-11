@@ -54,6 +54,7 @@ class FlipFluid {
 		this.cellParticleIds = new Int32Array(maxParticles);
 
 		this.numParticles = 0;
+		this.meanTemp = tempRef;
 	}
 
 	integrateParticles(dt, gravity) {
@@ -650,6 +651,23 @@ class FlipFluid {
 		}
 	}
 
+	calculateMeanTemp() {
+		let sum = 0.0;
+		let count = 0.0;
+		for (var i = 0; i < this.fNumCells; i++) {
+			if (this.cellType[i] == FLUID_CELL) {
+				sum += this.cellTemp[i];
+				count++;
+			}
+		}
+
+		if (count > 0) {
+			this.meanTemp = sum / count;
+		} else {
+			this.meanTemp = tempRef;
+		}
+	}
+
 
 	simulate(dt, gravity, flipRatio, numPressureIters, numParticleIters, overRelaxation, compensateDrift, separateParticles, obstacleX, obstacleY, obstacleRadius) {
 		var numSubSteps = 1;
@@ -664,7 +682,7 @@ class FlipFluid {
 			this.sampleTemperature();
 			this.diffuseTemperature(sdt, 20.0);
 			this.updateTemperature();
-			if (mouseDown) {
+			if (mouseDown && !draggingSeaLevel) {
 				this.heatWater(obstacleX, obstacleY, obstacleRadius); // Heat water particles near the obstacle
 			}
 			this.updatepDensity();
@@ -673,7 +691,7 @@ class FlipFluid {
 		}
 
 		this.calculateDepth();
-		updateCoralHealth();
+		this.calculateMeanTemp();
 
 	}
 }
@@ -684,38 +702,45 @@ function updateFish() {
 	const NumCellY = f.NumCellY;
 	const now = performance.now();
 
-	const shouldChaseMouse = !mouseDown;
 
 	// === Update fish target ===
-	const needNewTarget = (shouldChaseMouse && (
-		(now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) ||
-		(now - lastMouseMoveTime < 100)
-	));
+	const needNewTarget = (now - lastTargetSetTime > TARGET_UPDATE_INTERVAL);
 
 	if (needNewTarget) {
+		const shouldChaseMouse = (now - lastMouseMoveTime < TARGET_UPDATE_INTERVAL * 2) && !mouseDown;
 		// Chase target near mouse
-		const dx = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
-		const dy = Math.floor((Math.random() - 0.5) * 2 * TARGET_OFFSET_RANGE);
+		const dx = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
+		const dy = Math.floor((Math.random() - 0.5) * 4 * TARGET_OFFSET_RANGE) * ((now - lastMouseMoveTime) / TARGET_UPDATE_INTERVAL % 6);
 
-		fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
-		fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
+		if (shouldChaseMouse) {
+			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, mouseXi + dx));
+			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, mouseYi + dy));
+		} else {
+			console.log("Fish returning to home");
+			fishTargetXi = Math.max(0, Math.min(NumCellX - 1, fishHomeXi + dx));
+			fishTargetYi = Math.max(0, Math.min(NumCellY - 1, fishHomeYi + dy));
+		}
 
 		lastTargetSetTime = now;
 	}
 
-	// === Optional: Random wander when mouse held down ===
-	if (!shouldChaseMouse && now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) {
-		fishTargetXi = Math.floor(Math.random() * NumCellX);
-		fishTargetYi = Math.floor(Math.random() * NumCellY);
-		lastTargetSetTime = now;
-	}
+	// // === Optional: Random wander when mouse held down ===
+	// if (!shouldChaseMouse || now - lastTargetSetTime > TARGET_UPDATE_INTERVAL) {
+	// 	console.log("Fish returning to home");
+	// 	fishTargetXi = fishHomeXi + Math.floor(Math.random() * NumCellX * 0.1);
+	// 	fishTargetYi = fishHomeYi + Math.floor(Math.random() * NumCellY * 0.1);
+	// 	// fishTargetXi = Math.floor(Math.random() * NumCellX);
+	// 	// fishTargetYi = Math.floor(Math.random() * NumCellY);
+	// 	lastTargetSetTime = now;
+	// }
 
 	// === Move toward target ===
 	let dx = fishTargetXi - fishXi;
 	let dy = fishTargetYi - fishYi;
 
 	const stepX = dx === 0 ? 0 : dx > 0 ? 1 : -1;
-	const stepY = dy === 0 ? 0 : dy > 0 ? 1 : -1;
+	// Probability of moving in Y direction depends on the tangent of the path
+	const stepY = dy / Math.abs(dy) * (Math.abs(dy) / Math.abs(dx) > Math.tan(Math.random() * Math.PI / 2) ? 1 : 0);
 
 	const tryMove = (xi, yi) => {
 		if (xi >= 0 && xi < NumCellX && yi >= 0 && yi < NumCellY) {
@@ -766,7 +791,7 @@ function updateCoralHealth(maxCoralDepth = 60) {
 			const idx = xi * f.NumCellY + yi;
 
 			let damage = 0;
-			if (f.cellTemp[idx] > tempRef) damage += 0.005 * (f.cellTemp[idx] - tempRef); // higher temp = more damage
+			if (f.cellTemp[idx] > tempRef + 2) damage += 0.005 * (f.cellTemp[idx] - (tempRef + 2)); // higher temp = more damage
 			if (f.cellDepth[idx] > maxCoralDepth) damage += 0.005 * (f.cellDepth[idx] - 10); // deeper = less light
 
 			// Apply and clamp health
@@ -775,14 +800,17 @@ function updateCoralHealth(maxCoralDepth = 60) {
 	}
 }
 
-// main -------------------------------------------------------
+
 function simulate() {
-	if (!scene.paused)
+	if (!scene.paused) {
 		scene.fluid.simulate(
 			scene.dt, scene.gravity, scene.flipRatio, scene.numPressureIters, scene.numParticleIters,
 			scene.overRelaxation, scene.compensateDrift, scene.separateParticles,
 			scene.obstacleX, scene.obstacleY, scene.obstacleRadius, scene.colorFieldNr);
-	updateFish();
+
+		updateCoralHealth();
+		if (scene.frameNr % 3 == 0) updateFish();
+	}
 	scene.frameNr++;
 }
 

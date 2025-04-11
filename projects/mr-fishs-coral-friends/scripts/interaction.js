@@ -1,15 +1,24 @@
 var mouseDown = false;
 
+
 function startDrag(x, y) {
-	let bounds = canvas.getBoundingClientRect();
+	const bounds = canvas.getBoundingClientRect();
+	const mx = x - bounds.left - canvas.clientLeft;
+	const my = y - bounds.top - canvas.clientTop;
 
-	let mx = x - bounds.left - canvas.clientLeft;
-	let my = y - bounds.top - canvas.clientTop;
+	const simX = mx / cScale;
+	const simY = (canvas.height - my) / cScale;
 
-	x = mx / cScale;
-	y = (canvas.height - my) / cScale;
+	const handleY = seaLevelLineYi / numCellY * simHeight;
+	if (showSeaLevelLine && handleY - simY <= 0.1 && simX >= simWidth - 0.5) {
+		console.log("dragging sea level");
+		draggingSeaLevel = true;
+		return;
+	}
 
-	setObstacle(x, y, true);
+	mouseDown = true;
+	draggingSeaLevel = false;
+	setObstacle(simX, simY, true);
 	scene.paused = false;
 }
 
@@ -20,11 +29,18 @@ function drag(x, y) {
 		let my = y - bounds.top - canvas.clientTop;
 		x = mx / cScale;
 		y = (canvas.height - my) / cScale;
+
+		if (draggingSeaLevel) {
+			seaLevelLineYi = Math.round(y / simHeight * numCellY);
+			return;
+		}
 		setObstacle(x, y, false);
 	}
 }
 
 function endDrag() {
+	mouseDown = false;
+	draggingSeaLevel = false;
 	scene.obstacleVelX = 0.0;
 	scene.obstacleVelY = 0.0;
 }
@@ -44,10 +60,12 @@ canvas.addEventListener('mousemove', event => {
 });
 
 canvas.addEventListener('touchstart', event => {
+	mouseDown = true;
 	startDrag(event.touches[0].clientX, event.touches[0].clientY)
 });
 
 canvas.addEventListener('touchend', event => {
+	mouseDown = false;
 	endDrag()
 });
 
@@ -60,8 +78,10 @@ canvas.addEventListener('touchmove', event => {
 
 document.addEventListener('keydown', event => {
 	switch (event.key) {
-		case 'p': scene.paused = !scene.paused; break;
-		case 'm': scene.paused = false; simulate(); scene.paused = true; break;
+		case ' ': scene.paused = !scene.paused; break;
+		case 'ArrowRight': scene.paused = false; simulate(); scene.paused = true; break;
+		case 'n': scene.paused = false; simulate(); scene.paused = true; break;
+		case 'c': showSeaLevelLine = !showSeaLevelLine; break;
 	}
 });
 
