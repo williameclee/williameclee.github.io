@@ -17,21 +17,3 @@ for (i = 0; i < acc.length; i++) {
 		}
 	});
 }
-
-// if (window.innerWidth < 480) {
-//	 // Get the table element
-//	 var table = document.getElementById("cv-table");
-
-//	 // Loop through the rows
-//	 for (var i = 0; i < table.rows.length; i++) {
-//			 // Swap the cells of the current row
-//			 var temp = table.rows[i].cells[0].innerHTML;
-//			 table.rows[i].cells[0].innerHTML = table.rows[i].cells[1].innerHTML;
-//			 table.rows[i].cells[1].innerHTML = temp;
-//	 }
-// }
-
-// function resizeIframe(obj) {
-// 	obj.style.height =
-// 		obj.contentWindow.document.documentElement.scrollHeight + "px";
-// }

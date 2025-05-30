@@ -26,6 +26,7 @@
 	--font-size-script: calc(var(--font-size-normal) * 0.6);
 	--font-size-tiny: calc(var(--font-size-normal) * 0.4);
 
+	--space-l: 4rem;
 	--space-m: 2rem;
 	--space-s: 1rem;
 	--space-xs: 0.5rem;
@@ -88,8 +89,8 @@ code {
 
 a {
 	text-decoration: none;
-	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 	color: var(--primary-colour);
 	background: linear-gradient(to left,
 			var(--secondary-colour),
@@ -239,7 +240,7 @@ h4,
 }
 
 /* Navigation bar */
-.navbar {
+#navbar {
 	color: var(--primary-colour);
 	background-color: var(--secondary-colour);
 	font-size: var(--font-size-fnote);
@@ -250,7 +251,7 @@ h4,
 	align-items: center;
 }
 
-.navbar .container {
+#navbar .container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "generative-music",
+    "name": "SurveySynth",
+    "link": "https://williameclee.github.io/generative-music",
+    "author": ["Alexander Barker", "Jason Bjornholm", "Logan Kunze", "En-Chi Lee", "Parker London"],
+    "preview": "An experimental browser-based interactive work that transforms real-time audience-written text into ever-changing music and visuals",
+    "tags": ["text-to-speech", "Markov chain", "music generation", "eletronic music"]
+  },
+  {
+    "id": "sea-level-children-book",
+    "name": "Mr. Fish's Coral Friends",
+    "link": "https://williameclee.github.io/sea-level-children-book",
+    "author": "En-Chi Lee",
+    "tags": ["interactive storytelling", "fluid simulation", "sea-level rise"]
+  },
+  {
+    "id": "ulmo",
+    "name": "Unified Localisation of Mass over Oceans (ULMO)",
+    "link": "https://github.com/williameclee/ulmo",
+    "image": "projects/img/ulmo.jpeg",
+    "author": ["Christopher Harig", "En-Chi Lee"],
+    "preview": "A pipeline for using GRACE satellite gravimetry and altimetry-steric (in development) measurements to study ocean mass change over ocean basins, with extended functionalities for Slepian functions and sea level equation modelling",
+    "tags": ["sea level", "gravity field", "Slepian basis functions"]
+  }
+]

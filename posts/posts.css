@@ -93,6 +93,7 @@ blockquote>p {
 ol {
 	margin-left: var(--space-m);
 }
+
 .bib-list {
 	margin-left: 0;
 }
@@ -330,6 +331,7 @@ img {
 	margin-top: calc(-0.5 * var(--font-size-large) - 0.5 * var(--space-xs));
 	margin-left: 0;
 	transition: var(--animation-duration) ease;
+	-webkit-user-select: none;
 	user-select: none;
 }
 

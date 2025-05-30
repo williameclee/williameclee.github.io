@@ -21,21 +21,9 @@
 
 	<body>
 		<header>
-			<nav class="navbar">
-				<div class="container">
-					<div class="navbar-menu">
-						<ul class="navbar-list">
-							<li class="navbar-list-item">
-								<a href="./">Home</a>
-							</li>
-							<li class="navbar-list-item">
-								<a href="/posts.html">Posts</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
+			<nav id="navbar"></nav>
 		</header>
+
 		<article>
 			<div id="title-container"
 				data-info="exploring-outlandish-pizza-mashups-in-taiwan/info.json"></div>
@@ -1165,14 +1153,10 @@
 		</article>
 
 		<!-- Footer -->
-		<iframe
-			src="/webpage_supplements/footer.html"
-			style="border: none; width: 100%; height: max-content"
-			scrolling="no">
-		</iframe>
+		<footer id="footer"></footer>
 
 		<!-- Custom script -->
-		<script src="/webpage_supplements/script.js"></script>
+		<script src="/webpage_supplements/universal-components.js" type="module"></script>
 		<script src="posts.js"></script>
 		<!-- Slide show -->
 		<script src="slideshow.js"></script>

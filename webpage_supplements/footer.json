@@ -1,0 +1,32 @@
+{
+  "title": {
+	"text": "李恩齊 En-Chi Lee",
+	"link": "/"
+  },
+  "links": [
+    {
+      "id": "orcid",
+      "name": "ORCID",
+      "icon": "fa-orcid",
+      "link": "https://orcid.org/0009-0006-4704-7393"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "icon": "fa-linkedin",
+      "link": "https://linkedin.com/in/en-chi-lee-69823b267"
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "icon": "fa-github",
+      "link": "https://github.com/williameclee"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "icon": "fa-youtube",
+      "link": "https://www.youtube.com/@williameclee/featured"
+    }
+  ]
+}
