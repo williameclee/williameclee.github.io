@@ -1,0 +1,181 @@
+{
+  "education": {
+    "title": "Education",
+    "items": [
+      {
+        "institution": "University of Arizona",
+        "institution-subdivision": "Department of Geosciences",
+        "location": "Arizona, USA",
+        "degree": ["Bachelor of Science in Geosciences (Geophysics)", "Bachelor of Science in Planetary Geoscience"],
+        "minor": ["Methematics", "Oceanic and Atmospheric Sciences"],
+        "date": ["August 2023", "present"],
+        "notes": "Expected graduation: May 2026",
+        "display": true
+      },
+      {
+        "institution": "National Taiwan University",
+        "institution-subdivision": "Department of Geosciences",
+        "location": "Taipei, Taiwan",
+        "degree": "Bachelor of Science in Geosciences",
+        "date": ["September 2022", "June 2023"],
+        "notes": "Transfered to the University of Arizona",
+        "display": true
+      }
+    ],
+    "identifiers": {
+      "timeName": "date",
+      "descriptionName": "notes",
+      "organisationName": "institution",
+      "subOrganisationName": "institution-subdivision",
+      "roleName": "degree"
+    }
+  },
+  "experience": {
+    "title": "Research & Services",
+    "items": [
+      {
+        "date": ["Sep 2024", "present"],
+        "institution": "University of Arizona",
+        "institution-subdivision": "Arizona Journal of Interdisciplinary Studies",
+        "location": "Arizona, USA",
+        "role": "Editor",
+        "display": true
+      },
+      {
+        "date": ["May 2024", "present"],
+        "institution": "University of Arizona",
+        "institution-subdivision": "Arizona Polar Ice Laboratory",
+        "location": "Arizona, USA",
+        "role": "Undergraduate Research Assistant",
+        "description": ["Mentor: Christopher Harig", "Project: Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity"],
+        "display": true
+      },
+      {
+        "date": ["July 2023", "August 2023"],
+        "institution": "National Taiwan University",
+        "institution-subdivision": "Dynamics and Modelling Laboratory",
+        "location": "Taipei, Taiwan",
+        "role": "Undergraduate Research Assistant",
+        "description": ["Mentor: Hung-Chi Kuo", "Project: Potential Vorticity Invertibility for Boundary Layer in Hadley Circulation"],
+        "display": true
+      },
+      {
+        "date": ["June 2022", "September 2022"],
+        "institution": "EarthScope",
+        "institution-subdivision": "IRIS Seismology Skill Building Workshop",
+        "role": "Participant",
+        "role-type": "online",
+        "display": true
+      },
+      {
+        "date": ["Mar 2020", "Jan 2022"],
+        "institution": {
+          "name": "Academia Sinica",
+          "subdivision": "Institute of Earth Sciences"
+        },
+        "location": "Taipei, Taiwan",
+        "description": ["Mentor: Wen-Tzong Liang", "Project: Exploring Low-Frequency Seismic Events"],
+        "display": false
+      }
+    ],
+    "identifiers": {
+      "timeName": "date",
+      "organisationName": "institution",
+      "subOrganisationName": "institution-subdivision",
+      "roleName": "role",
+      "roleTypeName": "role-type"
+    }
+  },
+  "publications": {
+    "title": "Publications & Presentations",
+    "items": [
+      {
+        "authors": "En-Chi Lee & Christopher Harig",
+        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "date": "May 2025",
+        "type": "talk",
+        "journal": "Arizona Collaborative Consortium for Earth and Space Science (ACCESS) Annual Workshop",
+        "display": true
+      },
+      {
+        "authors": "En-Chi Lee & Christopher Harig",
+        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "date": "October 2024",
+        "type": "poster & abstract",
+        "journal": "AGU24 Fall Meeting",
+        "display": true
+      },
+      {
+        "authors": "En-Chi Lee & Christopher Harig",
+        "title": "Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity",
+        "date": "August 2024",
+        "journal": "Undergraduate Research Opportunities Consortium",
+        "type": "talk & poster",
+        "institution": "University of Arizona",
+        "display": true
+      },
+      {
+        "authors": "En-Chi Lee & Christopher Harig",
+        "title": "Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity",
+        "date": "August 2024",
+        "journal": "Undergraduate Research Opportunities Consortium’s 2024 Abstract Review",
+        "type": "abstract",
+        "display": true
+      }
+    ],
+    "identifiers": {
+      "timeName": "date",
+      "roleName": "title",
+      "roleTypeName": "type",
+      "organisationName": "journal",
+      "locationName": "institution",
+      "descriptionName": "authors"
+    }
+  },
+  "honours": {
+	"title": "Honors & Distinctions",
+	"items": [
+	  {
+		"date": ["December 2023", "May 2025"],
+		"institution": "University of Arizona",
+		"location": "Arizona, USA",
+		"name": "Dean's List with Distinction",
+		"display": true
+	  },
+	  {
+		"date": "August 2023",
+		"institution": "University of Arizona",
+		"location": "Arizona, USA",
+		"event": "Transfer Global Wildcat Award",
+		"display": true
+	  },
+	  {
+		"date": ["December 2022", "June 2023"],
+		"institution": "National Taiwan University",
+		"location": "Taipei, Taiwan",
+		"name": "Presidental Award",
+		"display": true
+	  },
+	  {
+		"date": ["September 2022", "Feburary 2023"],
+		"institution": "National Taiwan University",
+		"location": "Taipei, Taiwan",
+		"name": "Fu Bell Scholarship",	
+		"display": true
+	  },
+	  {
+		"date": "August",
+		"institution": "International Geoscience Education Organisation",
+		"name": "International Earth Science Olympiad",	
+		"role": "Gold Medalist",	
+		"display": true
+	  }
+	],
+	"identifiers": {
+	  "timeName": "date",
+	  "subOrganisationName": "name",
+	  "organisationName": "institution",
+	  "roleName": "role"
+	}
+  }
+}
