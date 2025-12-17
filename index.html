@@ -12,6 +12,8 @@
 		<!-- Custom styles -->
 		<link rel="stylesheet" href="webpage_supplements/style.css"
 			media="All">
+		<link rel="stylesheet" href="cv/cv.css"
+			media="All">
 		<link rel="stylesheet"
 			href="webpage_supplements/index.css" media="All">
 	</head>
@@ -66,41 +68,67 @@
 							</tr>
 						</table>
 					</p>
-						<ul class="s_media-list">
-							<!-- <li>
+					<ul class="s_media-list">
+						<!-- <li>
 								<i class="fa-solid fa-id-badge"></i>
 								<a href="./CV.pdf" class="icon-link link-dld" target="_blank"> CV</a>
 							</li> -->
-							<li> <a href="https://orcid.org/0009-0006-4704-7393"
-									class="link-clean" target="_blank">
-									<i class="fa-brands fa-orcid"></i>
-								</a></li>
-							<li><a href="https://linkedin.com/in/en-chi-lee-69823b267"
-									class="link-clean" target="_blank">
-									<i class="fa-brands fa-linkedin"></i>
-								</a></li>
-							<li> <a href="https://github.com/williameclee"
-									class="link-clean" target="_blank">
-									<i class="fa-brands fa-github"></i>
-								</a></li>
-							<li><a href="https://www.youtube.com/@williameclee/featured"
-									class="link-clean" target="_blank">
-									<i class="fa-brands fa-youtube"></i>
-								</a></li>
-						</ul>
+						<li> <a href="https://orcid.org/0009-0006-4704-7393"
+								class="link-clean" target="_blank">
+								<i class="fa-brands fa-orcid"></i>
+							</a></li>
+						<li><a href="https://linkedin.com/in/en-chi-lee-69823b267"
+								class="link-clean" target="_blank">
+								<i class="fa-brands fa-linkedin"></i>
+							</a></li>
+						<li> <a href="https://github.com/williameclee"
+								class="link-clean" target="_blank">
+								<i class="fa-brands fa-github"></i>
+							</a></li>
+						<li><a href="https://www.youtube.com/@williameclee/featured"
+								class="link-clean" target="_blank">
+								<i class="fa-brands fa-youtube"></i>
+							</a></li>
+					</ul>
 				</div>
 			</section>
 			<!-- CV -->
+			<template id="cv-item-publication">
+				<div class="cv-item">
+					<div class="cv-description">
+						<span class="cv-pub-authors"></span>
+						<span class="cv-time"></span>
+					</div>
+					<div class="cv-pub-title-container">
+						<span class="cv-pub-title"></span>
+						<span class="cv-pub-type"></span>
+					</div>
+					<div class="cv-pub-journal-container">
+						<span class="cv-pub-journal-prefix"></span><span
+							class="cv-pub-journal"></span><span
+							class="cv-pub-journal-suffix"></span><span
+							class="cv-pub-preprint-container">; preprint available on
+							<span class="cv-pub-preprint"></span>
+						</span>
+					</div>
+					<div class="cv-pub-link-container">
+						<span class="cv-pub-link-prefix"></span>
+						<a class="cv-pub-link" href target="_blank"></a>
+					</div>
+				</div>
+			</template>
 			<section>
 				<div class="container">
 					<table class="cv">
 						<tr id="cv-education"></tr>
 						<tr id="cv-experience"></tr>
 						<tr id="cv-publications"></tr>
+						<tr id="cv-presentations"></tr>
 						<tr id="cv-honours"></tr>
 					</table>
 					<p>
-						Last updated on September 15, 2024. For the full CV, please click <a href="cv/CV-EnChiLee.pdf" target="_blank">here</a>.
+						Last updated on December 17, 2025. For the full CV, please click <a
+							href="cv/CV-EnChiLee.pdf" target="_blank">here</a>.
 					</p>
 				</div>
 			</section>
@@ -110,7 +138,8 @@
 		<footer id="footer"></footer>
 
 		<!-- Custom script -->
-		<script src="/webpage_supplements/universal-components.js" type="module"></script>
+		<script src="/webpage_supplements/universal-components.js"
+			type="module"></script>
 		<script src="/cv/cv.js" type="module"></script>
 		<script src="https://kit.fontawesome.com/513d0fe828.js"
 			crossorigin="anonymous"></script>

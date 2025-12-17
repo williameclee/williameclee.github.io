@@ -34,6 +34,14 @@
     "title": "Research & Services",
     "items": [
       {
+        "date": ["Sep 2025", "present"],
+        "institution": "Ⅾepartment of Geosciences, University of Arizona",
+        "institution-subdivision": "Yin Ⅽlimate Research Group",
+        "location": "Arizona, USA",
+        "role": "Undergraduate Researcher",
+        "display": true
+      },
+      {
         "date": ["Sep 2024", "present"],
         "institution": "University of Arizona",
         "institution-subdivision": "Arizona Journal of Interdisciplinary Studies",
@@ -43,11 +51,10 @@
       },
       {
         "date": ["May 2024", "present"],
-        "institution": "University of Arizona",
+        "institution": "Ⅾepartment of Geosciences, University of Arizona",
         "institution-subdivision": "Arizona Polar Ice Laboratory",
         "location": "Arizona, USA",
-        "role": "Undergraduate Research Assistant",
-        "description": ["Mentor: Christopher Harig", "Project: Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity"],
+        "role": "Undergraduate Researcher",
         "display": true
       },
       {
@@ -55,8 +62,7 @@
         "institution": "National Taiwan University",
         "institution-subdivision": "Dynamics and Modelling Laboratory",
         "location": "Taipei, Taiwan",
-        "role": "Undergraduate Research Assistant",
-        "description": ["Mentor: Hung-Chi Kuo", "Project: Potential Vorticity Invertibility for Boundary Layer in Hadley Circulation"],
+        "role": "Undergraduate Researcher",
         "display": true
       },
       {
@@ -65,7 +71,7 @@
         "institution-subdivision": "IRIS Seismology Skill Building Workshop",
         "role": "Participant",
         "role-type": "online",
-        "display": true
+        "display": false
       },
       {
         "date": ["Mar 2020", "Jan 2022"],
@@ -87,7 +93,58 @@
     }
   },
   "publications": {
-    "title": "Publications & Presentations",
+    "title": "Publications",
+    "items": [
+      {
+        "authors": ["Jianjun Yin", "En-Chi Lee"],
+        "title": "High‑tide and storm‑surge flooding along the U.S. East and Gulf Ⅽoasts.",
+        "date": "2026",
+        "journal": "Journal of Climate",
+        "journal prefix": "in preparation for",
+        "type": "manuscript",
+        "display": true
+      },
+      {
+        "authors": ["En-Chi Lee", "Christopher Harig"],
+        "title": "The impact of GꞮA corrections on gravimetric basin‑scale ocean mass budgets",
+        "date": "2025",
+        "journal": "JGR: Solid Earth",
+        "journal prefix": "submitted to",
+        "preprint": "EarthArXiv",
+        "url": { "name": "doi", "url": "https://doi.org/10.31223/X5RR16", "display": "10.31223/X5RR16" },
+        "type": "manuscript",
+        "display": true
+      },
+      {
+        "authors": "En-Chi Lee",
+        "title": "Unified localisation of mass over oceans (UⅬⅯO)",
+        "date": "2025",
+        "type": "software",
+        "journal": "Zenodo",
+        "url": { "name": "doi", "url": "https://doi.org/10.5281/zenodo.17625699", "display": "10.5281/zenodo.17625699" },
+        "display": true
+      },
+      {
+        "authors": "En-Chi Lee & Christopher Harig",
+        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "date": "2024",
+        "type": "abstract",
+        "journal": "AGU24 Fall Meeting",
+        "url": { "name": "ADS", "url": "https://ui.adsabs.harvard.edu/abs/2024AGUFMG51B.3394L/abstract", "display": "2024AGUFMG51B.3394L" },
+        "display": true
+      }
+    ],
+    "identifiers": {
+      "timeName": "date",
+      "roleName": "title",
+      "roleTypeName": "type",
+      "organisationName": "journal",
+      "locationName": "institution",
+      "descriptionName": "authors"
+    }
+  },
+  "presentations": {
+    "title": "Selected Presentations",
     "items": [
       {
         "authors": "En-Chi Lee & Christopher Harig",
@@ -100,8 +157,8 @@
       {
         "authors": "En-Chi Lee & Christopher Harig",
         "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
-        "date": "October 2024",
-        "type": "poster & abstract",
+        "date": "Dec 2024",
+        "type": "poster",
         "journal": "AGU24 Fall Meeting",
         "display": true
       },
@@ -112,14 +169,6 @@
         "journal": "Undergraduate Research Opportunities Consortium",
         "type": "talk & poster",
         "institution": "University of Arizona",
-        "display": true
-      },
-      {
-        "authors": "En-Chi Lee & Christopher Harig",
-        "title": "Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity",
-        "date": "August 2024",
-        "journal": "Undergraduate Research Opportunities Consortium’s 2024 Abstract Review",
-        "type": "abstract",
         "display": true
       }
     ],
@@ -133,49 +182,49 @@
     }
   },
   "honours": {
-	"title": "Honors & Distinctions",
-	"items": [
-	  {
-		"date": ["December 2023", "May 2025"],
-		"institution": "University of Arizona",
-		"location": "Arizona, USA",
-		"name": "Dean's List with Distinction",
-		"display": true
-	  },
-	  {
-		"date": "August 2023",
-		"institution": "University of Arizona",
-		"location": "Arizona, USA",
-		"event": "Transfer Global Wildcat Award",
-		"display": true
-	  },
-	  {
-		"date": ["December 2022", "June 2023"],
-		"institution": "National Taiwan University",
-		"location": "Taipei, Taiwan",
-		"name": "Presidental Award",
-		"display": true
-	  },
-	  {
-		"date": ["September 2022", "Feburary 2023"],
-		"institution": "National Taiwan University",
-		"location": "Taipei, Taiwan",
-		"name": "Fu Bell Scholarship",	
-		"display": true
-	  },
-	  {
-		"date": "August",
-		"institution": "International Geoscience Education Organisation",
-		"name": "International Earth Science Olympiad",	
-		"role": "Gold Medalist",	
-		"display": true
-	  }
-	],
-	"identifiers": {
-	  "timeName": "date",
-	  "subOrganisationName": "name",
-	  "organisationName": "institution",
-	  "roleName": "role"
-	}
+    "title": "Honors & Distinctions",
+    "items": [
+      {
+        "date": ["December 2023", "May 2025"],
+        "institution": "University of Arizona",
+        "location": "Arizona, USA",
+        "name": "Dean's List with Distinction",
+        "display": true
+      },
+      {
+        "date": "August 2023",
+        "institution": "University of Arizona",
+        "location": "Arizona, USA",
+        "event": "Transfer Global Wildcat Award",
+        "display": true
+      },
+      {
+        "date": ["December 2022", "June 2023"],
+        "institution": "National Taiwan University",
+        "location": "Taipei, Taiwan",
+        "name": "Presidental Award",
+        "display": true
+      },
+      {
+        "date": ["September 2022", "Feburary 2023"],
+        "institution": "National Taiwan University",
+        "location": "Taipei, Taiwan",
+        "name": "Fu Bell Scholarship",
+        "display": true
+      },
+      {
+        "date": "August 2021",
+        "institution": "International Geoscience Education Organisation",
+        "name": "International Earth Science Olympiad (IESO)",
+        "role": "Gold Medalist",
+        "display": true
+      }
+    ],
+    "identifiers": {
+      "timeName": "date",
+      "subOrganisationName": "name",
+      "organisationName": "institution",
+      "roleName": "role"
+    }
   }
 }

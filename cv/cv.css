@@ -1,0 +1,63 @@
+.cv tr {
+	border-left: 0;
+	border-right: 0;
+}
+
+.cv td {
+	text-align: left;
+	vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	padding-bottom: var(--gap);
+	border: 1.5pt solid var(--primary-colour);
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+
+td.cv-subsection {
+	width: 50%;
+	padding-right: calc(0.5*var(--space-m));
+}
+
+td.cv-items {
+	width: 50%;
+	padding-left: calc(0.5*var(--space-m));
+}
+
+.cv-org_name {
+	display: block;
+	font-weight: bold;
+	margin-right: var(--gap);
+}
+
+.cv-org_location {
+	display: block;
+}
+
+.cv-item {
+	margin-bottom: calc(2*var(--gap));
+}
+
+.cv-event {
+	font-weight: bold;
+}
+
+.cv-description {
+	margin-top: calc(0.5*var(--gap));
+}
+
+/* Publication-related stykes */
+.cv-pub-title-container,
+.cv-pub-journal-container {
+	display: block;
+}
+
+.cv-pub-title {
+	font-weight: bold;
+}
+
+.cv-pub-journal,
+.cv-pub-preprint {
+	font-style: italic;
+}

@@ -1,3 +1,5 @@
+import { capitaliseFirstLetter } from './util.js';
+
 const cvDataPath = '/cv/cv.json';
 const cvSection = 'education';
 
@@ -22,6 +24,83 @@ async function fetchCVData(cvDataPath) {
 	}
 }
 
+function populateCVpublication(cvSectionItem) {
+	const pubTemplate = document.getElementById('cv-item-publication');
+	if (!pubTemplate) {
+		console.log('Failed to find publication template with ID cv-item-publication');
+		return;
+	}
+	const pubContainer = pubTemplate.content.cloneNode(true);
+	// Add title
+	const titleElement = pubContainer.querySelector('.cv-pub-title');
+	titleElement.textContent = cvSectionItem.title || '';
+	// Add type
+	const typeElement = pubContainer.querySelector('.cv-pub-type');
+	if (cvSectionItem.type && cvSectionItem.type.trim() !== '' && cvSectionItem.type.toLowerCase() !== 'article' && cvSectionItem.type.toLowerCase() !== 'manuscript') {
+		typeElement.textContent = '(' + capitaliseFirstLetter(cvSectionItem.type) + ')';
+	}
+	// Add authors
+	const authorsElement = pubContainer.querySelector('.cv-pub-authors');
+	if (cvSectionItem.authors) {
+		if (Array.isArray(cvSectionItem.authors)) {
+			authorsElement.textContent = cvSectionItem.authors.join(', ');
+		} else {
+			authorsElement.textContent = cvSectionItem.authors;
+		}
+	}
+	// Add date
+	const dateElement = pubContainer.querySelector('.cv-time');
+	if (cvSectionItem.date) {
+		dateElement.textContent = "(" + cvSectionItem.date + ").";
+	}
+	// Add journal or event
+	const journalElement = pubContainer.querySelector('.cv-pub-journal');
+	if (cvSectionItem.journal) {
+		journalElement.textContent = cvSectionItem.journal;
+	}
+	const journalPrefixElement = pubContainer.querySelector('.cv-pub-journal-prefix');
+	if (cvSectionItem['journal prefix']) {
+		journalPrefixElement.textContent = capitaliseFirstLetter(cvSectionItem['journal prefix']) + ' ';
+	}
+	const journalSuffixElement = pubContainer.querySelector('.cv-pub-journal-suffix');
+	if (cvSectionItem['journal suffix']) {
+		journalSuffixElement.textContent = ' ' + cvSectionItem['journal suffix'];
+	}
+	// Add preprint info if available
+	const preprintElement = pubContainer.querySelector('.cv-pub-preprint-container');
+	if (cvSectionItem.preprint && cvSectionItem.preprint.trim() !== '') {
+		const preprintNameElement = pubContainer.querySelector('.cv-pub-preprint');
+		preprintNameElement.textContent = cvSectionItem.preprint;
+	} else {
+		preprintElement.style.display = 'none';
+	}
+	// Add URL if available
+	const urlElement = pubContainer.querySelector('.cv-pub-link-container');
+	if (cvSectionItem.url) {
+		if (typeof cvSectionItem.url === 'string') {
+			const urlLinkElement = pubContainer.querySelector('.cv-pub-link');
+			urlLinkElement.href = cvSectionItem.url;
+			urlLinkElement.textContent = cvSectionItem.url;
+		} else if (typeof cvSectionItem.url === 'object' && cvSectionItem.url.url) {
+			const urlLinkElement = pubContainer.querySelector('.cv-pub-link');
+			urlLinkElement.href = cvSectionItem.url.url;
+			if (cvSectionItem.url.display) {
+				urlLinkElement.textContent = cvSectionItem.url.display;
+			} else {
+				urlLinkElement.textContent = cvSectionItem.url.url;
+			}
+			if (cvSectionItem.url.name) {
+				const urlNameElement = pubContainer.querySelector('.cv-pub-link-prefix');
+				urlNameElement.textContent = cvSectionItem.url.name + ': ';
+			}
+		}
+	} else {
+		urlElement.style.display = 'none';
+
+	}
+	return pubContainer;
+}
+
 async function populateCVSection(cvSectionItems, sectionId) {
 	// Check if the section is marked as not displayed
 	if (cvSectionItems.hasOwnProperty('display') && cvSectionItems.display === false) {
@@ -34,7 +113,7 @@ async function populateCVSection(cvSectionItems, sectionId) {
 		console.log(`No items found for section ${sectionId}.`);
 		return;
 	}
-	if (!cvSectionItems.title) {	
+	if (!cvSectionItems.title) {
 		console.log(`No title found for section ${sectionId}.`);
 		return;
 	}
@@ -66,6 +145,15 @@ async function populateCVSection(cvSectionItems, sectionId) {
 	cvSectionContentContainer.className = 'cv-items';
 	for (const item of cvSectionItems.items) {
 		if (item.display === false) {
+			continue;
+		}
+
+		// Separate handling for publication items
+		if (sectionId === 'publications') {
+			const pubItem = populateCVpublication(item);
+			if (pubItem) {
+				cvSectionContentContainer.appendChild(pubItem);
+			}
 			continue;
 		}
 
@@ -102,7 +190,15 @@ async function populateCVSection(cvSectionItems, sectionId) {
 		role = [role, roleType].filter(item => item && item.trim() !== '').join(' ');
 
 		const suborg = item[suborgKey] || '';
-		const org = item[orgKey] || '';
+		let org = item[orgKey] || '';
+		if (orgKey === "journal") {
+			if (item.hasOwnProperty("journal prefix")) {
+				org = capitaliseFirstLetter(item["journal prefix"]) + ' ' + org;
+			}
+			if (item.hasOwnProperty("journal suffix")) {
+				org = org + ' ' + item["journal suffix"];
+			}
+		}
 		const orgContent = [role, suborg].filter(item => item && item.trim() !== '').join(',<br>');
 		const locationContent = item[locationKey] || '';
 		const locationFullContent = [org, locationContent].filter(Boolean).join(', ');
@@ -136,9 +232,12 @@ async function populateCVSection(cvSectionItems, sectionId) {
 		if (item.hasOwnProperty(descriptionName)) {
 			const cvItemDescription = document.createElement('div');
 			cvItemDescription.className = 'cv-description';
-			if (Array.isArray(item[descriptionName])) {
+			if (Array.isArray(item[descriptionName]) && descriptionName !== "authors") {
 				cvItemDescription.innerHTML = item[descriptionName].join('<br>');
-			} else {
+			} else if (Array.isArray(item[descriptionName]) && descriptionName === "authors") {
+				cvItemDescription.innerHTML = item[descriptionName].join(', ');
+			}
+			else {
 				cvItemDescription.innerHTML = item[descriptionName];
 			}
 			cvItemContainer.appendChild(cvItemDescription);
