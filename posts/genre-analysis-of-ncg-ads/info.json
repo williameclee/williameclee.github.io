@@ -1,13 +1,13 @@
 {
-  "DATE": "2023-11-17T00:00:00-07:00",
-  "AUTHOR": "En-Chi Lee",
-  "TITLE": "Genre Analysis of ‘None-Core Gameplay Ads’",
-  "SUBTITLE": "Decoding the Deception",
-  "IMAGE": {
-    "SRC": "/posts/genre-analysis-of-ncg-ads/figures/homescapes-spider.jpg",
-    "ALT": "Homescapes commercial with a screaming man and a spider"
+  "date": "2023-11-17T00:00:00-07:00",
+  "author": "En-Chi Lee",
+  "title": "Genre Analysis of ‘None-Core Gameplay Ads’",
+  "subtitle": "Decoding the Deception",
+  "image": {
+    "src": "/posts/genre-analysis-of-ncg-ads/figures/homescapes-spider.jpg",
+    "alt": "Homescapes commercial with a screaming man and a spider"
   },
-  "STATUS": "Complete",
-  "TAGS": ["Culture", "Gaming", "YouTube"],
-  "PREVIEW": "After an exhaustive day at school, I turned to YouTube for relaxation while my dinner rotated in the microwave. My calm was, however, soon shattered by a loud mobile game advertisement..."
+  "status": "Complete",
+  "tags": ["Culture", "Gaming", "YouTube"],
+  "preview": "After an exhaustive day at school, I turned to YouTube for relaxation while my dinner rotated in the microwave. My calm was, however, soon shattered by a loud mobile game advertisement..."
 }

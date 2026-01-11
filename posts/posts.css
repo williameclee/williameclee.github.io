@@ -437,7 +437,7 @@ img {
 	width: 100%;
 	overflow: hidden;
 	object-fit: cover;
-	object-position: 70% 20%;
+	object-position: 50% 50%;
 }
 
 .post-text {
@@ -450,7 +450,7 @@ img {
 }
 
 .post-preview {
-	font-size: var(--font-size-fnote);
+	font-size: calc(var(--font-size-fnote)*1.1);
 	line-height: 1.1;
 	margin: var(--space-s) 0;
 }
@@ -458,12 +458,9 @@ img {
 .post-tags {
 	display: flex;
 	flex-direction: row;
-	font-size: var(--font-size-fnote);
+	font-size: calc(var(--font-size-fnote)*0.8);
 	column-gap: var(--space-xs);
 	margin-top: var(--space-s);
-
-	/* position: absolute;
-	bottom: 0; */
 }
 
 .post-tag {

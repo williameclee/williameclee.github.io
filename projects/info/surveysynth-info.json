@@ -1,0 +1,6 @@
+{
+  "author": ["Alexander Barker", "Jason Bjornholm", "Logan Kunze", "En-Chi Lee", "Parker London"],
+  "title": "SurveySynth",
+  "tags": ["text-to-speech", "Markov chain", "music generation", "eletronic music"],
+  "preview": "An experimental browser-based interactive work that transforms real-time audience-written text into ever-changing music and visuals."
+}

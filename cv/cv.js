@@ -1,8 +1,6 @@
 import { capitaliseFirstLetter } from './util.js';
 
 const cvDataPath = '/cv/cv.json';
-const cvSection = 'education';
-
 
 (async () => {
 	const cvData = await fetchCVData(cvDataPath);
@@ -65,6 +63,14 @@ function populateCVpublication(cvSectionItem) {
 	const journalSuffixElement = pubContainer.querySelector('.cv-pub-journal-suffix');
 	if (cvSectionItem['journal suffix']) {
 		journalSuffixElement.textContent = ' ' + cvSectionItem['journal suffix'];
+	}
+	// Add publisher/institution if available
+	const publisherElement = pubContainer.querySelector('.cv-pub-publisher-container');
+	const publisherNameElement = pubContainer.querySelector('.cv-pub-publisher');
+	if (cvSectionItem.publisher && cvSectionItem.publisher.trim() !== '') {
+		publisherNameElement.textContent = cvSectionItem.publisher;
+	} else {
+		publisherElement.style.display = 'none';
 	}
 	// Add preprint info if available
 	const preprintElement = pubContainer.querySelector('.cv-pub-preprint-container');
@@ -148,8 +154,8 @@ async function populateCVSection(cvSectionItems, sectionId) {
 			continue;
 		}
 
-		// Separate handling for publication items
-		if (sectionId === 'publications') {
+		// Separate handling for publication & presentation items
+		if (sectionId === 'publications' || sectionId === 'presentations') {
 			const pubItem = populateCVpublication(item);
 			if (pubItem) {
 				cvSectionContentContainer.appendChild(pubItem);

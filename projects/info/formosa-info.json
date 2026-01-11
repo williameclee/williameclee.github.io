@@ -1,0 +1,10 @@
+{
+  "author": "En-Chi Lee",
+  "title": "Formosa",
+  "image": {
+    "src": "projects/img/cartography.png",
+    "alt": "Decorating image for Formosa project"
+  },
+  "tags": ["cartography", "mapping", "visualisation", "geomorphology"],
+  "preview": "A personal Python/Fortran cartogrphy package to satisfy my love for mapping."
+}

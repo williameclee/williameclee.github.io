@@ -21,6 +21,7 @@ td.cv-subsection {
 }
 
 td.cv-items {
+	font-family: var(--font-family-serif);
 	width: 50%;
 	padding-left: calc(0.5*var(--space-m));
 }

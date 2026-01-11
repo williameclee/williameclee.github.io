@@ -1,0 +1,10 @@
+{
+  "author": ["En-Chi Lee", "Christopher Harig"],
+  "title": "Unified Localisation of Mass over Oceans (ULMO)",
+  "image": {
+    "src": "projects/img/ulmo.jpeg",
+    "alt": "Decorating image for ULMO project"
+  },
+  "tags": ["sea level", "gravity field", "GRACE", "Slepian basis functions"],
+  "preview": "A pipeline for using GRACE satellite gravimetry and altimetry-steric measurements to study ocean mass change over ocean basins, with extended functionalities for Slepian functions and sea level equation modelling."
+}

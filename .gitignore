@@ -7,18 +7,6 @@ Project-Fluid
 list-of-eps-graduate-programmes
 list-of-eps-graduate-programmes.*
 
-# LaTeX related cache files
-.texpadtmp
-*.tex
-*.synctex(busy)
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.synctex.gz
-academic/
-
 # Designing progress
 *.key
 cv-inspirations
@@ -29,3 +17,4 @@ Icon?
 
 # Other cache files
 .vscode
+.hintrc

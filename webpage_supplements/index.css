@@ -58,6 +58,10 @@
 	line-height: 0%;
 }
 
+.about-text {
+	font-family: var(--font-family-serif);
+}
+
 .contacttable td {
 	vertical-align: baseline;
 }

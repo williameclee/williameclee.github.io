@@ -1,10 +1,10 @@
 {
   "exploring-outlandish-pizza-mashups-in-taiwan": {
-    "LINK": "posts/exploring-outlandish-pizza-mashups-in-taiwan.html",
-    "INFO": "posts/exploring-outlandish-pizza-mashups-in-taiwan/info.json"
+    "link": "posts/exploring-outlandish-pizza-mashups-in-taiwan.html",
+    "info": "posts/exploring-outlandish-pizza-mashups-in-taiwan/info.json"
   },
   "genre-analysis-of-ncg-ads": {
-    "LINK": "posts/genre-analysis-of-ncg-ads.html",
-    "INFO": "posts/genre-analysis-of-ncg-ads/info.json"
+    "link": "posts/genre-analysis-of-ncg-ads.html",
+    "info": "posts/genre-analysis-of-ncg-ads/info.json"
   }
 }

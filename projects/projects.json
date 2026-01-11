@@ -1,46 +1,22 @@
-[
-  {
-    "id": "ulmo",
-    "name": "Unified Localisation of Mass over Oceans (ULMO)",
+{
+  "ulmo": {
     "link": "https://github.com/williameclee/ulmo",
-    "image": "projects/img/ulmo.jpeg",
-    "author": ["En-Chi Lee","Christopher Harig"],
-    "preview": "A pipeline for using GRACE satellite gravimetry and altimetry-steric measurements to study ocean mass change over ocean basins, with extended functionalities for Slepian functions and sea level equation modelling.",
-    "tags": ["sea level", "gravity field", "GRACE", "Slepian basis functions"]
+    "info": "projects/info/ulmo-info.json"
   },
-  {
-    "id": "formosa",
-    "name": "Formosa",
+  "formosa": {
     "link": "https://github.com/williameclee/Formosa",
-    "image": "projects/img/cartography.png",
-    "author": "En-Chi Lee",
-    "preview": "An personal Python/Fortran cartogrphy package to satisfy my love for mapping.",
-    "tags": ["cartography", "mapping", "visualisation", "geomorphology"]
+    "info": "projects/info/formosa-info.json"
   },
-  {
-    "id": "geos434a",
-    "name": "Seismic Interpretation: Cretaceous to Modern Normal Faulting in Offshore Auckland, New Zealand",
+  "geos434a": {
     "link": "https://youtu.be/q36fDPWklUw",
-    "image": "projects/img/geos434a.png",
-    "author": "En-Chi Lee",
-    "preview": "Final Presentation for University of Arizona GEOS434A: Reflection Seismology.",
-    "tags": ["reflection seismology", "structural geology", "normal faulting", "New Zealand"]
+    "info": "projects/info/geos434a-info.json"
   },
-  {
-    "id": "generative-music",
-    "name": "SurveySynth",
+  "surveysynth": {
     "link": "https://williameclee.github.io/generative-music",
-    "author": ["Alexander Barker", "Jason Bjornholm", "Logan Kunze", "En-Chi Lee", "Parker London"],
-    "preview": "An experimental browser-based interactive work that transforms real-time audience-written text into ever-changing music and visuals.",
-    "tags": ["text-to-speech", "Markov chain", "music generation", "eletronic music"]
+    "info": "projects/info/surveysynth-info.json"
   },
-  {
-    "id": "sea-level-children-book",
-    "name": "Mr. Fish's Coral Friends",
+  "sealevel_childrenbook": {
     "link": "https://williameclee.github.io/sea-level-children-book",
-    "image": "projects/img/mr-fish.png",
-    "author": "En-Chi Lee",
-    "preview": "An interactive children's book incorporating fluid simulation to introduce the concept and main causes of sea-level rise.",
-    "tags": ["interactive storytelling", "fluid simulation", "sea-level rise"]
+    "info": "projects/info/sealevel_childrenbook-info.json"
   }
-]
+}

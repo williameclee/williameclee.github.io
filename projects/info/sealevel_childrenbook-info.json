@@ -1,0 +1,10 @@
+{
+  "author": "En-Chi Lee",
+  "title": "Mr. Fish's Coral Friends",
+  "image": {
+    "src": "projects/img/mr-fish.png",
+    "alt": "Decorating image for the Mr. Fish's Coral Friends project"
+  },
+  "tags": ["interactive storytelling", "fluid simulation", "sea-level rise"],
+  "preview": "An interactive children's book incorporating fluid simulation to introduce the concept and main causes of sea-level rise."
+}

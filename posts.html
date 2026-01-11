@@ -24,7 +24,27 @@
 		<!-- Main content -->
 		<article class="container post-container">
 			<h1>Posts</h1>
-			<div id="posts-list"></div>
+			<div id="posts-list">
+				<template id="post-template">
+					<div class="post">
+						<a class="post-image-container link-clean">
+							<img class="post-image">
+						</a>
+						<a class="post-text-container link-clean">
+							<div class="post-subtitle"></div>
+							<h3 class="post-title"></h3>
+							<div class="post-info"><span class="post-author"></span><span
+									class="post-author-date-separator"> ‧ </span><span
+									class="post-date"></span></div>
+							<div class="post-preview"></div>
+							<div class="post-tags"></div>
+						</a>
+					</div>
+				</template>
+				<template id="post-tag-template">
+					<span class="post-tag"></span>
+				</template>
+			</div>
 		</article>
 
 		<!-- Footer -->
@@ -34,8 +54,9 @@
 		<script src="https://kit.fontawesome.com/513d0fe828.js"
 			crossorigin="anonymous"></script>
 		<!-- Custom script -->
-		<script src="/webpage_supplements/universal-components.js" type="module"></script>
-		<script src="/posts/posts.js"></script>
+		<script src="/webpage_supplements/universal-components.js"
+			type="module"></script>
+		<script src="/posts/posts.js" type="module"></script>
 	</body>
 
 </html>
