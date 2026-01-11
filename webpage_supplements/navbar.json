@@ -5,13 +5,13 @@
     "link": "/index.html"
   }, 
   {
+  "id": "projects",
+  "name": "Projects",
+  "link": "/projects.html"
+  },
+  {
 	"id": "posts",
 	"name": "Posts",
 	"link": "/posts.html"
-  },
-  {
-	"id": "projects",
-	"name": "Projects",
-	"link": "/projects.html"
   }
 ]

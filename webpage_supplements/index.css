@@ -66,31 +66,35 @@
 	padding-right: var(--gap);
 }
 
+.contacttable-header>tr>td:not(:first-child) {
+	border-right: 0px;
+}
+
 /* Screen size adjustment */
 @media (max-width: 640px) {
-    .about {
-        flex-direction: column;
-    }
+	.about {
+		flex-direction: column;
+	}
 
 	.about-photo-container {
 		height: 20rem;
 	}
 
-    .about h1 {
-        margin-top: var(--gap);
-    }
+	.about h1 {
+		margin-top: var(--gap);
+	}
 
-    .cv tr {
-        display: flex;
-        flex-wrap: wrap;
-    }
+	.cv tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
 
-    .cv td {
-        width: 100%;
-    }
+	.cv td {
+		width: 100%;
+	}
 
-    td.cv-items {
-        border-top: 0;
+	td.cv-items {
+		border-top: 0;
 		padding-left: 0;
-    }
+	}
 }
