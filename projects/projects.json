@@ -18,6 +18,15 @@
     "tags": ["cartography", "mapping", "visualisation", "geomorphology"]
   },
   {
+    "id": "geos434a",
+    "name": "Seismic Interpretation: Cretaceous to Modern Normal Faulting in Offshore Auckland, New Zealand",
+    "link": "https://youtu.be/q36fDPWklUw",
+    "image": "projects/img/geos434a.png",
+    "author": "En-Chi Lee",
+    "preview": "Final Presentation for University of Arizona GEOS434A: Reflection Seismology.",
+    "tags": ["reflection seismology", "structural geology", "normal faulting", "New Zealand"]
+  },
+  {
     "id": "generative-music",
     "name": "SurveySynth",
     "link": "https://williameclee.github.io/generative-music",
