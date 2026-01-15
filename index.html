@@ -89,7 +89,7 @@
 				</div>
 			</section>
 			<!-- CV -->
-			<template id="cv-item-publication">
+			<template id="cv-publication-template">
 				<div class="cv-item">
 					<div class="cv-description">
 						<span class="cv-pub-authors"></span>
@@ -100,12 +100,12 @@
 						<span class="cv-pub-type"></span>
 					</div>
 					<div class="cv-pub-journal-container">
-						<span class="cv-pub-journal-prefix"></span><span
-							class="cv-pub-journal"></span><span
-							class="cv-pub-journal-suffix"><span
+						<span class="cv-pub-journal-prefix"></span>
+						<span class="cv-pub-journal"></span><span
+							class="cv-pub-journal-suffix"></span><span
 							class="cv-pub-publisher-container">, <span
-							class="cv-pub-publisher"></span><span
-							class="cv-pub-preprint-container">; preprint available on
+								class="cv-pub-publisher"></span>
+						</span><span class="cv-pub-preprint-container">; preprint available on
 							<span class="cv-pub-preprint"></span>
 						</span>
 					</div>
@@ -113,6 +113,17 @@
 						<span class="cv-pub-link-prefix"></span>
 						<a class="cv-pub-link" href target="_blank"></a>
 					</div>
+				</div>
+			</template>
+			<template id="cv-item-experience">
+				<div class="cv-item">
+					<div class="cv-time"></div>
+					<div class="cv-event"></div>
+					<div class="cv-org">
+						<div class="cv-org_name"></div>
+						<div class="cv-org_location"></div>
+					</div>
+					<div class="cv-description"></div>
 				</div>
 			</template>
 			<section>

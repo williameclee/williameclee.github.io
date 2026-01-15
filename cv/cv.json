@@ -31,14 +31,30 @@
     }
   },
   "experience": {
-    "title": "Research & Services",
+    "title": "Research, Experiences, & Services",
     "items": [
       {
-        "date": ["September 2025", "present"],
-        "institution": "Ⅾepartment of Geosciences, University of Arizona",
-        "institution-subdivision": "Yin Ⅽlimate Research Group",
+        "date": ["Janurary 2026", "present"],
+        "institution": "Department of Geosciences, University of Arizona",
+        "institution-subdivision": "Independent study in synthetic reflection seismology",
         "location": "Arizona, USA",
-        "role": "Undergraduate Researcher",
+        "role": "",
+        "display": true
+      },
+      {
+        "date": ["Janurary 2026", "present"],
+        "institution": "Department of Geosciences, University of Arizona",
+        "institution-subdivision": "GEOS304: Structural Geology",
+        "location": "Arizona, USA",
+        "role": "Preceptor",
+        "display": true
+      },
+      {
+        "date": ["September 2025", "present"],
+        "institution": "Department of Geosciences, University of Arizona",
+        "institution-subdivision": "Yin Climate Research Group",
+        "location": "Arizona, USA",
+        "role": "Undergraduate researcher",
         "display": true
       },
       {
@@ -51,18 +67,18 @@
       },
       {
         "date": ["May 2024", "present"],
-        "institution": "Ⅾepartment of Geosciences, University of Arizona",
+        "institution": "Department of Geosciences, University of Arizona",
         "institution-subdivision": "Arizona Polar Ice Laboratory",
         "location": "Arizona, USA",
-        "role": "Undergraduate Researcher",
+        "role": "Undergraduate researcher",
         "display": true
       },
       {
         "date": ["July 2023", "August 2023"],
-        "institution": "National Taiwan University",
+        "institution": "Department of Atmospheric Sciences, National Taiwan University",
         "institution-subdivision": "Dynamics and Modelling Laboratory",
         "location": "Taipei, Taiwan",
-        "role": "Undergraduate Researcher",
+        "role": "Undergraduate researcher",
         "display": true
       },
       {
@@ -97,7 +113,7 @@
     "items": [
       {
         "authors": ["Jianjun Yin", "En-Chi Lee"],
-        "title": "High‑tide and storm‑surge flooding along the U.S. East and Gulf Ⅽoasts.",
+        "title": "High‑tide and storm‑surge flooding along the U.S. East and Gulf Coasts",
         "date": "2026",
         "journal": "Journal of Climate",
         "journal prefix": "in preparation for",
@@ -106,7 +122,7 @@
       },
       {
         "authors": ["En-Chi Lee", "Christopher Harig"],
-        "title": "The impact of GꞮA corrections on gravimetric basin‑scale ocean mass budgets",
+        "title": "The impact of GIA corrections on gravimetric basin‑scale ocean mass budgets",
         "date": "2025",
         "journal": "JGR: Solid Earth",
         "journal prefix": "submitted to",
@@ -117,7 +133,7 @@
       },
       {
         "authors": "En-Chi Lee",
-        "title": "Unified localisation of mass over oceans (UⅬⅯO)",
+        "title": "Unified localisation of mass over oceans (ULMO)",
         "date": "2025",
         "type": "software",
         "journal": "Zenodo",
@@ -126,7 +142,7 @@
       },
       {
         "authors": "En-Chi Lee & Christopher Harig",
-        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "title": "Investigating the variance of GIA corrections on gravimetric basin-scale ocean mass budgets",
         "date": "2024",
         "type": "abstract",
         "journal": "AGU24 Fall Meeting",
@@ -148,7 +164,7 @@
     "items": [
       {
         "authors": "En-Chi Lee & Christopher Harig",
-        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "title": "Investigating the variance of GIA corrections on gravimetric basin-scale ocean mass budgets",
         "date": "May 2025",
         "type": "talk",
         "journal": "Arizona Collaborative Consortium for Earth and Space Science (ACCESS) Annual Workshop",
@@ -157,16 +173,16 @@
       },
       {
         "authors": "En-Chi Lee",
-        "title": "Geospatially Ⅽonditioned Ⅾiffusion for Worldbuilding and Fantasy Ⅽartography",
+        "title": "Geospatially conditioned diffusion for worldbuilding and fantasy cartography",
         "date": "May 2025",
         "type": "talk",
-        "journal": "Ⅿathematics of Generative AꞮ Ⅽourse Project Showcase",
+        "journal": "Mathematics of Generative AꞮ Course Project Showcase",
         "publisher": "University of Arizona",
         "display": true
       },
       {
         "authors": "En-Chi Lee & Christopher Harig",
-        "title": "Investigating the Variance of GIA Corrections on Gravimetric Basin-Scale Ocean Mass Budgets",
+        "title": "Investigating the variance of GIA corrections on gravimetric basin-scale ocean mass budgets",
         "date": "December 2024",
         "type": "poster",
         "journal": "AGU24 Fall Meeting",
@@ -174,10 +190,10 @@
       },
       {
         "authors": "En-Chi Lee & Christopher Harig",
-        "title": "Estimating Basin-Scale Ocean Mass Budgets with Satellite Gravity",
+        "title": "Estimating basin-scale ocean mass budgets with satellite gravity",
         "date": "September 2024",
         "type": "talk & poster",
-        "journal": "ⅯcNair Scholar Research Ⅽonference",
+        "journal": "McNair Scholar Research Conference",
         "publisher": "University of New Mexico",
         "display": true
       }

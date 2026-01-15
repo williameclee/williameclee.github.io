@@ -23,9 +23,9 @@ async function fetchCVData(cvDataPath) {
 }
 
 function populateCVpublication(cvSectionItem) {
-	const pubTemplate = document.getElementById('cv-item-publication');
+	const pubTemplate = document.getElementById('cv-publication-template');
 	if (!pubTemplate) {
-		console.log('Failed to find publication template with ID cv-item-publication');
+		console.log('Failed to find publication template with ID cv-publication-template');
 		return;
 	}
 	const pubContainer = pubTemplate.content.cloneNode(true);
@@ -74,7 +74,9 @@ function populateCVpublication(cvSectionItem) {
 	}
 	// Add preprint info if available
 	const preprintElement = pubContainer.querySelector('.cv-pub-preprint-container');
+	console.log(cvSectionItem.preprint);
 	if (cvSectionItem.preprint && cvSectionItem.preprint.trim() !== '') {
+		console.log('Adding preprint info');
 		const preprintNameElement = pubContainer.querySelector('.cv-pub-preprint');
 		preprintNameElement.textContent = cvSectionItem.preprint;
 	} else {
@@ -105,6 +107,47 @@ function populateCVpublication(cvSectionItem) {
 
 	}
 	return pubContainer;
+}
+
+function populateCVExperience(cvSectionItem) {
+	const expTemplate = document.getElementById('cv-item-experience');
+	if (!expTemplate) {
+		console.log('Failed to find experience template with ID cv-item-experience');
+		return;
+	}
+	const expContainer = expTemplate.content.cloneNode(true);
+
+	// Add date
+	const dateElement = expContainer.querySelector('.cv-time');
+	if (cvSectionItem.date) {
+		if (Array.isArray(cvSectionItem.date)) {
+			dateElement.textContent = cvSectionItem.date.join(' - ');
+		} else {
+			dateElement.textContent = cvSectionItem.date;
+		}
+	}
+
+	// Add organisation and location
+	const orgNameElement = expContainer.querySelector('.cv-org_name');
+	orgNameElement.textContent = cvSectionItem['institution-subdivision'] || '';
+
+	const orgLocationElement = expContainer.querySelector('.cv-org_location');
+	const locationContent = [cvSectionItem.institution, cvSectionItem.location].filter(Boolean).join(', ');
+	orgLocationElement.textContent = locationContent;
+
+	// Add role
+	const eventElement = expContainer.querySelector('.cv-event');
+	eventElement.textContent = cvSectionItem.role || '';
+
+	// Add description/notes if available
+	const descriptionElement = expContainer.querySelector('.cv-description');
+	if (cvSectionItem.notes) {
+		descriptionElement.textContent = cvSectionItem.notes;
+	} else {
+		descriptionElement.style.display = 'none';
+	}
+
+	return expContainer;
 }
 
 async function populateCVSection(cvSectionItems, sectionId) {
@@ -159,6 +202,14 @@ async function populateCVSection(cvSectionItems, sectionId) {
 			const pubItem = populateCVpublication(item);
 			if (pubItem) {
 				cvSectionContentContainer.appendChild(pubItem);
+			}
+			continue;
+		}
+
+		if (sectionId === 'experience') {
+			const expItem = populateCVExperience(item);
+			if (expItem) {
+				cvSectionContentContainer.appendChild(expItem);
 			}
 			continue;
 		}

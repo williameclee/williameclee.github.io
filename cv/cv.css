@@ -41,6 +41,7 @@ td.cv-items {
 }
 
 .cv-event {
+	font-style: italic;
 	font-weight: bold;
 }
 
