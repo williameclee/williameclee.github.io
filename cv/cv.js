@@ -74,9 +74,7 @@ function populateCVpublication(cvSectionItem) {
 	}
 	// Add preprint info if available
 	const preprintElement = pubContainer.querySelector('.cv-pub-preprint-container');
-	console.log(cvSectionItem.preprint);
 	if (cvSectionItem.preprint && cvSectionItem.preprint.trim() !== '') {
-		console.log('Adding preprint info');
 		const preprintNameElement = pubContainer.querySelector('.cv-pub-preprint');
 		preprintNameElement.textContent = cvSectionItem.preprint;
 	} else {
@@ -132,7 +130,8 @@ function populateCVExperience(cvSectionItem) {
 	orgNameElement.textContent = cvSectionItem['institution-subdivision'] || '';
 
 	const orgLocationElement = expContainer.querySelector('.cv-org_location');
-	const locationContent = [cvSectionItem.institution, cvSectionItem.location].filter(Boolean).join(', ');
+	const locationContent = cvSectionItem.institution;
+	// const locationContent = [cvSectionItem.institution, cvSectionItem.location].filter(Boolean).join(', ');
 	orgLocationElement.textContent = locationContent;
 
 	// Add role

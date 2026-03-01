@@ -16,7 +16,6 @@
         "institution": "National Taiwan University",
         "institution-subdivision": "Department of Geosciences",
         "location": "Taipei, Taiwan",
-        "degree": "Bachelor of Science in Geosciences",
         "date": ["September 2022", "June 2023"],
         "notes": "Transfered to the University of Arizona",
         "display": true
@@ -36,7 +35,7 @@
       {
         "date": ["Janurary 2026", "present"],
         "institution": "Department of Geosciences, University of Arizona",
-        "institution-subdivision": "Independent study in synthetic reflection seismology",
+        "institution-subdivision": "Senior independent study in synthetic reflection seismology",
         "location": "Arizona, USA",
         "role": "",
         "display": true
@@ -75,8 +74,8 @@
       },
       {
         "date": ["July 2023", "August 2023"],
-        "institution": "Department of Atmospheric Sciences, National Taiwan University",
-        "institution-subdivision": "Dynamics and Modelling Laboratory",
+        "institution": "National Center for Theoretical Sciences / Department of Atmospheric Sciences, National Taiwan University",
+        "institution-subdivision": "Dynamics and Modeling Laboratory",
         "location": "Taipei, Taiwan",
         "role": "Undergraduate researcher",
         "display": true
@@ -125,7 +124,7 @@
         "title": "The impact of GIA corrections on gravimetric basin‑scale ocean mass budgets",
         "date": "2025",
         "journal": "JGR: Solid Earth",
-        "journal prefix": "submitted to",
+        "journal prefix": "under review at",
         "preprint": "EarthArXiv",
         "url": { "name": "doi", "url": "https://doi.org/10.31223/X5RR16", "display": "10.31223/X5RR16" },
         "type": "manuscript",
@@ -211,6 +210,13 @@
     "title": "Honors & Distinctions",
     "items": [
       {
+        "date": "Feburary 2026",
+        "institution": "University of Arizona",
+        "location": "Arizona, USA",
+        "name": "Thomas R. Brown Foundation Distinguished Graduate Fellowships in Integrative Science",
+        "display": true
+      },
+      {
         "date": ["December 2023", "December 2025"],
         "institution": "University of Arizona",
         "location": "Arizona, USA",
@@ -221,7 +227,7 @@
         "date": "August 2023",
         "institution": "University of Arizona",
         "location": "Arizona, USA",
-        "event": "Transfer Global Wildcat Award",
+        "name": "Transfer Global Wildcat Award",
         "display": true
       },
       {
