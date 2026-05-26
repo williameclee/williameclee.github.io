@@ -107,6 +107,64 @@ function populateCVpublication(cvSectionItem) {
 	return pubContainer;
 }
 
+function populateCVEducation(cvSectionItem) {
+	const educationTemplateName = 'cv-education-template';
+	const eduTemplate = document.getElementById(educationTemplateName);
+	if (!eduTemplate) {
+		console.log(`Failed to find education template with ID ${educationTemplateName}`);
+		return;
+	}
+	const eduContainer = eduTemplate.content.cloneNode(true);
+	// Add time
+	const dateElement = eduContainer.querySelector('.cv-time');
+	if (cvSectionItem.date) {
+		if (Array.isArray(cvSectionItem.date)) {
+			dateElement.textContent = cvSectionItem.date.join(' - ');
+		} else {
+			dateElement.textContent = cvSectionItem.date;
+		}
+	}
+	// Add degree & minor
+	const degreeElement = eduContainer.querySelector('.cv-degree');
+	var degreeText = '';
+	if (cvSectionItem.degree) {
+		if (Array.isArray(cvSectionItem.degree)) {
+			degreeText = cvSectionItem.degree.join("<br/>");
+		} else {
+			degreeText = cvSectionItem.degree;
+		}
+	}
+	degreeElement.innerHTML = degreeText;
+	const minorElement = eduContainer.querySelector('.cv-minor');
+	var minorText = '';
+	if (cvSectionItem.minor) {
+		if (Array.isArray(cvSectionItem.minor)) {
+			minorText = `With minors in ${cvSectionItem.minor.join('; ')}`;
+		} else {
+			minorText = `With a minor in ${cvSectionItem.minor}`;
+		}
+	}
+	minorElement.textContent = minorText;
+	// Add institution and location
+	const institutionElement = eduContainer.querySelector('.cv-org_name');
+	const institutionContent = cvSectionItem['institution-subdivision'] || cvSectionItem.institution || '';
+	institutionElement.textContent = institutionContent;
+	const locElement = eduContainer.querySelector('.cv-org_location');
+	var locContent = cvSectionItem.institution ? cvSectionItem.institution : '';
+	if (cvSectionItem.location) {
+		locContent += (locContent ? ', ' : '') + cvSectionItem.location;
+	}
+	locElement.textContent = locContent;
+	// Add description/notes if available
+	const descElement = eduContainer.querySelector('.cv-description');
+	if (cvSectionItem.notes) {
+		descElement.textContent = cvSectionItem.notes;
+	} else {
+		descElement.style.display = 'none';
+	}
+	return eduContainer;
+}
+
 function populateCVExperience(cvSectionItem) {
 	const expTemplate = document.getElementById('cv-item-experience');
 	if (!expTemplate) {
@@ -203,6 +261,12 @@ async function populateCVSection(cvSectionItems, sectionId) {
 				cvSectionContentContainer.appendChild(pubItem);
 			}
 			continue;
+		} else if (sectionId === 'education') {
+			const eduItem = populateCVEducation(item);
+			if (eduItem) {
+				cvSectionContentContainer.appendChild(eduItem);
+			}
+			continue;
 		}
 
 		if (sectionId === 'experience') {
@@ -238,6 +302,9 @@ async function populateCVSection(cvSectionItems, sectionId) {
 		const locationKey = cvSectionItems.identifiers.locationName || 'location';
 
 		var roleType = item[roleTypeKey] || '';
+		if (Array.isArray(roleType)) {
+			roleType = roleType.join(', ');
+		}
 		roleType = roleType ? `(<i>${roleType}</i>)` : '';
 
 		var role = item[roleKey] || '';

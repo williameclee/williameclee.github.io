@@ -12,7 +12,7 @@
       },
       {
         "institution": "University of Arizona",
-        "institution-subdivision": "Department of Geosciences",
+        "institution-subdivision": "Department of Geosciences / Lunar and Planetary Laboratory",
         "location": "Arizona, USA",
         "degree": ["Bachelor of Science in Geosciences (Geophysics)", "Bachelor of Science in Planetary Geoscience"],
         "minor": ["Methematics", "Oceanic and Atmospheric Sciences"],
@@ -28,14 +28,7 @@
         "notes": "Transfered to the University of Arizona",
         "display": true
       }
-    ],
-    "identifiers": {
-      "timeName": "date",
-      "descriptionName": "notes",
-      "organisationName": "institution",
-      "subOrganisationName": "institution-subdivision",
-      "roleName": "degree"
-    }
+    ]
   },
   "experience": {
     "title": "Research, Experiences, & Services",
@@ -65,19 +58,19 @@
         "display": true
       },
       {
+        "date": ["Janurary 2026", "April 2026"],
+        "institution": "Department of Geosciences, University of Arizona",
+        "institution-subdivision": "GEOS304: Structural Geology",
+        "location": "Arizona, USA",
+        "role": "Preceptor",
+        "display": true
+      },
+      {
         "date": ["September 2024", "April 2026"],
         "institution": "University of Arizona",
         "institution-subdivision": "Arizona Journal of Interdisciplinary Studies",
         "location": "Arizona, USA",
         "role": "Editor",
-        "display": true
-      },
-      {
-        "date": ["Janurary 2026", "May 2026"],
-        "institution": "Department of Geosciences, University of Arizona",
-        "institution-subdivision": "GEOS304: Structural Geology",
-        "location": "Arizona, USA",
-        "role": "Preceptor",
         "display": true
       },
       {
