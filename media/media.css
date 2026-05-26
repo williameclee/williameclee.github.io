@@ -43,7 +43,8 @@
 	transition-timing-function: ease-out;
 }
 
-.media-album .photo-overlay:hover {
+.media-album .photo-overlay:hover,
+.media-album .photo-item:focus-within .photo-overlay {
 	background-position: 100% 100%;
 	color: var(--primary-colour);
 	font-size: var(--font-size-normal);
