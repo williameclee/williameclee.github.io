@@ -8,7 +8,7 @@
         "location": "Arizona, USA",
         "degree": ["Bachelor of Science in Geosciences (Geophysics)", "Bachelor of Science in Planetary Geoscience"],
         "minor": ["Methematics", "Oceanic and Atmospheric Sciences"],
-        "date": ["August 2023", "present"],
+        "date": ["August 2023", "May 2026"],
         "notes": "Expected graduation: May 2026",
         "display": true
       },
@@ -41,14 +41,6 @@
         "display": true
       },
       {
-        "date": ["Janurary 2026", "present"],
-        "institution": "Department of Geosciences, University of Arizona",
-        "institution-subdivision": "GEOS304: Structural Geology",
-        "location": "Arizona, USA",
-        "role": "Preceptor",
-        "display": true
-      },
-      {
         "date": ["September 2025", "present"],
         "institution": "Department of Geosciences, University of Arizona",
         "institution-subdivision": "Yin Climate Research Group",
@@ -57,7 +49,15 @@
         "display": true
       },
       {
-        "date": ["September 2024", "present"],
+        "date": ["May 2024", "present"],
+        "institution": "Department of Geosciences, University of Arizona",
+        "institution-subdivision": "Arizona Polar Ice Laboratory",
+        "location": "Arizona, USA",
+        "role": "Undergraduate researcher",
+        "display": true
+      },
+      {
+        "date": ["September 2024", "April 2026"],
         "institution": "University of Arizona",
         "institution-subdivision": "Arizona Journal of Interdisciplinary Studies",
         "location": "Arizona, USA",
@@ -65,11 +65,11 @@
         "display": true
       },
       {
-        "date": ["May 2024", "present"],
+        "date": ["Janurary 2026", "May 2026"],
         "institution": "Department of Geosciences, University of Arizona",
-        "institution-subdivision": "Arizona Polar Ice Laboratory",
+        "institution-subdivision": "GEOS304: Structural Geology",
         "location": "Arizona, USA",
-        "role": "Undergraduate researcher",
+        "role": "Preceptor",
         "display": true
       },
       {
