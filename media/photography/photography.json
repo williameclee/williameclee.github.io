@@ -1,0 +1,42 @@
+[
+  {
+    "htmlid": "landscape",
+    "photos": [
+      {
+        "link": "/media/photography/WY-GreenRiver.webp",
+        "description": "Squaretop Mountain across from the Green River Lake",
+        "location": "Wind River Range, Wyoming, US",
+        "date": "June 2025"
+      },
+      {
+        "link": "/media/photography/UT-NavajoCliffs.webp",
+        "description": "Navajo Cliffs in the sunset",
+        "location": "Manila, Utah, US",
+        "date": "June 2025"
+      },
+      {
+        "link": "/media/photography/CA-Yosemite-3.png",
+        "description": "Yosemite Falls",
+        "location": "Yosemite National Park, California, US",
+        "date": "May 2024"
+      }
+    ]
+  },
+  {
+    "htmlid": "wildlife",
+    "photos": [
+      {
+        "link": "/media/photography/CA-Yosemite-4.webp",
+        "description": "Squirrel",
+        "location": "Yosemite National Park, California, US",
+		"date": "May 2024"
+      },
+      {
+        "link": "/media/photography/CA-Yosemite-5.webp",
+        "description": "Some bird",
+        "location": "Yosemite National Park, California, US",
+		"date": "May 2024"
+      }
+    ]
+  }
+]

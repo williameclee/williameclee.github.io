@@ -13,5 +13,10 @@
 	"id": "posts",
 	"name": "Posts",
 	"link": "/posts.html"
+  },
+  {
+	"id": "media",
+	"name": "Media",
+	"link": "/media.html"
   }
 ]
