@@ -9,16 +9,51 @@
         "date": "June 2025"
       },
       {
+        "link": "/media/photography/CA-Yosemite-3.png",
+        "description": "Yosemite Falls",
+        "location": "Yosemite National Park, California, US",
+        "date": "May 2024"
+      },
+      {
         "link": "/media/photography/UT-NavajoCliffs.webp",
         "description": "Navajo Cliffs in the sunset",
         "location": "Manila, Utah, US",
         "date": "June 2025"
       },
       {
-        "link": "/media/photography/CA-Yosemite-3.png",
-        "description": "Yosemite Falls",
-        "location": "Yosemite National Park, California, US",
-        "date": "May 2024"
+        "link": "/media/photography/AZ-LakePowell.webp",
+        "description": "A corner of Lake Powell",
+        "location": "Lake Powell, Arizona, US",
+        "date": "August 2023"
+      }
+    ]
+  },
+  {
+    "htmlid": "sky",
+    "photos": [
+      {
+        "link": "/media/photography/WY-SheepPass.webp",
+        "description": "Night sky over Sheep Pass",
+        "location": "Wyoming Range, Wyoming, US",
+        "date": "June 2025"
+      },
+      {
+        "link": "/media/photography/AZ-GCNorthRim-1.webp",
+        "description": "Sunset over the Grand Canyon",
+        "location": "Grand Canyon North Rim, Arizona, US",
+        "date": "August 2023"
+      },
+      {
+        "link": "/media/photography/AZ-GCNorthRim-2.webp",
+        "description": "Rainbow after a monsoon storm",
+        "location": "Grand Canyon North Rim, Arizona, US",
+        "date": "August 2023"
+      },
+      {
+        "link": "/media/photography/WY-RedDesert-2.webp",
+        "description": "Sunset over the Red Desert",
+        "location": "Red Desert, Wyoming, US",
+        "date": "June 2025"
       }
     ]
   },
@@ -29,13 +64,13 @@
         "link": "/media/photography/CA-Yosemite-4.webp",
         "description": "Squirrel",
         "location": "Yosemite National Park, California, US",
-		"date": "May 2024"
+        "date": "May 2024"
       },
       {
         "link": "/media/photography/CA-Yosemite-5.webp",
-        "description": "Some bird",
+        "description": "Likely a female Brewer's blackbird",
         "location": "Yosemite National Park, California, US",
-		"date": "May 2024"
+        "date": "May 2024"
       }
     ]
   }
