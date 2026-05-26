@@ -41,7 +41,7 @@
     "title": "Research, Experiences, & Services",
     "items": [
       {
-        "date": ["Janurary 2026", "present"],
+        "date": ["January 2026", "present"],
         "institution": "Department of Geosciences, University of Arizona",
         "institution-subdivision": "Senior independent study in synthetic reflection seismology",
         "location": "Arizona, USA",
@@ -73,7 +73,7 @@
         "display": true
       },
       {
-        "date": ["Janurary 2026", "May 2026"],
+        "date": ["January 2026", "May 2026"],
         "institution": "Department of Geosciences, University of Arizona",
         "institution-subdivision": "GEOS304: Structural Geology",
         "location": "Arizona, USA",
@@ -97,7 +97,7 @@
         "display": false
       },
       {
-        "date": ["March 2020", "Janurary 2022"],
+        "date": ["March 2020", "January 2022"],
         "institution": {
           "name": "Academia Sinica",
           "subdivision": "Institute of Earth Sciences"
@@ -217,6 +217,13 @@
   "honours": {
     "title": "Honors & Distinctions",
     "items": [
+      {
+        "date": "May 2026",
+        "institution": "University of Arizona",
+        "location": "Arizona, USA",
+        "name": "Excellence in Undergraduate Research Award",
+        "display": true
+      },
       {
         "date": "Feburary 2026",
         "institution": "University of Arizona",
