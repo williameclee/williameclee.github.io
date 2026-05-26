@@ -5,20 +5,20 @@ const photoDataPath = '/media/photography/photography.json';
 function populatePhotoAlbumfromJSON(filePath, photoAlbumId) {
 	const albumContainer = document.querySelector(`#${photoAlbumId}`);
 	if (!albumContainer) {
-		console.log(`Failed to find posts list with ID ${photoAlbumId}`);
+		console.error(`Failed to find photo album container with ID ${photoAlbumId}`);
 		return;
 	}
 	fetch(filePath).then(response => response.json())
 		.then(albums => {
-			for (const albumId in albums) {
-				const albumData = albums[albumId];
+			for (const albumData of albums) {
 				const albumItem = document.createElement('div');
 				albumItem.classList.add('media-album');
 				albumItem.id = `album-${albumData["htmlid"]}`;
-				for (const photoId in albumData.photos) {
-					const photoData = albumData.photos[photoId];
+				for (const photoData of albumData.photos) {
 					const photoItem = makePhotoHtmlItem(photoData);
-					albumItem.appendChild(photoItem);
+					if (photoItem) {
+						albumItem.appendChild(photoItem);
+					}
 				}
 				albumContainer.appendChild(albumItem);
 			};
@@ -30,7 +30,7 @@ function populatePhotoAlbumfromJSON(filePath, photoAlbumId) {
 function makePhotoHtmlItem(photoData) {
 	const photoTemplate = document.getElementById('photo-template');
 	if (!photoTemplate) {
-		console.log('Failed to find publication template with ID photo-template');
+		console.error('Failed to find photo template with ID photo-template');
 		return null;
 	}
 	const photoItem = photoTemplate.content.cloneNode(true);
