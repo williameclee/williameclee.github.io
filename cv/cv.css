@@ -40,9 +40,14 @@ td.cv-items {
 	margin-bottom: calc(2*var(--gap));
 }
 
-.cv-event {
+.cv-event,
+.cv-degree {
 	font-style: italic;
 	font-weight: bold;
+}
+
+.cv-minor {
+	font-style: italic;
 }
 
 .cv-description {
