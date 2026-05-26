@@ -3,6 +3,14 @@
     "title": "Education",
     "items": [
       {
+        "institution": "California Institute of Technology",
+        "institution-subdivision": "Division of Geological and Planetary Sciences",
+        "location": "California, USA",
+        "degree": "PhD in Geophysics",
+        "date": ["September 2027", ""],
+        "display": true
+      },
+      {
         "institution": "University of Arizona",
         "institution-subdivision": "Department of Geosciences",
         "location": "Arizona, USA",
